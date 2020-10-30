@@ -1,0 +1,64 @@
+<form #registerForm="ngForm" (ngSubmit)="registerForm.valid && onSubmit(registerForm)">
+  <h2 class="inactive underlineHover">Sign Up </h2>
+  <input type="text" #firstName="ngModel" [(ngModel)]="userService.selectedUser.firstName" placeholder="First Name"
+    name="firstName" required [ngClass]="{'invalid-textbox' :registerForm.submitted && !firstName.valid}">
+  <div *ngIf="registerForm.submitted && !firstName.valid">
+    <label class="validation-message">This field is required.</label>
+  </div>
+
+  <input type="text" #lastName="ngModel" [(ngModel)]="userService.selectedUser.lastName" placeholder="Last Name"
+    name="lastName" required [ngClass]="{'invalid-textbox' :registerForm.submitted && !lastName.valid}">
+  <div *ngIf="registerForm.submitted && !lastName.valid">
+    <label class="validation-message">This field is required.</label>
+  </div>
+
+<!-- <div class="Sports" >
+<select #sportId="ngModel" [(ngModel)] ="selected" name="sportId" required>
+  <option value="" disabled selected="selected">Choose your game</option>
+  <option *ngFor="let sport of Sports" value="{{sport.sportId}}">{{sport.sportName}}</option>
+</select>
+</div> -->
+
+<select class="sports" name="sportId" #sportId="ngModel" [(ngModel)] ="selected"  required>
+  <option [ngValue]="undefined" disabled >Choose your game</option>
+  <option *ngFor="let sport of Sports" value="{{sport.sportId}}">{{sport.sportName}}</option>
+</select>
+<div *ngIf="registerForm.submitted && !sportId.valid">
+  <label class="validation-message">This field is required.</label>
+</div>
+
+  <input type="text" #phoneNumber="ngModel" [(ngModel)]="userService.selectedUser.phoneNumber"
+    placeholder="Phone Number" name="phoneNumber" required
+    [ngClass]="{'invalid-textbox' :registerForm.submitted && !phoneNumber.valid}">
+  <div *ngIf="registerForm.submitted && !phoneNumber.valid">
+    <label class="validation-message">This field is required.</label>
+  </div>
+
+  <input type="text" #email="ngModel" [(ngModel)]="userService.selectedUser.email" placeholder="Email" name="email"
+    required [pattern]="emailRegex" [ngClass]="{'invalid-textbox' :registerForm.submitted && !email.valid}">
+  <div *ngIf="registerForm.submitted && email.errors">
+    <label *ngIf="email.errors.required" class="validation-message">This field is required.</label>
+    <label *ngIf="email.errors.pattern" class="validation-message">Invalid email address.</label>
+  </div>
+
+  <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" placeholder="Password"
+    name="password" required minlength="4" [ngClass]="{'invalid-textbox' :registerForm.submitted && !password.valid}">
+  <div *ngIf="registerForm.submitted && password.errors">
+    <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
+    <label *ngIf="password.errors.minlength" class="validation-message">Enter atleast 4 characters.</label>
+  </div>
+
+  <div ><re-captcha style="display: inline-block;" (resolved) = 'resolved($event)' siteKey ="6LfMtNQZAAAAAOAlkcyc8nUMaKqcZR0j881ePAY7"></re-captcha>
+  </div>
+  <input type="submit" value="Register">
+</form>
+
+<!-- Success Message -->
+<div class="success" *ngIf="showSuccessMessage">
+  Saved Successfully
+</div>
+
+<!-- Error Message -->
+<div class="alert" *ngIf="showErrorMessage">
+  {{showErrorMessage}}
+</div>
