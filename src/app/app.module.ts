@@ -11,15 +11,13 @@ import { UserComponent } from './user/user.component';
 import { RegisterComponent } from './user/register/register.component';
 import { LoginComponent } from './user/login/login.component';
 import { appRoutes } from './routes';
-import { VerifyComponent } from './user/register/verify/verify.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
     RegisterComponent,
-    LoginComponent,
-    VerifyComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
