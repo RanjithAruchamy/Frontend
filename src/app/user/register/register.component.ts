@@ -4,6 +4,7 @@ import { UserService } from '../../Shared/User/user.service';
 import { SportService } from '../../Shared/Sport/sport.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-register',
@@ -49,8 +50,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(form: NgForm){
-    this.router.navigate(['/verify'])
- /* var response = grecaptcha.getResponse();
+ var response = grecaptcha.getResponse();
  if(!response)
  alert('Please enable reCaptcha')
  else{
@@ -62,13 +62,18 @@ export class RegisterComponent implements OnInit {
       },
       err => {
 
-        if(err.status === 422)
-        this.showErrorMessage = err.error.join('<br/>');
-        else
-        this.showErrorMessage = 'Something went wrong . Please contact admin';
+        if(err.status === 422){
+          this.showErrorMessage = 'Email already exists'
+          setTimeout(() => this.showErrorMessage = '', 4000)
+
+      }
+        else{
+          this.showErrorMessage = 'Something went wrong . Please contact admin'
+          setTimeout(() => this.showErrorMessage = '', 4000)
+        }
       }
     );
- } */
+ }
   }
 
   resetForm(form: NgForm){
