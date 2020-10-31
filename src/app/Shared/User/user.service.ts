@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User } from './user.model';
+import { Player, Personal, User } from './user.model';
 import { Sport } from '../Sport/sport.model'
 import { environment } from '../../../environments/environment';
 
@@ -17,7 +17,36 @@ export class UserService {
     password: "",
 
 
+  };
+  personalUser: Personal ={
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    email: "",
+    fatherName: "",
+    motherName:"",
+    permanentAddress:"",
+    temporaryAddress:"",
+    bloodGroup:"",
+    dob:"",
+    height:"",
+    profession:"",
+    organization:"",
+    age: null
+  };
+  sportsUser: Player ={
+    playerLevel: "",
+    playerSkill:"",
+    previousTeam:"",
+    TNCA:"",
+    KDCA:"",
+    hobbies:"",
+    goal:"",
+    roleModel:"",
+    strength:"",
+    weakness:""
   }
+
   constructor(private http: HttpClient) { }
 
   postUser(user: User){

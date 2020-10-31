@@ -6,3 +6,33 @@ export class User {
     email: String;
     password: String;
 }
+
+export class Personal{
+  firstName: String;
+    lastName: String;
+    phoneNumber: String;
+    email: String;
+    fatherName: String;
+    motherName:String;
+    permanentAddress:String;
+    temporaryAddress:String;
+    bloodGroup:String;
+    age:Number;
+    dob:String;
+    height:String;
+    profession:String;
+    organization:String;
+}
+
+export class Player{
+  playerLevel: String;
+    playerSkill:String;
+    previousTeam:String;
+    TNCA:String;
+    KDCA:String;
+    hobbies:String;
+    goal:String;
+    roleModel:String;
+    strength:String;
+    weakness:String;
+}

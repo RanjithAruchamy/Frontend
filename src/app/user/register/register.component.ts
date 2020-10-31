@@ -31,7 +31,6 @@ export class RegisterComponent implements OnInit {
     this.sportService.getSports().subscribe(
       res => {
         this.Sports = res as String;
-        console.log(this.Sports)
       })
 
       let script = this._renderer.createElement('script');
@@ -50,6 +49,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(form: NgForm){
+    console.log(form.value)
  var response = grecaptcha.getResponse();
  if(!response)
  alert('Please enable reCaptcha')
