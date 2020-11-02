@@ -3,6 +3,8 @@ import { UserComponent } from './user/user.component';
 import { RegisterComponent } from './user/register/register.component';
 import { LoginComponent } from './user/login/login.component';
 import { SportsRegistrationComponent } from './user/sports-registration/sports-registration.component';
+import { AuthGuard } from './auth/auth.guard';
+
 
 export const appRoutes: Routes = [
   {
@@ -17,7 +19,7 @@ export const appRoutes: Routes = [
     children:[{path:'', component:LoginComponent}]
   },
   {
-    path:'sportsRegistration', component:UserComponent,
+    path:'sportsRegistration', component:UserComponent, canActivate: [AuthGuard],
     children:[{ path:'', component: SportsRegistrationComponent}]
   }
 

@@ -1,4 +1,4 @@
-<form #loginForm="ngForm" >
+<form #loginForm="ngForm" (ngSubmit)="loginForm.valid && onSubmit(loginForm)">
 
 <h2 class="inactive underlineHover">Log In </h2><br>
 
@@ -17,5 +17,10 @@
   </div>
 
   <input type="submit" value="Login">
+
+  <!-- Error Message -->
+<div class="alert" *ngIf="showErrorMessage">
+  {{showErrorMessage}}
+</div>
 
 </form>

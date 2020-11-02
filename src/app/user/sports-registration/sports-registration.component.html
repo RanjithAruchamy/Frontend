@@ -1,5 +1,5 @@
-<form #sportsRegistration="ngForm" (ngSubmit)="sportsRegistration.valid && onSubmit(sportsRegistration)" >
-
+<form #sportsRegistration="ngForm" (ngSubmit)="onSubmit(sportsRegistration)" >
+<!-- sportsRegistration.valid &&  -->
     <h2 class="inactive underlineHover">Player Registration Form</h2>
 
     <input type="text" #firstName="ngModel" [(ngModel)]="userService.personalUser.firstName" placeholder="Player First Name"
@@ -86,9 +86,15 @@
       <label class="validation-message">This field is required.</label>
     </div>
 
-    <input type="text" #playerskill="ngModel" [(ngModel)]="userService.sportsUser.playerSkill" placeholder="Player Skill"
-    name="playerskill" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !playerskill.valid}" />
-    <div *ngIf="sportsRegistration.submitted && !playerskill.valid">
+    <input type="text" #playerSkill="ngModel" [(ngModel)]="userService.sportsUser.playerSkill" placeholder="Player Skill"
+    name="playerSkill" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !playerSkill.valid}" />
+    <div *ngIf="sportsRegistration.submitted && !playerSkill.valid">
+      <label class="validation-message">This field is required.</label>
+    </div>
+
+    <input type="text" #hobbies="ngModel" [(ngModel)]="userService.sportsUser.hobbies" placeholder="Player Hobbies"
+    name="hobbies" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !hobbies.valid}" />
+    <div *ngIf="sportsRegistration.submitted && !hobbies.valid">
       <label class="validation-message">This field is required.</label>
     </div>
 
@@ -116,6 +122,12 @@
       <label class="validation-message">This field is required.</label>
     </div>
 
+    <input type="text" #roleModel="ngModel" [(ngModel)]="userService.sportsUser.roleModel" placeholder="Player's Role Model"
+    name="roleModel" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !roleModel.valid}" />
+    <div *ngIf="sportsRegistration.submitted && !roleModel.valid">
+      <label class="validation-message">This field is required.</label>
+    </div>
+
     <input type="text" #strength="ngModel" [(ngModel)]="userService.sportsUser.strength" placeholder="List Top three strengths in cricket"
     name="strength" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !strength.valid}" />
     <div *ngIf="sportsRegistration.submitted && !strength.valid">
@@ -129,5 +141,15 @@
     </div>
 
     <input type="submit" value="Save" />
+
+    <!-- Success Message -->
+<div class="success" *ngIf="showSuccessMessage">
+  Saved Successfully
+</div>
+
+<!-- Error Message -->
+<div class="alert" *ngIf="showErrorMessage">
+  {{showErrorMessage}}
+</div>
 
 </form>

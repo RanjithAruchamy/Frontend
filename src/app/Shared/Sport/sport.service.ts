@@ -11,8 +11,7 @@ export class SportService {
   constructor(private http: HttpClient) { }
 
   getSports(){
-    const headers = new HttpHeaders()
-    .set('Authorization', 'Bearer ' + environment.adminToken);
+    const headers = new HttpHeaders(({'Authorization': 'Bearer ' + environment.adminToken, 'NoAuth': 'True'} ));
     return this.http.get(environment.apiBaseUrl+'/sports', {headers: headers})
   }
 }
