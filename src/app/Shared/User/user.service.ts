@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Player, Personal, User } from './user.model';
 import { Sport } from '../Sport/sport.model'
 import { environment } from '../../../environments/environment';
+import { JsonPipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +63,11 @@ export class UserService {
     const head = new HttpHeaders()
     .set('NoAuth', 'True')
     return this.http.post(environment.apiBaseUrl+'/login', authDetails, {headers: head})
+  }
+//get user details
+  getUser(){
+    return this.http.get(environment.apiBaseUrl + '/user')
+
   }
 //save token in local storage for upcoming api calls
   saveToken(token: string){

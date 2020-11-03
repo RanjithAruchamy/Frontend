@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User } from 'src/app/Shared/User/user.model';
 import { UserService } from '../../Shared/User/user.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-sports-registration',
@@ -12,13 +13,23 @@ import { UserService } from '../../Shared/User/user.service'
 export class SportsRegistrationComponent implements OnInit {
   showSuccessMessage: boolean;
   showErrorMessage: String;
-
+  playerDetails;
   constructor(
-    public userService: UserService
+    public userService: UserService, private router: Router
   ) { }
 
+
+
   ngOnInit(): void {
-  }
+    this.userService.getUser().subscribe(
+      res=> {
+      this.userService.selectedUser.firstName = res["firstName"]
+      this.userService.selectedUser.lastName = res["lastName"]
+      this.userService.personalUser = res["personal"]
+      this.userService.sportsUser = res["sports"]
+    }
+    )
+    }
 
   onSubmit(form: NgForm){
     const payload = {"personal":{
@@ -50,7 +61,9 @@ export class SportsRegistrationComponent implements OnInit {
     this.userService.updateUser(payload).subscribe(
     res => {
       this.showSuccessMessage = true;
-      setTimeout(() => this.showSuccessMessage = false, 4000);},
+      setTimeout(() => this.showSuccessMessage = false, 4000);
+      location.reload();
+    },
     err => {
       this.showErrorMessage = 'Unable to save.'
       setTimeout(() => this.showErrorMessage = '', 4000)

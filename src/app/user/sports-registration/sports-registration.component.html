@@ -2,13 +2,14 @@
 <!-- sportsRegistration.valid &&  -->
     <h2 class="inactive underlineHover">Player Registration Form</h2>
 
-    <input type="text" #firstName="ngModel" [(ngModel)]="userService.personalUser.firstName" placeholder="Player First Name"
+
+    <input type="text" #firstName="ngModel" [(ngModel)]="userService.selectedUser.firstName" Placeholder="Player First Name"
     name="firstName" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !firstName.valid}" />
     <div *ngIf="sportsRegistration.submitted && !firstName.valid">
       <label class="validation-message">This field is required.</label>
     </div>
 
-    <input type="text" #lastName="ngModel" [(ngModel)]="userService.personalUser.lastName" placeholder="Player Last Name"
+    <input type="text" #lastName="ngModel" [(ngModel)]="userService.selectedUser.lastName" placeholder="Player Last Name"
     name="lastName" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !lastName.valid}" />
     <div *ngIf="sportsRegistration.submitted && !lastName.valid">
       <label class="validation-message">This field is required.</label>
