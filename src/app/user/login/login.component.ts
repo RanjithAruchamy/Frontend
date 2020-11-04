@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../../Shared/User/user.service';
 import { Router } from '@angular/router'
+import { nextTick } from 'process';
 
 @Component({
   selector: 'app-login',
@@ -23,8 +24,27 @@ export class LoginComponent implements OnInit {
       res => {
         this.userService.saveToken(res['token']);
         this.router.navigateByUrl('/sportsRegistration')
+        this.resetForm(form);
       },
-      err => this.showErrorMessage = err.error.message
+      err => {
+        this.showErrorMessage = err.error.message
+        setTimeout(() => {
+          this.showErrorMessage = ''
+          this.resetForm(form);
+      }, 4000)
+
+      }
     )
+  }
+  resetForm(form: NgForm){
+    this.userService.selectedUser ={
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
+      email: "",
+      password: ""
+    };
+    form.resetForm();
+    this.showErrorMessage = '';
   }
 }

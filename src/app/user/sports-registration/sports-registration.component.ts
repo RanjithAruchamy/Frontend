@@ -27,11 +27,13 @@ export class SportsRegistrationComponent implements OnInit {
       this.userService.selectedUser.lastName = res["lastName"]
       this.userService.personalUser = res["personal"]
       this.userService.sportsUser = res["sports"]
+
     }
     )
     }
 
   onSubmit(form: NgForm){
+
     const payload = {"personal":{
       "fatherName":form.value.fatherName,
       "motherName":form.value.motherName,
@@ -45,7 +47,14 @@ export class SportsRegistrationComponent implements OnInit {
       "organization":form.value.organization
     },"sports":{
       "playerLevel":form.value.playerLevel,
-      "playerSkill":form.value.playerSkill,
+      "playerSkill":{
+        'batsman':form.value.batsman,
+        'bowler':form.value.bowler,
+        'leftHand':form.value.leftHand,
+        'rightHand':form.value.rightHand,
+        'wicketKeeper':form.value.wicketKeeper,
+        'allRounder':form.value.allRounder
+      },
       "previousTeam":form.value.previousTeam,
       "TNCA":form.value.TNCA,
       "KDCA":form.value.KDCA,
@@ -58,6 +67,7 @@ export class SportsRegistrationComponent implements OnInit {
     "firstName":form.value.firstName,
     "lastName":form.value.lastName
   }
+  console.log(payload)
     this.userService.updateUser(payload).subscribe(
     res => {
       this.showSuccessMessage = true;

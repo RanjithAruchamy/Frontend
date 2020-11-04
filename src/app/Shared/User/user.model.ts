@@ -26,7 +26,14 @@ export class Personal{
 
 export class Player{
   playerLevel: String;
-    playerSkill:String;
+    playerSkill:{
+        batsman:Boolean;
+        bowler:Boolean;
+        leftHand: Boolean;
+        rightHand:Boolean;
+        wicketKeeper:Boolean;
+        allRounder:Boolean;
+    };
     previousTeam:String;
     TNCA:String;
     KDCA:String;

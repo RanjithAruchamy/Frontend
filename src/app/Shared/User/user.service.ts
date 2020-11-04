@@ -37,7 +37,14 @@ export class UserService {
   };
   sportsUser: Player ={
     playerLevel: "",
-    playerSkill:"",
+    playerSkill:{
+      batsman:false,
+      bowler:false,
+      leftHand: false,
+      rightHand:false,
+      wicketKeeper:false,
+      allRounder:false
+    },
     previousTeam:"",
     TNCA:"",
     KDCA:"",
@@ -46,7 +53,7 @@ export class UserService {
     roleModel:"",
     strength:"",
     weakness:""
-  }
+  };
 
 
 

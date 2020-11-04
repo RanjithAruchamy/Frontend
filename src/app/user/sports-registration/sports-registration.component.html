@@ -1,44 +1,55 @@
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+
 <form #sportsRegistration="ngForm" (ngSubmit)="onSubmit(sportsRegistration)" >
 <!-- sportsRegistration.valid &&  -->
     <h2 class="inactive underlineHover">Player Registration Form</h2>
 
-
+    <!-- Left Align -->
+<div class="left">
+  <label> Player First Name:</label>
     <input type="text" #firstName="ngModel" [(ngModel)]="userService.selectedUser.firstName" Placeholder="Player First Name"
     name="firstName" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !firstName.valid}" />
     <div *ngIf="sportsRegistration.submitted && !firstName.valid">
       <label class="validation-message">This field is required.</label>
     </div>
 
+    <label>Player Last Name:</label>
     <input type="text" #lastName="ngModel" [(ngModel)]="userService.selectedUser.lastName" placeholder="Player Last Name"
     name="lastName" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !lastName.valid}" />
     <div *ngIf="sportsRegistration.submitted && !lastName.valid">
       <label class="validation-message">This field is required.</label>
     </div>
 
+    <label>Player DOB:</label>
     <input class="dob" type="date" #dob="ngModel" [(ngModel)]="userService.personalUser.dob" placeholder="Player DOB"
     name="dob" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !dob.valid}" />
     <div *ngIf="sportsRegistration.submitted && !dob.valid">
       <label class="validation-message">This field is required.</label>
     </div>
 
+    <label>Player Age:</label>
     <input class="age" type="number" #age="ngModel" [(ngModel)]="userService.personalUser.age" placeholder="Player Age"
     name="age" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !age.valid}" />
     <div *ngIf="sportsRegistration.submitted && !age.valid">
       <label class="validation-message">This field is required.</label>
     </div>
 
+    <label>Player Blood Group:</label>
     <input type="text" #bloodGroup="ngModel" [(ngModel)]="userService.personalUser.bloodGroup" placeholder="Player Blood Group"
     name="bloodGroup" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !bloodGroup.valid}" />
     <div *ngIf="sportsRegistration.submitted && !bloodGroup.valid">
       <label class="validation-message">This field is required.</label>
     </div>
 
+    <label>Player Profession:</label>
     <input type="text" #profession="ngModel" [(ngModel)]="userService.personalUser.profession" placeholder="Player Profession"
     name="profession" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !profession.valid}" />
     <div *ngIf="sportsRegistration.submitted && !profession.valid">
       <label class="validation-message">This field is required.</label>
     </div>
 
+    <label>Player Height:</label>
     <input type="text" #height="ngModel" [(ngModel)]="userService.personalUser.height" placeholder="Player Height"
     name="height" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !height.valid}" />
     <div *ngIf="sportsRegistration.submitted && !height.valid">
@@ -51,96 +62,136 @@
       <label class="validation-message">This field is required.</label>
     </div> -->
 
+    <label>Name of School/College/Organization:</label>
     <input type="text" #organization="ngModel" [(ngModel)]="userService.personalUser.organization" placeholder="Name of School/College/Organization"
     name="organization" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !organization.valid}" />
     <div *ngIf="sportsRegistration.submitted && !organization.valid">
       <label class="validation-message">This field is required.</label>
     </div>
 
+    <label>Father's Full Name:</label>
     <input type="text" #fatherName="ngModel" [(ngModel)]="userService.personalUser.fatherName" placeholder="Father's Full Name"
     name="fatherName" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !fatherName.valid}" />
     <div *ngIf="sportsRegistration.submitted && !fatherName.valid">
       <label class="validation-message">This field is required.</label>
     </div>
 
+    <label>Mother's Full Name:</label>
     <input type="text" #motherName="ngModel" [(ngModel)]="userService.personalUser.motherName" placeholder="Mother's Full Name"
     name="motherName" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !motherName.valid}" />
     <div *ngIf="sportsRegistration.submitted && !motherName.valid">
       <label class="validation-message">This field is required.</label>
     </div>
 
+    <label>Permanent Address:</label>
     <input type="text" #permAddress="ngModel" [(ngModel)]="userService.personalUser.permanentAddress" placeholder="Permanent Address"
     name="permAddress" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !permAddress.valid}" />
     <div *ngIf="sportsRegistration.submitted && !permAddress.valid">
       <label class="validation-message">This field is required.</label>
     </div>
-
+  </div>
+<!-- Right Align -->
+  <div class="right" >
+    <label>Temporary Address:</label>
     <input type="text" #tempAddress="ngModel" [(ngModel)]="userService.personalUser.temporaryAddress" placeholder="Temporary Address"
     name="tempAddress" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !tempAddress.valid}" />
     <div *ngIf="sportsRegistration.submitted && !tempAddress.valid">
       <label class="validation-message">This field is required.</label>
     </div>
-
-    <input type="text" #playerLevel="ngModel" [(ngModel)]="userService.sportsUser.playerLevel" placeholder="Player Level"
+<div>
+  <label>Player Level:</label>
+    <input type="radio" #playerLevel="ngModel" [(ngModel)]="userService.sportsUser.playerLevel" value="Beginner"
     name="playerLevel" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !playerLevel.valid}" />
+    <label>Beginner</label>
+    <input type="radio" #playerLevel="ngModel" [(ngModel)]="userService.sportsUser.playerLevel" value="Intermediate"
+    name="playerLevel" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !playerLevel.valid}" />
+    <label>Intermediate</label>
+    <input type="radio" #playerLevel="ngModel" [(ngModel)]="userService.sportsUser.playerLevel" value="Senior"
+    name="playerLevel" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !playerLevel.valid}" />
+    <label>Senior</label>
     <div *ngIf="sportsRegistration.submitted && !playerLevel.valid">
       <label class="validation-message">This field is required.</label>
     </div>
+  </div>
 
-    <input type="text" #playerSkill="ngModel" [(ngModel)]="userService.sportsUser.playerSkill" placeholder="Player Skill"
-    name="playerSkill" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !playerSkill.valid}" />
-    <div *ngIf="sportsRegistration.submitted && !playerSkill.valid">
-      <label class="validation-message">This field is required.</label>
-    </div>
+  <div>
+    <label>Player Skill:</label>
+    <input type="checkbox" #batsman="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.batsman" value= true
+    name="batsman" />
+    <label>Batsman</label>
+    <input type="checkbox" #bowler="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.bowler" value=true
+    name="bowler"/>
+    <label>Bowler</label>
+    <input type="checkbox" #leftHand="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.leftHand" value=true
+    name="leftHand" />
+    <label>Left Hand</label><br>
+    <input type="checkbox" #wicketKeeper="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.wicketKeeper" value=true
+    name="wicketKeeper"/>
+    <label>Wicket Keeper</label>
+    <input type="checkbox" #allRounder="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.allRounder" value=true
+    name="allRounder"/>
+    <label>All Rounder</label>
+    <input type="checkbox" #rightHand="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.rightHand" value=true
+    name="rightHand"/>
+    <label>Right Hand</label>
+  </div>
 
+  <label>Player Hobbies:</label>
     <input type="text" #hobbies="ngModel" [(ngModel)]="userService.sportsUser.hobbies" placeholder="Player Hobbies"
     name="hobbies" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !hobbies.valid}" />
     <div *ngIf="sportsRegistration.submitted && !hobbies.valid">
       <label class="validation-message">This field is required.</label>
     </div>
 
+    <label>TNCA Teams & Div.played (If any):</label>
     <input type="text" #TNCA="ngModel" [(ngModel)]="userService.sportsUser.TNCA" placeholder="TNCA Teams & Div.
     played (If any)" name="TNCA" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !TNCA.valid}" />
     <div *ngIf="sportsRegistration.submitted && !TNCA.valid">
       <label class="validation-message">This field is required.</label>
     </div>
 
+    <label>KDCA Teams & Div.played (If any):</label>
     <input type="text" #KDCA="ngModel" [(ngModel)]="userService.sportsUser.KDCA" placeholder="KDCA Teams & Div.
     played (If any)" name="KDCA" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !KDCA.valid}" />
     <div *ngIf="sportsRegistration.submitted && !KDCA.valid">
       <label class="validation-message">This field is required.</label>
     </div>
 
+    <label>Previous Academy / Team Details (If any):</label>
     <input type="text" #previousTeam="ngModel" [(ngModel)]="userService.sportsUser.previousTeam" placeholder="Previous
     Academy / Team Details (If any)" name="previousTeam" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !previousTeam.valid}" />
     <div *ngIf="sportsRegistration.submitted && !previousTeam.valid">
       <label class="validation-message">This field is required.</label>
     </div>
 
+    <label>Player Objective / Goal in Cricket and what is your dream in cricket:</label>
     <input type="text" #goal="ngModel" [(ngModel)]="userService.sportsUser.goal" placeholder="Player Objective / Goal in Cricket and what is your dream in cricket"
     name="goal" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !goal.valid}" />
     <div *ngIf="sportsRegistration.submitted && !goal.valid">
       <label class="validation-message">This field is required.</label>
     </div>
 
+    <label>Player's Role Model:</label>
     <input type="text" #roleModel="ngModel" [(ngModel)]="userService.sportsUser.roleModel" placeholder="Player's Role Model"
     name="roleModel" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !roleModel.valid}" />
     <div *ngIf="sportsRegistration.submitted && !roleModel.valid">
       <label class="validation-message">This field is required.</label>
     </div>
 
+    <label>List Top three strengths in cricket:</label>
     <input type="text" #strength="ngModel" [(ngModel)]="userService.sportsUser.strength" placeholder="List Top three strengths in cricket"
     name="strength" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !strength.valid}" />
     <div *ngIf="sportsRegistration.submitted && !strength.valid">
       <label class="validation-message">This field is required.</label>
     </div>
 
+    <label>List Top three weakness in cricket:</label>
     <input type="text" #weakness="ngModel" [(ngModel)]="userService.sportsUser.weakness" placeholder="List Top three weakness in cricket"
     name="weakness" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !weakness.valid}" />
     <div *ngIf="sportsRegistration.submitted && !weakness.valid">
       <label class="validation-message">This field is required.</label>
     </div>
-
+  </div>
     <input type="submit" value="Save" />
 
     <!-- Success Message -->
@@ -154,3 +205,5 @@
 </div>
 
 </form>
+  </div>
+</div>
