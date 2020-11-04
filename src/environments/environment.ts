@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // apiBaseUrl: "https://dharan-sports.herokuapp.com/api",
-  apiBaseUrl: "http://localhost:3000/api",
+  apiBaseUrl: "https://dharan-sports.herokuapp.com/api",
+  // apiBaseUrl: "http://localhost:3000/api",
   adminToken:
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJPWEYtRC1VLVJBLTAiLCJpYXQiOjE2MDQwNzU2MjAsImV4cCI6MTYzNTYxMTYyMH0.fNYkqyzfKfmdYDgrqY8Ajw40JuowC9biGSHumaqIPpA"
 };
