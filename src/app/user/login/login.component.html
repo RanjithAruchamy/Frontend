@@ -3,10 +3,10 @@
 
 <form #loginForm="ngForm" (ngSubmit)="loginForm.valid && onSubmit(loginForm)">
 
-<h2 class="underlineHover" routerLink="/signup">Sign Up</h2>
-<h2 class="underlineHover" routerLink="/login">Sign In </h2><br>
+<h2 class="underlineHover" routerLink="/signup" routerLinkActive="active" >Sign Up</h2>
+<h2 class="underlineHover" routerLink="/login" routerLinkActive="active" >Sign In </h2><br>
 
-<label>Email:</label>
+<!-- <label>Email:</label> -->
 <input type="text" #email="ngModel" [(ngModel)]="userService.selectedUser.email" placeholder="Email" name="email"
     required [pattern]="emailRegex" [ngClass]="{'invalid-textbox' :loginForm.submitted && !email.valid}">
   <div *ngIf="loginForm.submitted && email.errors">
@@ -14,7 +14,7 @@
     <label *ngIf="email.errors.pattern" class="validation-message">Invalid email address.</label>
   </div>
 
-  <label>Password:</label>
+  <!-- <label>Password:</label> -->
   <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" placeholder="Password"
     name="password" required minlength="4" [ngClass]="{'invalid-textbox' :loginForm.submitted && !password.valid}">
   <div *ngIf="loginForm.submitted && password.errors">
@@ -22,6 +22,7 @@
     <label *ngIf="password.errors.minlength" class="validation-message">Enter atleast 4 characters.</label>
   </div>
 
+  <!-- <div class="forPwd"><a routerLink="/resetPassword">Forgot password?</a></div> -->
   <input type="submit" value="Login">
 
   <!-- Error Message -->

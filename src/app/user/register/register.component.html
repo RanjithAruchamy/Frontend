@@ -2,10 +2,10 @@
   <div id="formContent">
 
 <form #registerForm="ngForm" (ngSubmit)="registerForm.valid && onSubmit(registerForm)">
-  <h2 class="underlineHover" routerLink="/signup" >Sign Up</h2>
-  <h2 class="underlineHover"  routerLink="/login">Sign In</h2> <br>
+  <h2 class="underlineHover" routerLink="/signup" routerLinkActive="active" >Sign Up</h2>
+  <h2 class="underlineHover"  routerLink="/login"routerLinkActive="active" >Sign In</h2> <br>
 
-  <label for="firstName">First Name:</label><br>
+  <!-- <label for="firstName">First Name:</label><br> -->
   <span>
   <input type="text" id="firstName" #firstName="ngModel" [(ngModel)]="userService.selectedUser.firstName" placeholder="First Name"
     name="firstName" required [ngClass]="{'invalid-textbox' :registerForm.submitted && !firstName.valid}" />
@@ -14,14 +14,14 @@
   </div>
 </span>
 
-  <label>Last Name:</label><br>
+  <!-- <label>Last Name:</label><br> -->
   <input type="text" #lastName="ngModel" [(ngModel)]="userService.selectedUser.lastName" placeholder="Last Name"
     name="lastName" required [ngClass]="{'invalid-textbox' :registerForm.submitted && !lastName.valid}" />
   <div *ngIf="registerForm.submitted && !lastName.valid">
     <label class="validation-message">This field is required.</label>
   </div>
 
-  <label>Choose Your Game:</label><br>
+  <!-- <label>Choose Your Game:</label><br> -->
   <select class="sports" name="sportId" #sportId="ngModel" [(ngModel)]="selected" required>
     <option [ngValue]="undefined" disabled>Choose your game</option>
     <option *ngFor="let sport of Sports" value="{{sport.sportId}}">{{sport.sportName}}</option>
@@ -30,8 +30,8 @@
     <label class="validation-message">This field is required.</label>
   </div>
 
-  <label>Phone Number:</label><br>
-  <input type="text" #phoneNumber="ngModel" [(ngModel)]="userService.selectedUser.phoneNumber"
+  <!-- <label>Phone Number:</label><br> -->
+  <input type="tel" #phoneNumber="ngModel" [(ngModel)]="userService.selectedUser.phoneNumber"
     placeholder="Phone Number" name="phoneNumber" required pattern="[0-9]{10}"
     [ngClass]="{'invalid-textbox' :registerForm.submitted && !phoneNumber.valid}" />
   <div *ngIf="registerForm.submitted && !phoneNumber.valid">
@@ -39,7 +39,7 @@
     <label *ngIf="phoneNumber.errors.pattern" class="validation-message">Invalid phone number.</label>
   </div>
 
-  <label>Email :</label><br>
+  <!-- <label>Email :</label><br> -->
   <input type="text" #email="ngModel" [(ngModel)]="userService.selectedUser.email" placeholder="Email" name="email"
     required [pattern]="emailRegex" [ngClass]="{'invalid-textbox' :registerForm.submitted && !email.valid}" />
   <div *ngIf="registerForm.submitted && email.errors">
@@ -47,7 +47,7 @@
     <label *ngIf="email.errors.pattern" class="validation-message">Invalid email address.</label>
   </div>
 
-  <label>Password:</label><br>
+  <!-- <label>Password:</label><br> -->
   <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" placeholder="Password"
     name="password" required minlength="4" [ngClass]="{'invalid-textbox' :registerForm.submitted && !password.valid}" />
   <div *ngIf="registerForm.submitted && password.errors">
