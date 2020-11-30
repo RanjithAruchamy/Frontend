@@ -1,77 +1,90 @@
-
 #formContent {
-  -webkit-border-radius: 10px 10px 10px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+  padding: 20px;
+  /* background: #fff; */
   border-radius: 10px 10px 10px 10px;
-  background: #fff;
-  padding: 30px;
+}
+h2{
+  margin: 10px 750px;
+}
+form {
   width: 100%;
-  max-width: 850px;
-  position: relative;
-  padding: 0px;
-  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-  text-align: center;
-}
-input[type=text] {
-  background-color: #f6f6f6;
-  border: none;
-  color: #0d0d0d;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  /* float: right; */
-  font-size: 16px;
-  margin: 5px;
-  width: 85%;
-  border: 2px solid #f6f6f6;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
-}
-[type="date"] {
-  /* background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ; */
-  /* appearance: none; */
-  outline: 0;
-  background:#f6f6f6;
-  width: 85%;
-  color: #0d0d0d;
-  padding: 15px 32px;
-  /* float: right; */
-  cursor: pointer;
-  font-size: 16px;
-  text-align: center;
-  margin: 5px;
-  border: 2px solid #f6f6f6;
-  border-radius: 5px 5px 5px 5px;
-}
-[type= "number"] {
-  appearance: none;
-  outline: 0;
-  background:#f6f6f6;
-  width: 85%;
-  /* float: right; */
-  color: #0d0d0d;
-  padding: 15px 32px;
-  cursor: pointer;
-  font-size: 16px;
-  text-align: center;
-  margin: 5px;
-  border: 2px solid #f6f6f6;
-  border-radius: 5px 5px 5px 5px;
-}
-/* label{
+  padding: 20px;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 0 8px  #669999;
+  }
+  .left {
+    display:flex;
+    justify-content:space-between;
+    flex-direction:row;
+    flex-wrap:wrap;
+    }
+    .left div {
+    width:30%;
+    margin: 10px 180px 0 180px;
+    }
+    .right {
+      display:flex;
+      justify-content:space-between;
+      flex-direction:row;
+      flex-wrap:wrap;
+      }
+      .right div {
+      width:30%;
+      margin: 10px 180px 0 180px;
+      }
+    .item {
+      position: relative;
+      margin: 10px 0;
+      }
 
-  float: left;
-  font-size: 16px;
+      input[type=text], [type=date], [type=number] {
+        background-color: #f6f6f6;
+        border: none;
+        color: #0d0d0d;
+        padding: 15px 32px;
+        text-align: left;
+        text-decoration: none;
+        display: inline-block;
+        /* float: right; */
 
-  text-align: center;
-  width: 50%;
-} */
-input[type=button], input[type=submit], input[type=reset]  {
-  margin: 5px 20px 40px 20px;
-}
+        font-size: 16px;
+        margin: 10px 600px 0 0;
+        width: 55%;
+        border: 2px solid #f6f6f6;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+      }
+      input[type=radio]{
+        position: relative;
+        display: inline-block;
+        margin: 10px 10px 15px 5px;
+        cursor: pointer;
+
+      }
+      .item label{
+        outline: none;
+        font-family: Roboto, Arial, sans-serif;
+        font-size: 16px;
+        color: rgb(122, 0, 0);
+        line-height: 22px;
+      }
+      .option{
+        outline: none;
+        font-family: Roboto, Arial, sans-serif;
+        font-size: 16px;
+        color: rgb(122, 0, 0);
+        line-height: 22px;
+      }
+      input[type=button], input[type=submit], input[type=reset]  {
+        margin: 80px 20px 40px 750px;
+      }

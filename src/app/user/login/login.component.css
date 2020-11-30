@@ -16,7 +16,7 @@ input[type=text],input[type=password] {
   border: none;
   color: #0d0d0d;
   padding: 15px 32px;
-  text-align: center;
+  text-align: left;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
@@ -39,6 +39,10 @@ label{
 
   text-align: center;
   width: 50%;
+}
+label.validation-message{
+  color:#ed5558;
+  margin: 5px 5px 0px 25px;
 }
 input[type=button], input[type=submit], input[type=reset]  {
   margin: 20px 20px 30px 20px;
