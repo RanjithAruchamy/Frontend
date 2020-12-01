@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(form: NgForm){
-    console.log(form.value)
+    // console.log(form.value)
  var response = grecaptcha.getResponse();
  if(!response)
  alert('Please enable reCaptcha')

@@ -44,7 +44,7 @@ span{
   overflow: hidden;
 }
 .capt{
-  margin: 50px 340px 20px 265px;
+  margin: 50px auto 20px auto;
 
 }
 label.validation-message{

@@ -1,90 +1,102 @@
-#formContent {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: inherit;
-  padding: 20px;
-  /* background: #fff; */
-  border-radius: 10px 10px 10px 10px;
+@import url("https://fonts.googleapis.com/css?family=Kavivanar");
+
+* {
+  margin: 0;
+  padding: 0;
+  user-select: none;
 }
-h2{
-  margin: 10px 750px;
-}
-form {
+
+#formContent{
+  margin: 50px auto 0 auto;
   width: 100%;
+  max-width: 980px;
   padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+form{
+  width: 100%;
+  margin: 25px 0;
+  padding: 20px 0px 20px 30px;
   border-radius: 6px;
-  background: #fff;
+  background: #ffffff;
   box-shadow: 0 0 8px  #669999;
-  }
-  .left {
-    display:flex;
-    justify-content:space-between;
-    flex-direction:row;
-    flex-wrap:wrap;
-    }
-    .left div {
-    width:30%;
-    margin: 10px 180px 0 180px;
-    }
-    .right {
-      display:flex;
-      justify-content:space-between;
-      flex-direction:row;
-      flex-wrap:wrap;
-      }
-      .right div {
-      width:30%;
-      margin: 10px 180px 0 180px;
-      }
-    .item {
-      position: relative;
-      margin: 10px 0;
-      }
+}
+form h2{
+  margin-bottom: 10px;
+}
 
-      input[type=text], [type=date], [type=number] {
-        background-color: #f6f6f6;
-        border: none;
-        color: #0d0d0d;
-        padding: 15px 32px;
-        text-align: left;
-        text-decoration: none;
-        display: inline-block;
-        /* float: right; */
+.left.right{
+  width: 100%;
+  min-height: 65px;
+  margin: 10px 0;
+}
 
-        font-size: 16px;
-        margin: 10px 600px 0 0;
-        width: 55%;
-        border: 2px solid #f6f6f6;
-        -webkit-transition: all 0.5s ease-in-out;
-        -moz-transition: all 0.5s ease-in-out;
-        -ms-transition: all 0.5s ease-in-out;
-        -o-transition: all 0.5s ease-in-out;
-        transition: all 0.5s ease-in-out;
-        -webkit-border-radius: 5px 5px 5px 5px;
-        border-radius: 5px 5px 5px 5px;
-      }
-      input[type=radio]{
-        position: relative;
-        display: inline-block;
-        margin: 10px 10px 15px 5px;
-        cursor: pointer;
+form input[type=text], [type=date], [type=number], textarea{
+  background-color: #ebebeb;
+  border: 2px solid #ebebeb;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-align: left;
+  text-decoration: none;
+  font-size: 16px;
+  outline: none;
+  border-radius: 2px;
+  width: 100%;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+}
+form input:focus, textarea:focus{
+  border-color: rgb(74, 131, 52);
+}
+.item label, .option{
+  float: left;
+  padding: 10px 5px;
+  outline: none;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 16px;
+  color: #140101;
+  line-height: 22px;
+}
 
-      }
-      .item label{
-        outline: none;
-        font-family: Roboto, Arial, sans-serif;
-        font-size: 16px;
-        color: rgb(122, 0, 0);
-        line-height: 22px;
-      }
-      .option{
-        outline: none;
-        font-family: Roboto, Arial, sans-serif;
-        font-size: 16px;
-        color: rgb(122, 0, 0);
-        line-height: 22px;
-      }
-      input[type=button], input[type=submit], input[type=reset]  {
-        margin: 80px 20px 40px 750px;
-      }
+.content .item{
+  width: 45%;
+  float: left;
+  margin-right: 5%;
+}
+.content .item:last-child{
+  margin-right: 0;
+}
+.content .radioBut{
+  width: 45%;
+  float: left;
+  margin-right: 5%;
+}
+.content .radioBut:last-child{
+  margin-right: 0;
+}
+.content .checkBox{
+  width: 45%;
+  float: left;
+  margin-right: 5%;
+}
+.content .checkBox:last-child{
+  margin-right: 0%;
+}
+textarea {
+  height: 100px;
+}
+label.validation-message{
+  color:#d4181b!important;
+  /* float: left; */
+  margin: 5px 0px 0px 0px;
+}
+sup {
+  font-size: 16px;
+  color: #0d0d0d;
+}

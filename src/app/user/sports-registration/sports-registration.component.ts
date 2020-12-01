@@ -33,7 +33,6 @@ export class SportsRegistrationComponent implements OnInit {
     }
 
   onSubmit(form: NgForm){
-
     const payload = {"personal":{
       "fatherName":form.value.fatherName,
       "motherName":form.value.motherName,
