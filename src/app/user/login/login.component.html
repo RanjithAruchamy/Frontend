@@ -1,13 +1,21 @@
+
 <div class="wrapper fadeInDown">
+  <header> <img src="https://img1.wsimg.com/isteam/ip/f9dead15-a5e8-4dfa-b0e4-1b7afe7d091b/logo/e6be5301-a802-4c0f-be8f-7a93118f19d3.jpg/:/rs=w:80,h:80,m">
+    <h3>A UNIT OF OX & FOX SPORTS AND CHARITABLE TRUST</h3>
+    <h6># 1/221, Ponnuswamy Street, Vadakupattu, Chennai - 600100</h6>
+    <h4>Mobile: +91-8939988127</h4>
+    <h4>www.dharansports.in</h4>
+    <h4>dharansports@gmail.com</h4>
+  </header>
   <div id="formContent">
 
 <form #loginForm="ngForm" (ngSubmit)="loginForm.valid && onSubmit(loginForm)">
-
+<div class="head">
 <h2 class="underlineHover" routerLink="/signup" routerLinkActive="active" >Sign Up</h2>
 <h2 class="underlineHover" routerLink="/login" routerLinkActive="active" >Sign In </h2><br>
-
+</div>
 <!-- <label>Email:</label> -->
-<input type="text" #email="ngModel" [(ngModel)]="userService.selectedUser.email" placeholder="Email" name="email"
+<input type="text" #email="ngModel" maxlength="125" [(ngModel)]="userService.selectedUser.email" placeholder="Email" name="email"
     required [pattern]="emailRegex" [ngClass]="{'invalid-textbox' :loginForm.submitted && !email.valid}">
   <div *ngIf="loginForm.submitted && email.errors">
     <label *ngIf="email.errors.required" class="validation-message">This field is required.</label>
@@ -16,13 +24,14 @@
 
   <!-- <label>Password:</label> -->
   <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" placeholder="Password"
-    name="password" required minlength="4" [ngClass]="{'invalid-textbox' :loginForm.submitted && !password.valid}">
+    name="password" required minlength="8" maxlength="20" [ngClass]="{'invalid-textbox' :loginForm.submitted && !password.valid}">
   <div *ngIf="loginForm.submitted && password.errors">
     <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
-    <label *ngIf="password.errors.minlength" class="validation-message">Enter atleast 4 characters.</label>
+    <label *ngIf="password.errors.minlength" class="validation-message">Enter atleast 8 characters.</label>
+    <label *ngIf="password.errors.maxlength" class="validation-message">Password cannot be more than 20 characters.</label>
   </div>
 <br>
-  <!-- <div class="forPwd"><a routerLink="/resetPassword">Forgot password?</a></div> -->
+  <a class="forPwd" routerLink="/forgotPassword">Forgot password?</a><br>
   <input type="submit" value="Login">
 
   <!-- Error Message -->
@@ -32,4 +41,6 @@
 
 </form>
   </div>
+  <h3>Our Official Sponsor</h3>
+<img src="https://beta.playtonia.com/media/img/team/logo/playtonia_tm_black_logo.png" height="145" width="350">
 </div>

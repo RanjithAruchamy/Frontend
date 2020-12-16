@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Player, Personal, User } from './user.model';
+import { Player, Personal, User, mail, reset } from './user.model';
 import { Sport } from '../Sport/sport.model'
 import { environment } from '../../../environments/environment';
 import { JsonPipe } from '@angular/common';
@@ -16,21 +16,31 @@ export class UserService {
     phoneNumber: "",
     email: "",
     password: "",
-
+    confirmPassword:""
+    // userId:""
 
   };
   personalUser: Personal ={
     firstName: "",
     lastName: "",
+    // userId:"",
     phoneNumber: "",
     email: "",
+    gender: "",
+    nationality:"",
     fatherName: "",
+    fatherOccupation:"",
     motherName:"",
+    motherOccupation:"",
+    parentMobile:null,
+    residenceNumber:null,
+    parentEmail:"",
     permanentAddress:"",
     temporaryAddress:"",
     bloodGroup:"",
     dob:"",
     height:"",
+    weight: null,
     profession:"",
     organization:"",
     age: null
@@ -50,12 +60,36 @@ export class UserService {
     KDCA:"",
     hobbies:"",
     goal:"",
-    roleModel:"",
-    strength:"",
-    weakness:""
+    strength:{
+      general:"",
+      cricket:""
+    },
+    weakness:{
+      general:"",
+      cricket:""
+    },
+    bowlerType:"",
+    bowlerHand:"",
+    battingHand:"",
+    medical:"",
+    roleModelReal:{
+      name:"",
+      reason:""
+    },
+    roleModelCricket:{
+      name:"",
+      reason:""
+    },
+
   };
-
-
+forgotpassword: mail={
+  email:""
+}
+resetpassword: reset={
+  email:"",
+  password:"",
+  newPassword:""
+}
 
 
   constructor(private http: HttpClient) { }
@@ -113,6 +147,19 @@ export class UserService {
 //captcha verification
   verifyToken(token){
     return this.http.post(environment.apiBaseUrl + '/verifyCaptcha', {token: token})
+  }
+//forgot password
+  forgotPassword(email){
+    return this.http.post(environment.apiBaseUrl + '/forgotPassword', {email: email})
+  }
+//reset password
+  resetPassword(data){
+    return this.http.post(environment.apiBaseUrl + '/resetPassword', {email:data.email, password: data.password, newPassword: data.newPassword})
+  }
+
+// Upload files
+  upload(payload, mail){
+    return this.http.post<any>(environment.apiBaseUrl+'/upload?mail='+mail, payload)
   }
 
 }

@@ -24,13 +24,13 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private _renderer: Renderer2
     ) { }
-    Sports: String;
-    selected: null;
+    Sports;
+    selected: "Cricket";
 
   ngOnInit(): void {
     this.sportService.getSports().subscribe(
       res => {
-        this.Sports = res as String;
+        this.Sports =  res as String;
       })
 
       let script = this._renderer.createElement('script');
@@ -40,13 +40,7 @@ export class RegisterComponent implements OnInit {
       this._renderer.appendChild(document.body, script);
   }
 
-  sportList(){
-    return this.sportService.getSports().subscribe(
-      res => {
-        return this.Sports
-      }
-    )
-  }
+
 
   onSubmit(form: NgForm){
     // console.log(form.value)
@@ -64,7 +58,7 @@ export class RegisterComponent implements OnInit {
       err => {
 
         if(err.status === 422){
-          this.showErrorMessage = 'Email already exists'
+          this.showErrorMessage = err.error.message;
           setTimeout(() => this.showErrorMessage = '', 4000)
 
       }
@@ -83,7 +77,9 @@ export class RegisterComponent implements OnInit {
       lastName: "",
       phoneNumber: "",
       email: "",
-      password: ""
+      password: "",
+      confirmPassword:""
+      // userId:""
     };
     form.resetForm();
     this.showErrorMessage = '';

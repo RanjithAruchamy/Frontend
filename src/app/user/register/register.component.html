@@ -1,13 +1,21 @@
 <div class="wrapper fadeInDown">
+<header> <img src="https://img1.wsimg.com/isteam/ip/f9dead15-a5e8-4dfa-b0e4-1b7afe7d091b/logo/e6be5301-a802-4c0f-be8f-7a93118f19d3.jpg/:/rs=w:80,h:80,m">
+  <h3>A UNIT OF OX & FOX SPORTS AND CHARITABLE TRUST</h3>
+  <h6># 1/221, Ponnuswamy Street, Vadakupattu, Chennai - 600100</h6>
+  <h4>Mobile: +91-8939988127</h4>
+  <h4>www.dharansports.in</h4>
+  <h4>dharansports@gmail.com</h4>
+</header>
   <div id="formContent">
 
 <form #registerForm="ngForm" (ngSubmit)="registerForm.valid && onSubmit(registerForm)">
+  <div class="head">
   <h2 class="underlineHover" routerLink="/signup" routerLinkActive="active" >Sign Up</h2>
   <h2 class="underlineHover"  routerLink="/login"routerLinkActive="active" >Sign In</h2> <br>
-
+</div>
   <!-- <label for="firstName">First Name:</label><br> -->
   <span>
-  <input type="text" id="firstName" #firstName="ngModel" [(ngModel)]="userService.selectedUser.firstName" placeholder="First Name"
+  <input type="text" id="firstName" maxlength="125" #firstName="ngModel" [(ngModel)]="userService.selectedUser.firstName" placeholder="First Name"
     name="firstName" required [ngClass]="{'invalid-textbox' :registerForm.submitted && !firstName.valid}" />
   <div *ngIf="registerForm.submitted && !firstName.valid">
     <label class="validation-message">This field is required.</label>
@@ -15,23 +23,14 @@
 </span>
 
   <!-- <label>Last Name:</label><br> -->
-  <input type="text" #lastName="ngModel" [(ngModel)]="userService.selectedUser.lastName" placeholder="Last Name"
+  <input type="text" maxlength="125" #lastName="ngModel" [(ngModel)]="userService.selectedUser.lastName" placeholder="Last Name"
     name="lastName" required [ngClass]="{'invalid-textbox' :registerForm.submitted && !lastName.valid}" />
   <div *ngIf="registerForm.submitted && !lastName.valid">
     <label class="validation-message">This field is required.</label>
   </div>
 
-  <!-- <label>Choose Your Game:</label><br> -->
-  <select class="sports" name="sportId" #sportId="ngModel" [(ngModel)]="selected" required>
-    <option [ngValue]="undefined" disabled>Choose your game</option>
-    <option *ngFor="let sport of Sports" value="{{sport.sportId}}">{{sport.sportName}}</option>
-  </select>
-  <div *ngIf="registerForm.submitted && !sportId.valid">
-    <label class="validation-message">This field is required.</label>
-  </div>
-
-  <!-- <label>Phone Number:</label><br> -->
-  <input type="tel" #phoneNumber="ngModel" [(ngModel)]="userService.selectedUser.phoneNumber"
+    <!-- <label>Phone Number:</label><br> -->
+    <input type="tel" #phoneNumber="ngModel" [(ngModel)]="userService.selectedUser.phoneNumber"
     placeholder="Phone Number" name="phoneNumber" required pattern="[0-9]{10}"
     [ngClass]="{'invalid-textbox' :registerForm.submitted && !phoneNumber.valid}" />
   <div *ngIf="registerForm.submitted && !phoneNumber.valid">
@@ -39,8 +38,18 @@
     <label *ngIf="phoneNumber.errors.pattern" class="validation-message">Invalid phone number.</label>
   </div>
 
+  <!-- <label>Choose Your Game:</label><br> -->
+  <select class="sports" name="sportId" #sportId="ngModel" [(ngModel)]="selected" required >
+    <option [ngValue]="undefined" disabled>Choose your game</option>
+    <option *ngFor="let sport of Sports" [disabled]="sport.status === 'INACTIVE'" value="{{sport.sportId}}">{{sport.sportName}}</option>
+  </select>
+  <div *ngIf="registerForm.submitted && !sportId.valid">
+    <label class="validation-message">This field is required.</label>
+  </div>
+
+
   <!-- <label>Email :</label><br> -->
-  <input type="text" #email="ngModel" [(ngModel)]="userService.selectedUser.email" placeholder="Email" name="email"
+  <input type="text" maxlength="125" #email="ngModel" [(ngModel)]="userService.selectedUser.email" placeholder="Email" name="email"
     required [pattern]="emailRegex" [ngClass]="{'invalid-textbox' :registerForm.submitted && !email.valid}" />
   <div *ngIf="registerForm.submitted && email.errors">
     <label *ngIf="email.errors.required" class="validation-message">This field is required.</label>
@@ -48,19 +57,29 @@
   </div>
 
   <!-- <label>Password:</label><br> -->
-  <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" placeholder="Password"
-    name="password" required minlength="4" [ngClass]="{'invalid-textbox' :registerForm.submitted && !password.valid}" />
+  <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" placeholder="Password" pattern="(?=^.{8,20}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+    name="password" required [ngClass]="{'invalid-textbox' :registerForm.submitted && !password.valid}" />
   <div *ngIf="registerForm.submitted && password.errors">
     <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
-    <label *ngIf="password.errors.minlength" class="validation-message">Enter atleast 4 characters.</label>
+    <label *ngIf="password.errors.pattern" class="validation-message">Please maintain the password as per the password policy</label>
   </div>
+
+    <!-- <label>ReType Password:</label><br> -->
+  <input type="password" #confirmPassword="ngModel" [(ngModel)]="userService.selectedUser.confirmPassword" required name="confirmPassword" placeholder="Confirm Password" required
+  [ngClass]="{'invalid-textbox' :registerForm.submitted && !confirmPassword.valid}" />
+  <div *ngIf="registerForm.submitted && !confirmPassword.valid">
+    <label *ngIf="confirmPassword.errors.required" class="validation-message">This field is required.</label>
+  </div>
+  <label *ngIf="confirmPassword.valid && password.value!=confirmPassword.value" class="validation-message">Password doesn't match with the one typed earlier, please check and enter correct password</label>
 
   <div>
     <re-captcha class="capt" style="display: inline-block;" (resolved)="resolved($event)"
       siteKey="6LfMtNQZAAAAAOAlkcyc8nUMaKqcZR0j881ePAY7"></re-captcha>
   </div>
   <input type="submit" value="Register" />
+  <input type="button" value="Reset" (click)="resetForm(registerForm)" />
 </form>
+
 
 <!-- Success Message -->
 <div class="success" *ngIf="showSuccessMessage">
@@ -73,4 +92,6 @@
 </div>
 
 </div>
+<h3>Our Official Sponsor</h3>
+<img src="https://beta.playtonia.com/media/img/team/logo/playtonia_tm_black_logo.png" height="145" width="350">
 </div>

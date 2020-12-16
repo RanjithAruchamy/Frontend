@@ -15,6 +15,8 @@ import { SportsRegistrationComponent } from './user/sports-registration/sports-r
 import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { UserService } from './Shared/User/user.service';
+import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './user/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { UserService } from './Shared/User/user.service';
     UserComponent,
     RegisterComponent,
     LoginComponent,
-    SportsRegistrationComponent
+    SportsRegistrationComponent,
+    ResetPasswordComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

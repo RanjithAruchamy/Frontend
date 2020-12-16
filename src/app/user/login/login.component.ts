@@ -42,7 +42,8 @@ export class LoginComponent implements OnInit {
       lastName: "",
       phoneNumber: "",
       email: "",
-      password: ""
+      password: "",
+      confirmPassword:""
     };
     form.resetForm();
     this.showErrorMessage = '';

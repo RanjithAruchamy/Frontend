@@ -3,7 +3,7 @@
 * {
   margin: 0;
   padding: 0;
-  user-select: none;
+  /* user-select: none; */
 }
 
 #formContent{
@@ -16,24 +16,27 @@
 }
 form{
   width: 100%;
+
   margin: 25px 0;
   padding: 20px 0px 20px 30px;
   border-radius: 6px;
-  background: #ffffff;
+  background:  #ffffffaf;
   box-shadow: 0 0 8px  #669999;
 }
 form h2{
   margin-bottom: 10px;
 }
-
+form p{
+  float: right;
+}
 .left.right{
   width: 100%;
   min-height: 65px;
   margin: 10px 0;
 }
 
-form input[type=text], [type=date], [type=number], textarea{
-  background-color: #ebebeb;
+form input[type=text], [type=date], [type=number],select, textarea{
+  background-color: #f6f6f6;
   border: 2px solid #ebebeb;
   color: #0d0d0d;
   padding: 15px 32px;
@@ -51,7 +54,7 @@ form input[type=text], [type=date], [type=number], textarea{
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
 }
-form input:focus, textarea:focus{
+form input:focus, textarea:focus, select:focus{
   border-color: rgb(74, 131, 52);
 }
 .item label, .option{
@@ -63,7 +66,9 @@ form input:focus, textarea:focus{
   color: #140101;
   line-height: 22px;
 }
-
+input[type=radio], [type=checkbox]{
+  cursor: pointer;
+}
 .content .item{
   width: 45%;
   float: left;
@@ -76,6 +81,7 @@ form input:focus, textarea:focus{
   width: 45%;
   float: left;
   margin-right: 5%;
+
 }
 .content .radioBut:last-child{
   margin-right: 0;
@@ -84,6 +90,7 @@ form input:focus, textarea:focus{
   width: 45%;
   float: left;
   margin-right: 5%;
+
 }
 .content .checkBox:last-child{
   margin-right: 0%;
@@ -98,5 +105,7 @@ label.validation-message{
 }
 sup {
   font-size: 16px;
-  color: #0d0d0d;
+  color: #f10a0a;
+  font-weight: bolder;
 }
+

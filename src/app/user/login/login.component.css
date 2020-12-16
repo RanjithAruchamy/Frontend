@@ -1,7 +1,7 @@
 #formContent {
   -webkit-border-radius: 10px 10px 10px 10px;
   border-radius: 10px 10px 10px 10px;
-  background: #fff;
+  background: #ffffffaf;
   padding: 30px;
   width: 100%;
   max-width: 550px;
@@ -32,6 +32,9 @@ input[type=text],input[type=password] {
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
 }
+form input:focus{
+  border-color: rgb(74, 131, 52);
+}
 label{
 
   float: left;
@@ -48,10 +51,19 @@ input[type=button], input[type=submit], input[type=reset]  {
   margin: 20px 20px 30px 20px;
 }
 .forPwd{
-  display: inline-block;
+  /* display: inline-block; */
+  color: #0d0d0d;
   font-size: 18px;
-  margin: 20px 0px 20px 200px;
+  /* margin: 20px 0px 20px 200px; */
   background-color: transparent;
-  position: absolute;
-  /* float: left; */
+  position: relative;
+  /* float: right; */
+  padding: 8px 0px 0 220px;
+}
+/* .head {
+  background-color: rgba(71, 194, 194, 0.699);
+} */
+header{
+  text-align: center;
+  line-height: 0%;
 }
