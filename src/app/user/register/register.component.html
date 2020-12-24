@@ -15,7 +15,7 @@
 </div>
   <!-- <label for="firstName">First Name:</label><br> -->
   <span>
-  <input type="text" id="firstName" maxlength="125" #firstName="ngModel" [(ngModel)]="userService.selectedUser.firstName" placeholder="First Name"
+  <input type="text" id="firstName" maxlength="200" #firstName="ngModel" [(ngModel)]="userService.selectedUser.firstName" placeholder="First Name"
     name="firstName" required [ngClass]="{'invalid-textbox' :registerForm.submitted && !firstName.valid}" />
   <div *ngIf="registerForm.submitted && !firstName.valid">
     <label class="validation-message">This field is required.</label>
@@ -23,7 +23,7 @@
 </span>
 
   <!-- <label>Last Name:</label><br> -->
-  <input type="text" maxlength="125" #lastName="ngModel" [(ngModel)]="userService.selectedUser.lastName" placeholder="Last Name"
+  <input type="text" maxlength="200" #lastName="ngModel" [(ngModel)]="userService.selectedUser.lastName" placeholder="Last Name"
     name="lastName" required [ngClass]="{'invalid-textbox' :registerForm.submitted && !lastName.valid}" />
   <div *ngIf="registerForm.submitted && !lastName.valid">
     <label class="validation-message">This field is required.</label>
@@ -49,7 +49,7 @@
 
 
   <!-- <label>Email :</label><br> -->
-  <input type="text" maxlength="125" #email="ngModel" [(ngModel)]="userService.selectedUser.email" placeholder="Email" name="email"
+  <input type="text" maxlength="200" #email="ngModel" [(ngModel)]="userService.selectedUser.email" placeholder="Email" name="email"
     required [pattern]="emailRegex" [ngClass]="{'invalid-textbox' :registerForm.submitted && !email.valid}" />
   <div *ngIf="registerForm.submitted && email.errors">
     <label *ngIf="email.errors.required" class="validation-message">This field is required.</label>
@@ -61,7 +61,7 @@
     name="password" required [ngClass]="{'invalid-textbox' :registerForm.submitted && !password.valid}" />
   <div *ngIf="registerForm.submitted && password.errors">
     <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
-    <label *ngIf="password.errors.pattern" class="validation-message">Please maintain the password as per the password policy</label>
+    <label *ngIf="password.errors.pattern" class="validation-message">Password Policy : Contains 8-20 Characters. Combination of 1 Upper Case, a Special Character and Number is Required.</label>
   </div>
 
     <!-- <label>ReType Password:</label><br> -->

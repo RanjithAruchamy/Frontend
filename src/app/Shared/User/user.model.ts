@@ -32,10 +32,31 @@ export class Personal{
     bloodGroup:String;
     age:Number;
     dob:String;
-    height:String;
+    height:{
+      feet: String;
+      inches: String;
+    };
     weight: number;
     profession:String;
     organization:String;
+    files:{
+      idProof:{
+        url:String;
+        uploaded: Date;
+      },
+      addressProof:{
+        url: String;
+        uploaded: Date;
+      },
+      birthCertificate:{
+        url: String;
+        uploaded: Date;
+      },
+      profileImage:{
+        url: String;
+        uploaded: Date;
+      }
+    }
 }
 
 export class Player{

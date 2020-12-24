@@ -27,6 +27,7 @@ export class RegisterComponent implements OnInit {
     Sports;
     selected: "Cricket";
 
+
   ngOnInit(): void {
     this.sportService.getSports().subscribe(
       res => {
@@ -59,12 +60,12 @@ export class RegisterComponent implements OnInit {
 
         if(err.status === 422){
           this.showErrorMessage = err.error.message;
-          setTimeout(() => this.showErrorMessage = '', 4000)
+          // setTimeout(() => this.showErrorMessage = '', 4000)
 
       }
         else{
           this.showErrorMessage = 'Something went wrong . Please contact admin'
-          setTimeout(() => this.showErrorMessage = '', 4000)
+          // setTimeout(() => this.showErrorMessage = '', 4000)
         }
       }
     );

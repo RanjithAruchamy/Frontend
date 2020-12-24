@@ -5,6 +5,7 @@ import { UserService } from '../../Shared/User/user.service'
 import { Router } from '@angular/router'
 import { FnParam } from '@angular/compiler/src/output/output_ast';
 
+
 @Component({
   selector: 'app-sports-registration',
   templateUrl: './sports-registration.component.html',
@@ -16,12 +17,29 @@ export class SportsRegistrationComponent implements OnInit {
   showSuccessMessage: boolean;
   showErrorMessage: String;
   playerDetails;
+  selected:"";
+  address;
+  date;
+  mindate;
+  addressfileErr;
+  idfileErr;
+  birthfileErr;
+  // fileSuccess;
+  addressUploaded: boolean;
+  idUploaded: boolean;
+  birthUploaded: boolean;
+  imageUploaded: boolean;
+
   constructor(
     public userService: UserService, private router: Router
-  ) { }
+  ) {
+    let year = new Date().getFullYear();
+    let month = new Date().getMonth() + 1;
+    let date = new Date().getDate();
+    this.mindate = `${year - 6}-${month}-${date}`;
+   }
 
-selected:"";
-address;
+
 
   ngOnInit(): void {
     this.userService.getUser().subscribe(
@@ -33,91 +51,100 @@ address;
       // this.userService.selectedUser.userId = res["userId"]
       this.userService.personalUser = res["personal"]
       this.userService.sportsUser = res["sports"]
+      // this.userService.personalUser.files = res["personal"]
+      // console.log(this.userService.personalUser.files)
+      this.date = this.userService.personalUser.dob;
+
 
     }
     )
+
+    }
+//getage dynamically based on DOB
+    getAge = birthDate => {
+      let op = Math.floor(( Date.now() - new Date(birthDate).getTime())/ 3.15576e+10)
+      this.userService.personalUser.age = op;
     }
 
     //upload files
-    addressProof(event) {
+    addressProof(event, files) {
       if (event.target.files.length > 0) {
         const file = event.target.files[0];
         this.address = file;
-        console.log(this.address)
+        if( files == 'address'){
+          if(file.type == 'application/pdf') {
+            if(file.size > 700000)  this.addressfileErr = "Please attach file with 700kb";
+            else {
+              this.onUpload(files)
+              this.addressfileErr = "";}
+            }
+          else  this.addressfileErr = "Please attach only PDF file.";
+          this.addressUploaded = false;
+        }
+        if( files == 'id') {
+          if(file.type == 'application/pdf')  {
+            if(file.size > 700000)  this.addressfileErr = "Please attach file with 700kb";
+            else  {
+              this.onUpload(files)
+              this.idfileErr = "";}
+          }
+          else  this.idfileErr = "Please attach only PDF file.";
+          this.idUploaded = false;
+        }
+        if( files == 'birth') {
+          if(file.type == 'application/pdf')  {
+            if(file.size > 700000)  this.addressfileErr = "Please attach file with 700kb";
+            else  {
+              this.onUpload(files)
+              this.birthfileErr = "";}
+          }
+          else  this.birthfileErr = "Please attach only PDF file.";
+          this.birthUploaded = false;
+        }
+        if( files == 'image') this.imageUploaded = false;
+        console.log(file.size);
+
+
+
       }
     }
-    onUpload(){
+    onUpload(files){
       const formData = new FormData()
       formData.append('file', this.address);
-      console.log(formData);
-      console.log(this.userService.selectedUser.email);
+      //  console.log(formData);
+      // console.log(this.userService.selectedUser.email);
 
-      this.userService.upload(formData, this.userService.selectedUser.email).subscribe(
-        (res) => console.log(res),
+      this.userService.upload(formData, this.userService.selectedUser.email, files).subscribe(
+        (res) => {
+          let op = res.split(" ")
+          if(op[1] == "address") {
+            this.addressUploaded = true
+          }
+          else if(op[1] == "id") {
+            this.idUploaded = true
+          }
+          else if(op[1] == "birth") {
+            this.birthUploaded = true
+          }
+          else if(op[1] == "image") {
+            this.imageUploaded = true
+          }
+          console.log(op[1]);
+
+        },
         (err) => console.log(err)
       );
     }
 //To save the data to db
     save(form:NgForm){
+      this.userService.personalUser.dob = this.date;
       const payload = {
-        "personal":{
-          'gender':form.value.gender,
-          'nationality':form.value.nationality,
-          'fatherName': form.value.fatherName,
-          'fatherOccupation':form.value.fatherOccupation,
-          'motherName': form.value.motherName,
-          'motherOccupation':form.value.motherOccupation,
-          'parentMobile':form.value.parentPhoneNumber,
-          'residenceNumber':form.value.residenceNumber,
-          'parentEmail':form.value.parentEmail,
-          'permanentAddress': form.value.permAddress,
-          'temporaryAddress': form.value.tempAddress,
-          'bloodGroup': form.value.bloodGroup,
-          'age': form.value.age,
-          'dob': form.value.dob,
-          'height': form.value.height,
-          'weight':form.value.weight,
-          'profession': form.value.profession,
-          'organization': form.value.organization
-      },"sports":{
-        "playerLevel":form.value.playerLevel,
-        "playerSkill":{
-          'batsman':form.value.batsman,
-          'bowler':form.value.bowler,
-          'leftHand':form.value.leftHand,
-          'rightHand':form.value.rightHand,
-          'wicketKeeper':form.value.wicketKeeper,
-          'allRounder':form.value.allRounder
-        },
-        "previousTeam":form.value.previousTeam,
-        "TNCA":form.value.TNCA,
-        "KDCA":form.value.KDCA,
-        "hobbies":form.value.hobbies,
-        "goal":form.value.goal,
-        'strength':{
-          'general':form.value.strengthGeneral,
-          'cricket':form.value.strengthCricket
-      },
-      'weakness':{
-          'general':form.value.weaknessGeneral,
-          'cricket':form.value.weaknessCricket
-      },
-      'bowlerType':form.value.bowlerType,
-      'bowlerHand':form.value.bowlerHand,
-      'battingHand':form.value.battingHand,
-      'medical':form.value.medical,
-      'roleModelReal':{
-          'name':form.value.roleModelRealName,
-          'reason':form.value.roleModelRealReason
-      },
-      'roleModelCricket':{
-          'name':form.value.roleModelCricketName,
-          'reason':form.value.roleModelCricketReason
-      }
-      },
-      "firstName":form.value.firstName,
-      "lastName":form.value.lastName,
-      "email": form.value.email
+        "personal":this.userService.personalUser,
+        "sports":this.userService.sportsUser,
+      "firstName":this.userService.selectedUser.firstName,
+      "lastName":this.userService.selectedUser.lastName,
+      "email": this.userService.selectedUser.email,
+      "phoneNumber":this.userService.selectedUser.phoneNumber
     }
 
       this.userService.updateUser(payload).subscribe(
@@ -141,26 +168,8 @@ address;
     // else if (!form.value.Height) alert("Height is required")
     else{
     const payload = {
-      "personal":{
-        'gender':form.value.gender,
-        'nationality':form.value.nationality,
-        'fatherName': form.value.fatherName,
-        'fatherOccupation':form.value.fatherOccupation,
-        'motherName': form.value.motherName,
-        'motherOccupation':form.value.motherOccupation,
-        'parentMobile':form.value.parentPhoneNumber,
-        'residenceNumber':form.value.residenceNumber,
-        'parentEmail':form.value.parentEmail,
-        'permanentAddress': form.value.permAddress,
-        'temporaryAddress': form.value.tempAddress,
-        'bloodGroup': form.value.bloodGroup,
-        'age': form.value.age,
-        'dob': form.value.dob,
-        'height': form.value.height,
-        'weight':form.value.weight,
-        'profession': form.value.profession,
-        'organization': form.value.organization
-    },"sports":{
+      "personal":this.userService.personalUser,
+      "sports":{
       "playerLevel":form.value.playerLevel,
       "playerSkill":{
         'batsman':form.value.batsman,

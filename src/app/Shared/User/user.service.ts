@@ -39,11 +39,32 @@ export class UserService {
     temporaryAddress:"",
     bloodGroup:"",
     dob:"",
-    height:"",
+    height:{
+      feet:"",
+      inches:""
+    },
     weight: null,
     profession:"",
     organization:"",
-    age: null
+    age: null,
+    files:{
+      idProof:{
+        url:'',
+        uploaded: null,
+      },
+      addressProof:{
+        url: '',
+        uploaded: null,
+      },
+      birthCertificate:{
+        url: '',
+        uploaded: null,
+      },
+      profileImage:{
+        url: '',
+        uploaded: null,
+      }
+    }
   };
   sportsUser: Player ={
     playerLevel: "",
@@ -158,8 +179,8 @@ resetpassword: reset={
   }
 
 // Upload files
-  upload(payload, mail){
-    return this.http.post<any>(environment.apiBaseUrl+'/upload?mail='+mail, payload)
+  upload(payload, mail, files){
+    return this.http.post<any>(`${environment.apiBaseUrl}/upload?mail=${mail}&files=${files}`,payload)
   }
 
 }
