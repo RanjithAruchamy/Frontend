@@ -17,6 +17,9 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { UserService } from './Shared/User/user.service';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './user/forgot-password/forgot-password.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderComponent } from './header/header.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ import { ForgotPasswordComponent } from './user/forgot-password/forgot-password.
     LoginComponent,
     SportsRegistrationComponent,
     ResetPasswordComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,9 @@ import { ForgotPasswordComponent } from './user/forgot-password/forgot-password.
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     RecaptchaModule,
-    RecaptchaFormsModule
+    RecaptchaFormsModule,
+    NgbModule,
+    FontAwesomeModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

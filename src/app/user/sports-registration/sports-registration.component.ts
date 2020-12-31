@@ -4,7 +4,7 @@ import { User } from 'src/app/Shared/User/user.model';
 import { UserService } from '../../Shared/User/user.service'
 import { Router } from '@angular/router'
 import { FnParam } from '@angular/compiler/src/output/output_ast';
-
+import { faUpload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sports-registration',
@@ -17,6 +17,7 @@ export class SportsRegistrationComponent implements OnInit {
   showSuccessMessage: boolean;
   showErrorMessage: String;
   playerDetails;
+  faUpload = faUpload;
   selected:"";
   address;
   date;
@@ -29,7 +30,11 @@ export class SportsRegistrationComponent implements OnInit {
   idUploaded: boolean;
   birthUploaded: boolean;
   imageUploaded: boolean;
-
+  isSubmitted: boolean;
+  addressFileName;
+  idFileName;
+  birthFileName;
+  confirmButt:boolean;
   constructor(
     public userService: UserService, private router: Router
   ) {
@@ -54,12 +59,17 @@ export class SportsRegistrationComponent implements OnInit {
       // this.userService.personalUser.files = res["personal"]
       // console.log(this.userService.personalUser.files)
       this.date = this.userService.personalUser.dob;
-
+      this.isSubmitted = res['admin'].isSubmitted
 
     }
     )
-
     }
+
+confirm(event){
+  if(event.target.checked == true)  this.confirmButt = true;
+  else  this.confirmButt= false;
+}
+
 //getage dynamically based on DOB
     getAge = birthDate => {
       let op = Math.floor(( Date.now() - new Date(birthDate).getTime())/ 3.15576e+10)
@@ -72,6 +82,7 @@ export class SportsRegistrationComponent implements OnInit {
         const file = event.target.files[0];
         this.address = file;
         if( files == 'address'){
+          this.addressFileName = this.address.name
           if(file.type == 'application/pdf') {
             if(file.size > 700000)  this.addressfileErr = "Please attach file with 700kb";
             else {
@@ -82,6 +93,7 @@ export class SportsRegistrationComponent implements OnInit {
           this.addressUploaded = false;
         }
         if( files == 'id') {
+          this.idFileName = this.address.name
           if(file.type == 'application/pdf')  {
             if(file.size > 700000)  this.addressfileErr = "Please attach file with 700kb";
             else  {
@@ -92,6 +104,7 @@ export class SportsRegistrationComponent implements OnInit {
           this.idUploaded = false;
         }
         if( files == 'birth') {
+          this.birthFileName = this.address.name
           if(file.type == 'application/pdf')  {
             if(file.size > 700000)  this.addressfileErr = "Please attach file with 700kb";
             else  {
@@ -102,7 +115,7 @@ export class SportsRegistrationComponent implements OnInit {
           this.birthUploaded = false;
         }
         if( files == 'image') this.imageUploaded = false;
-        console.log(file.size);
+        // console.log(file.size);
 
 
 
@@ -129,7 +142,7 @@ export class SportsRegistrationComponent implements OnInit {
           else if(op[1] == "image") {
             this.imageUploaded = true
           }
-          console.log(op[1]);
+          // console.log(op[1]);
 
         },
         (err) => console.log(err)

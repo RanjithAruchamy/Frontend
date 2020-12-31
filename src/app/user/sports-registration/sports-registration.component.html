@@ -1,674 +1,925 @@
 <!-- <div class="wrapper fadeInDown"> -->
-<div id="formContent">
-  <form #sportsRegistration="ngForm" (ngSubmit)="sportsRegistration.valid && onSubmit(sportsRegistration)">
-    <!-- sportsRegistration.valid && -->
+  <div id="formContent">
 
-    <h2 class="head active underlineHover">Player Registration Form</h2>
 
-    <div class="content">
-      <!-- Left Align -->
-      <div class="left">
-        <div class="item">
-          <label> Player First Name:<sup>*</sup></label>
-          <input type="text" maxlength="200" #firstName="ngModel" [(ngModel)]="userService.selectedUser.firstName"
-            Placeholder="Player First Name" name="firstName" required [ngClass]="{
-              'invalid-textbox':
-                sportsRegistration.submitted && !firstName.valid
-            }" /><br />
-          <div *ngIf="sportsRegistration.submitted && !firstName.valid">
-            <!-- <script>alert('This field is requierd')</script> -->
-            <label class="validation-message">This field is required.</label>
-            <!-- <label *ngIf="firstName" class="validation-message">Length exceeded.</label> -->
+    <form #sportsRegistration="ngForm" (ngSubmit)="sportsRegistration.valid && onSubmit(sportsRegistration)">
+      <!-- sportsRegistration.valid && -->
+
+      <h3>Player Registration Form</h3>
+
+      <div class="content">
+
+        <h4 class="form-section"><span class="player-detail">Player Details</span><span class="player-form-comment d-none d-lg-block d-xl-block">(Appreciate if player fills this section on his own with his own views)</span></h4>
+        <div class="row">
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Player First Name:<sup>*</sup></label>
+              </div>
+              <div class="col-8 form-field">
+                <input #firstName="ngModel" maxlength="200" [(ngModel)]="userService.selectedUser.firstName"
+                Placeholder="Player First Name" name="firstName" pattern="[A-Za-z]+" required
+                [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !firstName.valid}" type="text" class="form-control text-field" />
+                <div class="validation-message" *ngIf="sportsRegistration.submitted && !firstName.valid">
+                  <span >This field is required.</span>
+                </div>
+                <span class="validation-message" *ngIf="!firstName.valid && firstName.errors.pattern">Enter only alphabets.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Player Last Name:<sup>*</sup></label>
+              </div>
+              <div class="col-8 form-field">
+                <input #lastName="ngModel" maxlength="200" [(ngModel)]="userService.selectedUser.lastName"
+                placeholder="Player Last Name" name="lastName" pattern="[A-Za-z]+" required
+                [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !lastName.valid}" type="text" class="form-control text-field" />
+                <div class="validation-message" *ngIf="sportsRegistration.submitted && !lastName.valid">
+                  <span >This field is required.</span>
+                </div>
+                <span class="validation-message" *ngIf="!lastName.valid && lastName.errors.pattern">Enter only alphabets.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Player Mobile No.:<sup>*</sup></label>
+              </div>
+              <div class="col-8 form-field">
+                <input #phoneNumber="ngModel" maxlength="10" [(ngModel)]="userService.selectedUser.phoneNumber"
+                placeholder="Player Mobile No." name="phoneNumber" required pattern="[0-9]{10}"
+                [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !phoneNumber.valid}" type="text" class="form-control text-field" />
+                <div class="validation-message" *ngIf="sportsRegistration.submitted && !phoneNumber.valid">
+                  <span *ngIf="phoneNumber.errors.required" >This field is required.</span>
+                  <span *ngIf="phoneNumber.errors.pattern" >Invalid phone number.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Player Email:<sup>*</sup></label>
+              </div>
+              <div class="col-8 form-field">
+                <input #email="ngModel" disabled [(ngModel)]="userService.selectedUser.email"
+                placeholder="Player Email" name="email" required
+                [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !email.valid}" type="text" class="form-control text-field" />
+                <!-- <div class="validation-message" *ngIf="sportsRegistration.submitted && !email.valid">
+                  <span >This field is required.</span>
+                </div> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Player Sport:<sup>*</sup></label>
+              </div>
+              <div class="col-8 form-field">
+                <select class="form-control" name="sport" required placeholder="Choose your Sport">
+                  <option value="" disabled>Choose your Sport</option>
+                  <option  value="Cricket">Cricket</option>
+                  <option  value="Fitness">Fitness</option>
+                  <option  value="Tennis">Tennis</option>
+                  <option  value="Football">Football</option>
+                  <option  value="Athletes">Athletes</option>
+                  <option  value="Others">Others</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Player D.O.B:<sup>*</sup></label>
+              </div>
+              <div class="col-8 form-field">
+                <input type="date" class="form-control text-field" #dob="ngModel" [ngModel]="date | date:'yyyy-MM-dd'"
+                (ngModelChange)="date = $event" placeholder="Player DOB" name="dob" required (change)="getAge(date)"/>
+                <div class="validation-message" *ngIf="sportsRegistration.submitted && !dob.valid">
+                  <span >This field is required.</span>
+                </div>
+                <span *ngIf="date >= mindate" class="validation-message">The minimum age to join academy is 6 years</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Player Age:<sup>*</sup></label>
+              </div>
+              <div class="col-8 form-field">
+                <input type="number"  #age="ngModel" [(ngModel)]="userService.personalUser.age"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                placeholder="Player Age" name="age" required
+                [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !age.valid}" class="form-control text-field" />
+                <div class="validation-message" *ngIf="sportsRegistration.submitted && !age.valid">
+                  <span >This field is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Player Blood Group:<sup>*</sup></label>
+              </div>
+              <div class="col-8 form-field">
+
+                <select class="form-control text-field" #bloodGroup="ngModel" [(ngModel)]="userService.personalUser.bloodGroup"
+                placeholder="Player Blood Group" name="bloodGroup" required>
+                  <option value="" disabled>Choose your blood group </option>
+                  <option  value="A+">A+</option>
+                  <option  value="A-">A-</option>
+                  <option  value="B+">B+</option>
+                  <option  value="B-">B-</option>
+                  <option  value="O+">O+</option>
+                  <option  value="O-">O-</option>
+                  <option  value="AB+">AB+</option>
+                  <option  value="AB-">AB-</option>
+                </select>
+                <div class="validation-message" *ngIf="sportsRegistration.submitted && !bloodGroup.valid">
+                  <span >This field is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label col-4 text">
+                <label>Player Gender:</label>
+              </div>
+              <div class="col-8 check-box-chices">
+                <div class="row custom-padding">
+                  <div class="col-6 col-xl-4 col-lg-4 col-md-4">
+                    <div class="form-label">
+                      <input class="check-box" type="radio" #gender="ngModel" [(ngModel)]="userService.personalUser.gender" value="Male"
+                      name="gender" required
+                      [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !gender.valid}"/>
+                      <span> Male </span>
+                    </div>
+                  </div>
+                  <div class="col-6 col-xl-4 col-lg-4 col-md-4">
+                    <div class="form-label">
+                      <input class="check-box" type="radio" #gender="ngModel" [(ngModel)]="userService.personalUser.gender" value="Female"
+                      name="Female" required
+                      [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !gender.valid}"/>
+                      <span> Female </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="validation-message" *ngIf="sportsRegistration.submitted && !gender.valid">
+                  <span >This field is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label col-4 text">
+                <label>Player Nationality:</label>
+              </div>
+              <div class="col-8 check-box-chices">
+                <div class="row custom-padding">
+                  <div class="col-6 col-xl-4 col-lg-4 col-md-4">
+                    <div class="form-label">
+                      <input class="check-box" type="radio" #nationality="ngModel" [(ngModel)]="userService.personalUser.nationality" value="Indain"
+                      name="nationality" required
+                      [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !nationality.valid}"/>
+                      <span> Indain </span>
+                    </div>
+                  </div>
+                  <div class="col-6 col-xl-4 col-lg-4 col-md-4">
+                    <div class="form-label">
+                      <input class="check-box" type="radio"  #nationality="ngModel" [(ngModel)]="userService.personalUser.nationality" value="Others"
+                      name="nationality" required
+                      [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !nationality.valid}"/>
+                      <span> Others </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="validation-message" *ngIf="sportsRegistration.submitted && !nationality.valid">
+                  <span >This field is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Player Height:<sup>*</sup></label>
+              </div>
+              <div class="col-2 form-field no-m-p-r">
+                <input type="text" max="7" class="form-control" #heightFeet="ngModel" [(ngModel)]="userService.personalUser.height.feet" placeholder="ft"
+                name="heightFeet" pattern="[0-9]+" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !heightFeet.valid}"/>
+              </div>
+              <div class="col-1 form-label text no-m-p-r">
+                <label>Ft.</label>
+              </div>
+              <div class="col-2 form-field no-m-p-r">
+                <input type="text" max="12" class="form-control" #heightInches="ngModel" [(ngModel)]="userService.personalUser.height.inches" placeholder="inches"
+                name="heightInch" pattern="[0-9]+" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !heightInches.valid}"/>
+              </div>
+              <div class="col-1 no-m-p-r form-label text">
+                <label>Inches.</label>
+
+              </div>
+              <div *ngIf="sportsRegistration.submitted && (!heightFeet.valid || !heightInches.valid)">
+                <span class="validation-message">This field is required.</span>
+              </div>
+              <span class="validation-message" *ngIf="!heightFeet.valid && (heightFeet.errors.pattern || heightInches.errors.pattern)">Enter only numbers.</span>
+              <span *ngIf="(heightFeet.value > 7) || (heightInches.value > 12)" class="validation-message">Please check the entry and type a valid height(Feet & Inches)</span>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Player Weight:<sup>*</sup></label>
+              </div>
+              <div class="col-5 form-field">
+                <input type="text" max="999" class="form-control" #weight="ngModel" [(ngModel)]="userService.personalUser.weight" placeholder="Player Weight"
+                name="weight" pattern="[0-9]+" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !weight.valid}" />
+              </div>
+              <div class="col-1 form-label text">
+                <label>Kgs.</label>
+              </div>
+              <div *ngIf="sportsRegistration.submitted && !weight.valid">
+                <span class="validation-message">This field is required.</span>
+              </div>
+              <span class="validation-message" *ngIf="!weight.valid && weight.errors.pattern">Enter only numbers.</span>
+              <span *ngIf="weight.value > 999" class="validation-message">Please provide valid weight.</span>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Player Profession:</label>
+              </div>
+              <div class="col-8 form-field">
+
+                <select class="form-control text-field"  #profession="ngModel" [(ngModel)]="userService.personalUser.profession"
+                placeholder="Player Profession" name="profession" required>
+                  <option value="" disabled>Choose your profession </option>
+                  <option  value="School Student">School Student</option>
+                  <option  value="College Student">College Student</option>
+                  <option  value="IT">IT</option>
+                  <option  value="Non-IT">Non-IT</option>
+                  <option  value="Others">Others</option>
+                </select>
+                <div *ngIf="sportsRegistration.submitted && !profession.valid">
+                  <span class="validation-message">This field is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-12">
+            <div class="form-label">
+              <label>Name of School / College / Organization:</label>
+            </div>
+            <textarea class="form-control text-area-field" maxlength="200" #organization="ngModel" [(ngModel)]="userService.personalUser.organization"
+            placeholder="Name of School/College/Organization" name="organization" required
+            [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !organization.valid}" ></textarea>
+            <div *ngIf="sportsRegistration.submitted && !organization.valid">
+              <span class="validation-message">This field is required.</span>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label col-4 text-area">
+                <label>Player Skill:</label>
+              </div>
+              <div class="col-8 check-box-chices">
+                <div class="row custom-padding">
+                  <div class="col-6">
+                    <div class="form-label">
+                      <input class="check-box" type="checkbox" #batsman="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.batsman" value=true
+                      name="batsman"/>
+                      <span> Batsman </span>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-label">
+                      <input class="check-box" type="checkbox" #bowler="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.bowler" value=true
+                      name="bowler"/>
+                      <span> Bowler </span>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="form-label">
+                      <input class="check-box" type="checkbox" #wicketKeeper="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.wicketKeeper"
+                      value=true name="wicketKeeper"/>
+                      <span> Wicket Keeper </span>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-label">
+                      <input class="check-box" type="checkbox" #allRounder="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.allRounder"
+                      value=true name="allRounder">
+                      <span> All-Rounder </span>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="
+                sportsRegistration.submitted &&
+                !userService.sportsUser.playerSkill.batsman &&
+                !userService.sportsUser.playerSkill.bowler &&
+                !userService.sportsUser.playerSkill.wicketKeeper &&
+                !userService.sportsUser.playerSkill.allRounder
+              ">
+              <!-- !rightHand.valid !leftHand.valid && -->
+              <span class="validation-message">This field is required.</span>
+            </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label col-4 text-area">
+                <label>Player Level:</label>
+              </div>
+              <div class="col-8 check-box-chices">
+                <div class="row custom-padding">
+                  <div class="col-6">
+                    <div class="form-label">
+                      <input class="check-box" type="radio" #playerLevel="ngModel" [(ngModel)]="userService.sportsUser.playerLevel" value="Beginner"
+                      name="playerLevel" required
+                      [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !playerLevel.valid}"/>
+                      <span> Beginner </span>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-label">
+                      <input class="check-box" type="radio" #playerLevel="ngModel" [(ngModel)]="userService.sportsUser.playerLevel" value="Intermediate"
+                      name="playerLevel" required
+                      [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !playerLevel.valid}"/>
+                      <span> Intermediate </span>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-label">
+                      <input class="check-box" type="radio" #playerLevel="ngModel" [(ngModel)]="userService.sportsUser.playerLevel" value="Senior"
+                      name="playerLevel" required
+                      [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !playerLevel.valid}"/>
+                      <span> Senior </span>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="sportsRegistration.submitted && !playerLevel.valid">
+                  <span class="validation-message">This field is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Bowler Type:</label>
+              </div>
+              <div class="col-8 form-field">
+                <select class="form-control text-field" name="bowlerType" #bowlerType="ngModel" [(ngModel)]="userService.sportsUser.bowlerType" required>
+                  <option disabled>Choose your type</option>
+                  <option  value="Fast">Fast</option>
+                  <option  value="Medium Fast">Medium Fast</option>
+                  <option  value="Slow Medium">Slow Medium</option>
+                  <option  value="Off-Spinner">Off-Spinner</option>
+                  <option  value="Leg-Spinner">Leg-Spinner</option>
+                  <option  value="China Man">China Man</option>
+                  <option  value="Others">Others</option>
+                  <option  value="NA">NA</option>
+                </select>
+                <div *ngIf="sportsRegistration.submitted && !bowlerType.valid">
+                  <span class="validation-message">This field is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label col-4 text">
+                <label>Player Bowler Hand:</label>
+              </div>
+              <div class="col-8 check-box-chices">
+                <div class="row custom-padding">
+                  <div class="col-6 col-xl-4 col-lg-4 col-md-4">
+                    <div class="form-label">
+                      <input class="check-box" type="radio" #bowlerHand="ngModel" [(ngModel)]="userService.sportsUser.bowlerHand" value="Left"
+                      name="bowlerHand" required
+                      [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !bowlerHand.valid}"/>
+                      <span> Left </span>
+                    </div>
+                  </div>
+                  <div class="col-6 col-xl-4 col-lg-4 col-md-4">
+                    <div class="form-label">
+                      <input class="check-box" type="radio" #bowlerHand="ngModel" [(ngModel)]="userService.sportsUser.bowlerHand" value="Right"
+                      name="bowlerHand" required
+                      [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !bowlerHand.valid}"/>
+                      <span> Right </span>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="sportsRegistration.submitted && !bowlerHand.valid">
+                  <span class="validation-message">This field is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label col-4 text">
+                <label>Player Batting Hand:</label>
+              </div>
+              <div class="col-8 check-box-chices">
+                <div class="row custom-padding">
+                  <div class="col-6 col-xl-4 col-lg-4 col-md-4">
+                    <div class="form-label">
+                      <input class="check-box" type="radio" #battingHand="ngModel" [(ngModel)]="userService.sportsUser.battingHand" value="Left"
+                      name="battingHand" required
+                      [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !battingHand.valid}"/>
+                      <span> Left </span>
+                    </div>
+                  </div>
+                  <div class="col-6 col-xl-4 col-lg-4 col-md-4">
+                    <div class="form-label">
+                      <input class="check-box" type="radio" #battingHand="ngModel" [(ngModel)]="userService.sportsUser.battingHand" value="Right"
+                      name="battingHand" required
+                      [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !battingHand.valid}"/>
+                      <span> Right </span>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="sportsRegistration.submitted && !battingHand.valid">
+                  <span class="validation-message">This field is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text-area col-4">
+                <label>History of Medical Illness (if any):</label>
+              </div>
+              <div class="col-8 form-field">
+                <textarea #medical="ngModel" maxlength="1000" [(ngModel)]="userService.sportsUser.medical"
+                placeholder="Medical Illness(If any)" name="medical" required
+                [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !medical.valid}" class="form-control text-area-field" ></textarea>
+                <div *ngIf="sportsRegistration.submitted && !medical.valid">
+                  <span class="validation-message">This field is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-12">
+            <div class="form-label">
+              <label>Previous Academy / Team Details (if any):</label>
+            </div>
+            <textarea class="form-control text-area-field" maxlength="100" #previousTeam="ngModel" [(ngModel)]="userService.sportsUser.previousTeam" placeholder="Previous Academy / Team Details (If any)" name="previousTeam" required
+              [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !previousTeam.valid}"></textarea>
+              <div *ngIf="sportsRegistration.submitted && !previousTeam.valid">
+                <span class="validation-message">This field is required.</span>
+              </div>
+            </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text-area col-4">
+                <label>TNCA Teams & Div. played (if any):</label>
+              </div>
+              <div class="col-8 form-field">
+                <textarea class="form-control text-area-field" maxlength="100" #TNCA="ngModel" [(ngModel)]="userService.sportsUser.TNCA" placeholder="TNCA Teams & Div. played (If any)" name="TNCA" required
+                    [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !TNCA.valid}"></textarea>
+                    <div *ngIf="sportsRegistration.submitted && !TNCA.valid">
+                      <span class="validation-message">This field is required.</span>
+                    </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text-area col-4">
+                <label>KDCA Teams & Div. played (if any):</label>
+              </div>
+              <div class="col-8 form-field">
+                <textarea class="form-control text-area-field" #KDCA="ngModel" [(ngModel)]="userService.sportsUser.KDCA" placeholder="KDCA Teams & Div. played (If any)" name="KDCA" required
+                    [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !KDCA.valid}"></textarea>
+                    <div *ngIf="sportsRegistration.submitted && !KDCA.valid">
+                      <span class="validation-message">This field is required.</span>
+                    </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-12">
+            <div class="form-label">
+              <label>Player Hobbies:</label>
+            </div>
+            <textarea class="form-control text-area-field" maxlength="1000" #hobbies="ngModel" [(ngModel)]="userService.sportsUser.hobbies" placeholder="Player Hobbies"
+            name="hobbies" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !hobbies.valid}"></textarea>
+            <div *ngIf="sportsRegistration.submitted && !hobbies.valid">
+              <span class="validation-message">This field is required.</span>
+            </div>
+          </div>
+
+          <div class="form-field-group col-12">
+            <div class="form-label">
+              <label>Player Objective / Goal in Cricket and whatis your dream in  cricket:</label>
+            </div>
+            <textarea class="form-control text-area-field" maxlength="1000" #goal="ngModel" [(ngModel)]="userService.sportsUser.goal"
+            placeholder="Player Objective / Goal in Cricket and what is your dream in cricket" name="goal" required
+            [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !goal.valid}"></textarea>
+            <div *ngIf="sportsRegistration.submitted && !goal.valid">
+              <span class="validation-message">This field is required.</span>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text-area col-4">
+                <label>Player Role Model in real-life:</label>
+              </div>
+              <div class="col-8 form-field">
+                <textarea class="form-control text-area-field" maxlength="200" #roleModelRealName="ngModel" [(ngModel)]="userService.sportsUser.roleModelReal.name"
+                placeholder="Player's Role Model in Real Life" name="roleModelRealName" required
+                [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !roleModelRealName.valid}"></textarea>
+                <div *ngIf="sportsRegistration.submitted && !roleModelRealName.valid">
+                  <span class="validation-message">This field is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text-area col-4">
+                <label>Player Role Model in Cricket:</label>
+              </div>
+              <div class="col-8 form-field">
+                <textarea class="form-control text-area-field" maxlength="200" #roleModelCricketName="ngModel" [(ngModel)]="userService.sportsUser.roleModelCricket.name"
+                placeholder="Player's Role Model in Cricket" name="roleModelCricketName" required
+                [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !roleModelCricketName.valid}"></textarea>
+                <div *ngIf="sportsRegistration.submitted && !roleModelCricketName.valid">
+                  <span class="validation-message">This field is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="form-label">
+              <label>List Top three reasons for Role Model in real-life:</label>
+            </div>
+            <textarea rows="3" class="form-control text-area-field" #roleModelRealReason="ngModel" maxlength="500" [(ngModel)]="userService.sportsUser.roleModelReal.reason"
+            placeholder="List Top 3 Reasons for RM in real life:" name="roleModelRealReason" required
+            [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !roleModelRealReason.valid}"></textarea>
+            <div *ngIf="sportsRegistration.submitted && !roleModelRealReason.valid">
+              <span class="validation-message">This field is required.</span>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="form-label">
+              <label>List Top three reasons for Role Model in Cricket:</label>
+            </div>
+            <textarea rows="3" class="form-control text-area-field" #roleModelCricketReason="ngModel" maxlength="500" [(ngModel)]="userService.sportsUser.roleModelCricket.reason"
+            placeholder="List Top 3 Reasons for RM in real life:" name="roleModelCricketReason" required
+            [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !roleModelCricketReason.valid}"></textarea>
+            <div *ngIf="sportsRegistration.submitted && !roleModelCricketReason.valid">
+              <span class="validation-message">This field is required.</span>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="form-label">
+              <label>List Top three Strenths in general:</label>
+            </div>
+            <textarea rows="3" class="form-control text-area-field" #strengthGeneral="ngModel" [(ngModel)]="userService.sportsUser.strength.general"
+            placeholder="List Top three strengths in general" maxlength="500" name="strengthGeneral" required
+            [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !strengthGeneral.valid}"></textarea>
+            <div *ngIf="sportsRegistration.submitted && !strengthGeneral.valid">
+              <span class="validation-message">This field is required.</span>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="form-label">
+              <label>List Top three Strenths in cricket:</label>
+            </div>
+            <textarea rows="3" class="form-control text-area-field" #strengthCricket="ngModel" [(ngModel)]="userService.sportsUser.strength.cricket"
+            placeholder="List Top three strengths in cricket" maxlength="500" name="strengthCricket" required
+            [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !strengthCricket.valid}"></textarea>
+            <div *ngIf="sportsRegistration.submitted && !strengthCricket.valid">
+              <span class="validation-message">This field is required.</span>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="form-label">
+              <label>List Top three weakness in general:</label>
+            </div>
+            <textarea rows="3" class="form-control text-area-field" #weaknessGeneral="ngModel" [(ngModel)]="userService.sportsUser.weakness.general"
+            placeholder="List Top three weakness in general" maxlength="500" name="weaknessGeneral" required
+            [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !weaknessGeneral.valid}"></textarea>
+            <div *ngIf="sportsRegistration.submitted && !weaknessGeneral.valid">
+              <span class="validation-message">This field is required.</span>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="form-label">
+              <label>List Top three weakness in cricket:</label>
+            </div>
+            <textarea rows="3" class="form-control text-area-field" #weaknessCricket="ngModel" [(ngModel)]="userService.sportsUser.weakness.cricket"
+            placeholder="List Top three weakness in cricket" maxlength="500" name="weaknessCricket" required
+            [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !weaknessCricket.valid}"></textarea>
+            <div *ngIf="sportsRegistration.submitted && !weaknessCricket.valid">
+              <span class="validation-message">This field is required.</span>
+            </div>
+          </div>
+
+        </div>
+
+
+        <h4 class="form-section"><span class="player-detail">Parent / Guardian Details</span></h4>
+        <div class="row">
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Father's Full Name:</label>
+              </div>
+              <div class="col-8 form-field">
+                <input #fatherName="ngModel" maxlength="200" [(ngModel)]="userService.personalUser.fatherName"
+                placeholder="Father's Full Name" name="fatherName" pattern="[A-Za-z]+" required
+                [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !fatherName.valid}" type="text" class="form-control text-field" />
+                <div *ngIf="sportsRegistration.submitted && !fatherName.valid">
+                  <span class="validation-message">This field is required.</span>
+                </div>
+                <span class="validation-message" *ngIf="!fatherName.valid && fatherName.errors.pattern">Enter only alphabets.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Father's Occupation:</label>
+              </div>
+              <div class="col-8 form-field">
+                <input #fatherOccupation="ngModel" maxlength="200" [(ngModel)]="userService.personalUser.fatherOccupation"
+                placeholder="Father's Occupation" name="fatherOccupation" required
+                [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !fatherOccupation.valid}" type="text" class="form-control text-field" />
+                <div *ngIf="sportsRegistration.submitted && !fatherOccupation.valid">
+                  <span class="validation-message">This field is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Mother's Full Name:</label>
+              </div>
+              <div class="col-8 form-field">
+                <input #motherName="ngModel" maxlength="200" [(ngModel)]="userService.personalUser.motherName"
+                placeholder="Mother's Full Name" name="motherName"  pattern="[A-Za-z]+" required
+                [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !motherName.valid}" type="text" class="form-control text-field" />
+                <div *ngIf="sportsRegistration.submitted && !motherName.valid">
+                  <span class="validation-message">This field is required.</span>
+                </div>
+                <span class="validation-message" *ngIf="!motherName.valid && motherName.errors.pattern">Enter only alphabets.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Mother's Occupation:</label>
+              </div>
+              <div class="col-8 form-field">
+                <input #motherOccupation="ngModel" maxlength="200" [(ngModel)]="userService.personalUser.motherOccupation"
+                placeholder="Mother's Full Name" name="motherOccupation" required
+                [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !motherOccupation.valid}" type="text" class="form-control text-field" />
+                <div *ngIf="sportsRegistration.submitted && !motherOccupation.valid">
+                  <span class="validation-message">This field is required.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="form-label">
+              <label>Permanent Address:</label>
+            </div>
+            <textarea class="form-control text-area-field" maxlength="500" #permAddress="ngModel" [(ngModel)]="userService.personalUser.permanentAddress"
+            placeholder="Permanent Address" name="permAddress" required
+            [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !permAddress.valid}" ></textarea>
+            <div *ngIf="sportsRegistration.submitted && !permAddress.valid">
+              <span class="validation-message">This field is required.</span>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="form-label">
+              <label>Temporary Address:</label>
+            </div>
+            <textarea class="form-control text-area-field" maxlength="500" #tempAddress="ngModel" [(ngModel)]="userService.personalUser.temporaryAddress"
+            placeholder="Temporary Address" name="tempAddress" required
+            [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !tempAddress.valid}" ></textarea>
+            <div *ngIf="sportsRegistration.submitted && !tempAddress.valid">
+              <span class="validation-message">This field is required.</span>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Parent's Mobile Number:</label>
+              </div>
+              <div class="col-8 form-field">
+                <input #parentPhoneNumber="ngModel" maxlength="10" [(ngModel)]="userService.personalUser.parentMobile"
+                placeholder="Parent's Mobile Number" name="parentPhoneNumber" required pattern="[0-9]{10}"
+                [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !parentPhoneNumber.valid}" type="text" class="form-control text-field" />
+                <div *ngIf="sportsRegistration.submitted && !parentPhoneNumber.valid">
+                  <span *ngIf="parentPhoneNumber.errors.required" class="validation-message">This field is required.</span>
+                  <span *ngIf="parentPhoneNumber.errors.pattern" class="validation-message">Invalid phone number.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Residence Number:</label>
+              </div>
+              <div class="col-8 form-field">
+                <input type="text" #residenceNumber="ngModel" maxlength="10" [(ngModel)]="userService.personalUser.residenceNumber"
+                placeholder="Residence Number" name="residenceNumber" pattern="[0-9]{10}" required
+                [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !residenceNumber.valid}" type="text" class="form-control text-field" />
+                <div *ngIf="sportsRegistration.submitted && !residenceNumber.valid">
+                  <span *ngIf="residenceNumber.errors.required" class="validation-message">This field is required.</span>
+                  <span *ngIf="residenceNumber.errors.pattern" class="validation-message">Invalid phone number.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Parent's Email:</label>
+              </div>
+              <div class="col-8 form-field">
+                <input type="text" #parentEmail="ngModel" maxlength="500" [pattern]='emailRegex' [(ngModel)]="userService.personalUser.parentEmail"
+                placeholder="Parent's Email" name="parentEmail" required
+                [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !parentEmail.valid}" type="text" class="form-control text-field" />
+                <div *ngIf="sportsRegistration.submitted && parentEmail.errors">
+                  <span *ngIf="parentEmail.errors.required" class="validation-message">This field is required.</span>
+                  <span *ngIf="parentEmail.errors.pattern" class="validation-message">Invalid email address.</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="item">
-          <label>Player Last Name:<sup>*</sup></label>
-          <input type="text" maxlength="200" #lastName="ngModel" [(ngModel)]="userService.selectedUser.lastName"
-            placeholder="Player Last Name" name="lastName" required [ngClass]="{
-              'invalid-textbox': sportsRegistration.submitted && !lastName.valid
-            }" />
-          <div *ngIf="sportsRegistration.submitted && !lastName.valid">
-            <label class="validation-message">This field is required.</label>
+
+
+        <h4 class="form-section"><span class="player-detail">Documents</span></h4>
+        <div class="row">
+
+          <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="row">
+              <div class="form-label text col-4">
+                <label>Player's Address Proof:</label>
+              </div>
+              <div class="col-8 form-field">
+                  <div id="viewUpload">
+                      <input type="file" name="fmyfile" id="myfile" class="inputfile" (change)="addressProof($event, 'address')" [disabled]="isSubmitted == true"/>
+                      <label><strong><fa-icon [icon]="faUpload"></fa-icon></strong><span>{{addressFileName || "Upload"}}</span></label>
+                      <label class="validation-message">{{ addressfileErr }}</label>
+            <label *ngIf="addressUploaded == true" class="validation-message" style="color: green!important;">Uploaded✔</label>
+            <label *ngIf="sportsRegistration.submitted && addressUploaded != true" class="validation-message">This field
+              is required.</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+              <div class="row">
+                <div class="form-label text col-4">
+                  <label>Player's ID Proof:</label>
+                </div>
+                <div class="col-8 form-field">
+                    <div id="viewUpload">
+                        <input type="file" name="fmyfile" id="myfile" class="inputfile" (change)="addressProof($event, 'id')" [disabled]="isSubmitted == true"/>
+                        <label><strong><fa-icon [icon]="faUpload"></fa-icon></strong><span>{{idFileName || "Upload"}}</span></label>
+                        <label class="validation-message">{{ idfileErr }}</label>
+            <label *ngIf="idUploaded == true" class="validation-message" style="color: green!important;">Uploaded✔</label>
+            <label *ngIf="sportsRegistration.submitted && idUploaded != true" class="validation-message">This field is
+              required.</label>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+              <div class="row">
+                <div class="form-label text col-4">
+                  <label>Player's DOB Certificate:</label>
+                </div>
+                <div class="col-8 form-field">
+                    <div id="viewUpload">
+                        <input type="file" name="fmyfile" id="myfile" class="inputfile" (change)="addressProof($event, 'birth')" [disabled]="isSubmitted == true"/>
+                        <label><strong><fa-icon [icon]="faUpload"></fa-icon></strong><span>{{birthFileName || "Upload"}}</span></label>
+                        <label class="validation-message">{{ birthfileErr }}</label>
+            <label *ngIf="birthUploaded == true" class="validation-message" style="color: green!important;">Uploaded✔</label>
+            <label *ngIf="sportsRegistration.submitted && birthUploaded != true" class="validation-message">This field is
+              required.</label>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
           </div>
-        </div>
-      </div>
 
-      <div class="item">
-        <label>Player Mobile Number:<sup>*</sup></label>
-        <input type="text" maxlength="10" #phoneNumber="ngModel" [(ngModel)]="userService.selectedUser.phoneNumber"
-          placeholder="Player Mobile Number" name="phoneNumber" required pattern="[0-9]{10}" [ngClass]="{
-            'invalid-textbox':
-              sportsRegistration.submitted && !phoneNumber.valid
-          }" />
-        <div *ngIf="sportsRegistration.submitted && !phoneNumber.valid">
-          <label *ngIf="phoneNumber.errors.required" class="validation-message">This field is required.</label>
-          <label *ngIf="phoneNumber.errors.pattern" class="validation-message">Invalid phone number.</label>
-        </div>
-      </div>
+          <h4 class="form-section"><span class="player-detail">Declaration & Disclaimar</span></h4>
+          <div class="row">
 
-      <div class="item">
-        <label>Player Email:<sup>*</sup></label>
-        <input disabled type="text" #email="ngModel" [(ngModel)]="userService.selectedUser.email"
-          placeholder="Player Email" name="email" required [ngClass]="{
-            'invalid-textbox': sportsRegistration.submitted && !email.valid
-          }" />
-        <!-- <div *ngIf="sportsRegistration.submitted && !email.valid">
-        <label class="validation-message">This field is required.</label>
-      </div> -->
-      </div>
+            <div class="form-field-group col-12">
+              <div class="row">
+                <div col-12>
+                  <div class="row">
+                    <div col-12>
+                      <p class="declaration">
+                        <strong>Declaration: I, {{userService.personalUser.fatherName}} </strong>
+                        <span>(Parent /Guardian) hereby certify that the above information is authentic and true to the best of my knowledge. In case any informaton is not found true,academy is NOT responsible for any misinformation provided and your registration will be cancelled with/without any prior notice.</span>
+                        <br/>
+                        <br/>
+                        <strong>
+                          Disclaimer: As a parent, we understand that training process might involove injuries in any form. We would expect the academy authorities to administer basic First Aid and have a doctor on call if required. Beyond which the parent / guardian would take the responsibility of the player once they are informed about the condition.
+                        </strong>
+                        <br/>
+                        <br/>
+                        <strong>
+                          <input type="checkbox" id="confirm" (change)="confirm($event)" class="declaration-check" /> <span class="declaration-text">By selecting this you agree to the above and agree to the terms & conditions of Dharan Sports Academy.</span>
+                        </strong>
+                      </p>
+                     </div>
+                     <span *ngIf="sportsRegistration.submitted && !confirmButt" class="validation-message">Accept the terms & conditions before submit</span>
+                    </div>
+                </div>
+              </div>
+            </div>
 
-      <div class="radioBut">
-        <label class="option">Player Gender:<sup>*</sup></label><br />
-        <input type="radio" #gender="ngModel" [(ngModel)]="userService.personalUser.gender" value="Male" name="gender"
-          required [ngClass]="{
-            'invalid-textbox': sportsRegistration.submitted && !gender.valid
-          }" />
-        <label>Male</label>
-        <input type="radio" #gender="ngModel" [(ngModel)]="userService.personalUser.gender" value="Female" name="gender"
-          required [ngClass]="{
-            'invalid-textbox': sportsRegistration.submitted && !gender.valid
-          }" />
-        <label>Female</label>
-        <div *ngIf="sportsRegistration.submitted && !gender.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div>
-
-      <div class="radioBut">
-        <label class="option">Player Nationality:<sup>*</sup></label><br />
-        <input type="radio" #nationality="ngModel" [(ngModel)]="userService.personalUser.nationality" value="Indain"
-          name="nationality" required [ngClass]="{
-            'invalid-textbox':
-              sportsRegistration.submitted && !nationality.valid
-          }" />
-        <label>Indian</label>
-        <input type="radio" #nationality="ngModel" [(ngModel)]="userService.personalUser.nationality" value="Others"
-          name="nationality" required [ngClass]="{
-            'invalid-textbox':
-              sportsRegistration.submitted && !nationality.valid
-          }" />
-        <label>Others</label>
-        <div *ngIf="sportsRegistration.submitted && !nationality.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div>
-
-      <div class="item">
-        <label>Player DOB:<sup>*</sup></label>
-        <input class="dob" type="date" #dob="ngModel" [ngModel]="date | date: 'yyyy-MM-dd'"
-          (ngModelChange)="date = $event" placeholder="Player DOB" name="dob" required (change)="getAge(date)"
-          [ngClass]="{
-            'invalid-textbox': sportsRegistration.submitted && !dob.valid
-          }" />
-        <div *ngIf="sportsRegistration.submitted && !dob.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-        <label *ngIf="date >= mindate" class="validation-message">The minimum age to join academy is 6 years</label>
-      </div>
-      <div class="item">
-        <label>Player Age:<sup>*</sup></label>
-        <input class="age" type="number" maxlength="3"
-          oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-          #age="ngModel" [(ngModel)]="userService.personalUser.age" placeholder="Player Age" name="age" required
-          [ngClass]="{
-            'invalid-textbox': sportsRegistration.submitted && !age.valid
-          }" />
-        <div *ngIf="sportsRegistration.submitted && !age.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div>
-
-      <div class="item">
-        <label>Player Blood Group:<sup>*</sup></label>
-        <select class="blood" name="bloodGroup" #bloodGroup="ngModel" [(ngModel)]="userService.personalUser.bloodGroup"
-          required>
-          <option disabled>Choose your group</option>
-          <option value="A+">A+</option>
-          <option value="A-">A-</option>
-          <option value="B+">B+</option>
-          <option value="B-">B-</option>
-          <option value="O+">O+</option>
-          <option value="O-">O-</option>
-          <option value="AB+">AB+</option>
-          <option value="AB-">AB-</option>
-        </select>
-        <div *ngIf="sportsRegistration.submitted && !bloodGroup.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div>
-
-      <!--       <div class="item">
-        <label>Player Blood Group:<sup>*</sup></label>
-        <input type="text" #bloodGroup="ngModel" [(ngModel)]="userService.personalUser.bloodGroup"
-          placeholder="Player Blood Group" name="bloodGroup" required
-          [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !bloodGroup.valid}" />
-        <div *ngIf="sportsRegistration.submitted && !bloodGroup.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div> -->
-      <div class="item">
-        <label>Player Profession:</label>
-        <input type="text" #profession="ngModel" [(ngModel)]="userService.personalUser.profession"
-          placeholder="Player Profession" name="profession" required [ngClass]="{
-            'invalid-textbox': sportsRegistration.submitted && !profession.valid
-          }" />
-        <div *ngIf="sportsRegistration.submitted && !profession.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div>
-
-      <div class="item">
-        <label>Player Height:<sup>*</sup></label>
-        <input type="number" max="7" #heightFeet="ngModel" [(ngModel)]="userService.personalUser.height.feet"
-          placeholder="Player Height in Feet" name="heightFeet" required [ngClass]="{
-            'invalid-textbox': sportsRegistration.submitted && !heightFeet.valid
-          }" />
-        <input type="number" max="12" #heightInches="ngModel" [(ngModel)]="userService.personalUser.height.inches"
-          placeholder="Player Height in Inches" name="heightInches" required [ngClass]="{
-            'invalid-textbox':
-              sportsRegistration.submitted && !heightInches.valid
-          }" />
-        <div *ngIf="
-            (sportsRegistration.submitted && !heightFeet.valid) ||
-            !heightInches.valid
-          ">
-          <label class="validation-message">This field is required.</label>
-        </div>
-        <label *ngIf="heightFeet.value > 7 || heightInches.value > 12" class="validation-message">Please check the entry
-          and type a valid height(Feet & Inches)</label>
-      </div>
-
-      <div class="item">
-        <label>Player: Weight<sup>*</sup></label>
-        <input type="number" max="999" #weight="ngModel" [(ngModel)]="userService.personalUser.weight"
-          placeholder="Player Weight" name="weight" required [ngClass]="{
-            'invalid-textbox': sportsRegistration.submitted && !weight.valid
-          }" />
-        <div *ngIf="sportsRegistration.submitted && !weight.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-        <label *ngIf="weight.value > 999" class="validation-message">Please provide valid weight.</label>
-      </div>
-
-      <div class="item">
-        <label>Name of School/College/Organization:</label>
-        <input type="text" maxlength="200" #organization="ngModel" [(ngModel)]="userService.personalUser.organization"
-          placeholder="Name of School/College/Organization" name="organization" required [ngClass]="{
-            'invalid-textbox':
-              sportsRegistration.submitted && !organization.valid
-          }" />
-        <div *ngIf="sportsRegistration.submitted && !organization.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div>
-
-      <div class="item">
-        <label>TNCA Teams & Div.played (If any):</label>
-        <input type="text" maxlength="100" #TNCA="ngModel" [(ngModel)]="userService.sportsUser.TNCA" placeholder="TNCA Teams & Div.
-      played (If any)" name="TNCA" required [ngClass]="{
-            'invalid-textbox': sportsRegistration.submitted && !TNCA.valid
-          }" />
-        <div *ngIf="sportsRegistration.submitted && !TNCA.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div>
-
-      <div class="item">
-        <label>KDCA Teams & Div.played (If any):</label>
-        <input type="text" maxlength="100" #KDCA="ngModel" [(ngModel)]="userService.sportsUser.KDCA" placeholder="KDCA Teams & Div.
-      played (If any)" name="KDCA" required [ngClass]="{
-            'invalid-textbox': sportsRegistration.submitted && !KDCA.valid
-          }" />
-        <div *ngIf="sportsRegistration.submitted && !KDCA.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div>
-
-      <div class="item">
-        <label>List Top three strengths in cricket:</label>
-        <textarea maxlength="500" #strengthCricket="ngModel" [(ngModel)]="userService.sportsUser.strength.cricket"
-          placeholder="List Top three strengths in cricket" maxlength="500" name="strengthCricket" required [ngClass]="{
-            'invalid-textbox':
-              sportsRegistration.submitted && !strengthCricket.valid
-          }"></textarea>
-        <div *ngIf="sportsRegistration.submitted && !strengthCricket.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div>
-
-      <div class="item">
-        <label>List Top three weakness in cricket:</label>
-        <textarea maxlength="500" #weaknessCricket="ngModel" [(ngModel)]="userService.sportsUser.weakness.cricket"
-          placeholder="List Top three weakness in cricket" maxlength="500" name="weaknessCricket" required [ngClass]="{
-            'invalid-textbox':
-              sportsRegistration.submitted && !weaknessCricket.valid
-          }"></textarea>
-        <div *ngIf="sportsRegistration.submitted && !weaknessCricket.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div>
-
-      <div class="item">
-        <label>List Top three strengths in general:</label>
-        <textarea maxlength="500" #strengthGeneral="ngModel" [(ngModel)]="userService.sportsUser.strength.general"
-          placeholder="List Top three strengths in general" maxlength="500" name="strengthGeneral" required [ngClass]="{
-            'invalid-textbox':
-              sportsRegistration.submitted && !strengthGeneral.valid
-          }"></textarea>
-        <div *ngIf="sportsRegistration.submitted && !strengthGeneral.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div>
-
-      <div class="item">
-        <label>List Top three weakness in general:</label>
-        <textarea maxlength="500" #weaknessGeneral="ngModel" [(ngModel)]="userService.sportsUser.weakness.general"
-          placeholder="List Top three weakness in general" maxlength="500" name="weaknessGeneral" required [ngClass]="{
-            'invalid-textbox':
-              sportsRegistration.submitted && !weaknessGeneral.valid
-          }"></textarea>
-        <div *ngIf="sportsRegistration.submitted && !weaknessGeneral.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div>
-
-      <div class="item">
-        <label>Player Hobbies:</label>
-        <input type="text" maxlength="1000" #hobbies="ngModel" [(ngModel)]="userService.sportsUser.hobbies"
-          placeholder="Player Hobbies" name="hobbies" required [ngClass]="{
-            'invalid-textbox': sportsRegistration.submitted && !hobbies.valid
-          }" />
-        <div *ngIf="sportsRegistration.submitted && !hobbies.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div>
-
-      <div class="item">
-        <label>Previous Academy / Team Details (If any):</label>
-        <input type="text" maxlength="100" #previousTeam="ngModel" [(ngModel)]="userService.sportsUser.previousTeam"
-          placeholder="Previous
-        Academy / Team Details (If any)" name="previousTeam" required [ngClass]="{
-            'invalid-textbox':
-              sportsRegistration.submitted && !previousTeam.valid
-          }" />
-        <div *ngIf="sportsRegistration.submitted && !previousTeam.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div>
-
-      <div class="item">
-        <label>Player Objective / Goal in Cricket and what is your dream in
-          cricket:</label>
-        <input type="text" maxlength="1000" #goal="ngModel" [(ngModel)]="userService.sportsUser.goal"
-          placeholder="Player Objective / Goal in Cricket and what is your dream in cricket" name="goal" required
-          [ngClass]="{
-            'invalid-textbox': sportsRegistration.submitted && !goal.valid
-          }" />
-        <div *ngIf="sportsRegistration.submitted && !goal.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div>
-
-      <div class="item">
-        <label>Player's Role Model in Real Life:</label>
-        <input type="text" maxlength="200" #roleModelRealName="ngModel"
-          [(ngModel)]="userService.sportsUser.roleModelReal.name" placeholder="Player's Role Model in Real Life"
-          name="roleModelRealName" required [ngClass]="{
-            'invalid-textbox':
-              sportsRegistration.submitted && !roleModelRealName.valid
-          }" />
-        <div *ngIf="sportsRegistration.submitted && !roleModelRealName.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div>
-
-      <div class="item">
-        <label>List Top 3 Resons for RM in real life:</label>
-        <textarea type="text" #roleModelRealReason="ngModel" maxlength="500"
-          [(ngModel)]="userService.sportsUser.roleModelReal.reason"
-          placeholder="List Top 3 Reasons for RM in real life:" name="roleModelRealReason" required [ngClass]="{
-            'invalid-textbox':
-              sportsRegistration.submitted && !roleModelRealReason.valid
-          }"></textarea>
-        <div *ngIf="sportsRegistration.submitted && !roleModelRealReason.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div>
-
-      <div class="item">
-        <label>Player's Role Model in Cricket:</label>
-        <input type="text" maxlength="200" #roleModelCricketName="ngModel"
-          [(ngModel)]="userService.sportsUser.roleModelCricket.name" placeholder="Player's Role Model in Cricket"
-          name="roleModelCricketName" required [ngClass]="{
-            'invalid-textbox':
-              sportsRegistration.submitted && !roleModelCricketName.valid
-          }" />
-        <div *ngIf="sportsRegistration.submitted && !roleModelCricketName.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div>
-
-      <div class="item">
-        <label>List Top 3 Resons for RM in Cricket:</label>
-        <textarea type="text" #roleModelCricketReason="ngModel" maxlength="500"
-          [(ngModel)]="userService.sportsUser.roleModelCricket.reason"
-          placeholder="List Top 3 Reasons for RM in real life:" name="roleModelCricketReason" required [ngClass]="{
-            'invalid-textbox':
-              sportsRegistration.submitted && !roleModelCricketReason.valid
-          }"></textarea>
-        <div *ngIf="sportsRegistration.submitted && !roleModelCricketReason.valid">
-          <label class="validation-message">This field is required.</label>
-        </div>
-      </div>
-
-      <!-- Right Align -->
-
-      <div class="right">
-        <div class="radioBut">
-          <!-- <div class="item"> -->
-          <label class="option">Player Level:</label><br />
-          <input type="radio" #playerLevel="ngModel" [(ngModel)]="userService.sportsUser.playerLevel" value="Beginner"
-            name="playerLevel" required [ngClass]="{
-              'invalid-textbox':
-                sportsRegistration.submitted && !playerLevel.valid
-            }" />
-          <label>Beginner</label>
-          <input type="radio" #playerLevel="ngModel" [(ngModel)]="userService.sportsUser.playerLevel"
-            value="Intermediate" name="playerLevel" required [ngClass]="{
-              'invalid-textbox':
-                sportsRegistration.submitted && !playerLevel.valid
-            }" />
-          <label>Intermediate</label>
-          <input type="radio" #playerLevel="ngModel" [(ngModel)]="userService.sportsUser.playerLevel" value="Senior"
-            name="playerLevel" required [ngClass]="{
-              'invalid-textbox':
-                sportsRegistration.submitted && !playerLevel.valid
-            }" />
-          <label>Senior</label>
-          <div *ngIf="sportsRegistration.submitted && !playerLevel.valid">
-            <label class="validation-message">This field is required.</label>
           </div>
-        </div>
-        <!-- </div> -->
 
-        <div class="checkBox">
-          <!-- <div class="item"> -->
-          <label class="option">Player Skill:</label><br />
-          <input type="checkbox" #batsman="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.batsman"
-            value="true" required name="batsman" />
-          <label>Batsman</label>
-          <input type="checkbox" #bowler="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.bowler" value="true"
-            required name="bowler" />
-          <label>Bowler</label>
-          <input type="checkbox" #leftHand="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.leftHand"
-            value="true" required name="leftHand" />
-          <label>Left Hand</label><br />
-          <input type="checkbox" #wicketKeeper="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.wicketKeeper"
-            required value="true" name="wicketKeeper" />
-          <label>Wicket Keeper</label>
-          <input type="checkbox" #allRounder="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.allRounder"
-            required value="true" name="allRounder" />
-          <label>All Rounder</label>
-          <input type="checkbox" #rightHand="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.rightHand"
-            required value="true" name="rightHand" />
-          <label>Right Hand</label>
-          <div *ngIf="
-              sportsRegistration.submitted &&
-              !batsman.valid &&
-              !bowler.valid &&
-              !leftHand.valid &&
-              !wicketKeeper.valid &&
-              !allRounder.valid &&
-              !rightHand.valid
-            ">
-            <label class="validation-message">This field is required.</label>
+          <div class="btn-group">
+            <div class="register-btn">
+              <input class="btn btn-primary" type="submit" value="Submit" [hidden]="isSubmitted == true"  />
+            </div>
+            <div class="register-btn">
+              <input class="btn btn-primary"  type="button" value="Save" (click)="save(sportsRegistration)" [hidden]="isSubmitted == true">
+            </div>
           </div>
-        </div>
-        <!-- </div> -->
 
-        <div class="item">
-          <label>Bowler Type:</label>
-          <select class="bowler" name="bowlerType" #bowlerType="ngModel" [(ngModel)]="userService.sportsUser.bowlerType"
-            required>
-            <option disabled>Choose your type</option>
-            <option value="Fast">Fast</option>
-            <option value="Medium Fast">Medium Fast</option>
-            <option value="Slow Medium">Slow Medium</option>
-            <option value="Off-Spinner">Off-Spinner</option>
-            <option value="Leg-Spinner">Leg-Spinner</option>
-            <option value="China Man">China Man</option>
-            <option value="Others">Others</option>
-            <option value="NA">NA</option>
-          </select>
-          <div *ngIf="sportsRegistration.submitted && !bowlerType.valid">
-            <label class="validation-message">This field is required.</label>
+
+          <!-- Success Message -->
+          <div class="success" *ngIf="showSuccessMessage">
+            Saved Successfully
           </div>
-        </div>
 
-        <div class="radioBut">
-          <label class="option">Player Bowler Hand:</label><br />
-          <input type="radio" #bowlerHand="ngModel" [(ngModel)]="userService.sportsUser.bowlerHand" value="Left"
-            name="bowlerHand" required [ngClass]="{
-              'invalid-textbox':
-                sportsRegistration.submitted && !bowlerHand.valid
-            }" />
-          <label>Left</label>
-          <input type="radio" #bowlerHand="ngModel" [(ngModel)]="userService.sportsUser.bowlerHand" value="Right"
-            name="bowlerHand" required [ngClass]="{
-              'invalid-textbox':
-                sportsRegistration.submitted && !bowlerHand.valid
-            }" />
-          <label>Right</label>
-          <input type="radio" #bowlerHand="ngModel" [(ngModel)]="userService.sportsUser.bowlerHand" value="NA"
-            name="bowlerHand" required [ngClass]="{
-              'invalid-textbox':
-                sportsRegistration.submitted && !bowlerHand.valid
-            }" />
-          <label>NA</label>
-          <div *ngIf="sportsRegistration.submitted && !bowlerHand.valid">
-            <label class="validation-message">This field is required.</label>
+          <!-- Error Message -->
+          <div class="alert" *ngIf="showErrorMessage">
+            {{showErrorMessage}}
           </div>
-        </div>
-
-        <div class="radioBut">
-          <label class="option">Player Batting Hand:</label><br />
-          <input type="radio" #battingHand="ngModel" [(ngModel)]="userService.sportsUser.battingHand" value="Left"
-            name="battingHand" required [ngClass]="{
-              'invalid-textbox':
-                sportsRegistration.submitted && !battingHand.valid
-            }" />
-          <label>Left</label>
-          <input type="radio" #battingHand="ngModel" [(ngModel)]="userService.sportsUser.battingHand" value="Right"
-            name="battingHand" required [ngClass]="{
-              'invalid-textbox':
-                sportsRegistration.submitted && !battingHand.valid
-            }" />
-          <label>Right</label>
-          <input type="radio" #battingHand="ngModel" [(ngModel)]="userService.sportsUser.battingHand" value="NA"
-            name="battingHand" required [ngClass]="{
-              'invalid-textbox':
-                sportsRegistration.submitted && !battingHand.valid
-            }" />
-          <label>NA</label>
-          <div *ngIf="sportsRegistration.submitted && !battingHand.valid">
-            <label class="validation-message">This field is required.</label>
-          </div>
-        </div>
-
-        <div class="item">
-          <label>History of Medical Illness(If any)</label>
-          <textarea type="text" #medical="ngModel" maxlength="1000" [(ngModel)]="userService.sportsUser.medical"
-            placeholder="Medical Illness(If any)" name="medical" required [ngClass]="{
-              'invalid-textbox': sportsRegistration.submitted && !medical.valid
-            }"></textarea>
-          <div *ngIf="sportsRegistration.submitted && !medical.valid">
-            <label class="validation-message">This field is required.</label>
-          </div>
-        </div>
-
-        <div class="item">
-          <label>Father's Full Name:</label>
-          <input type="text" maxlength="200" #fatherName="ngModel" [(ngModel)]="userService.personalUser.fatherName"
-            placeholder="Father's Full Name" name="fatherName" required [ngClass]="{
-              'invalid-textbox':
-                sportsRegistration.submitted && !fatherName.valid
-            }" />
-          <div *ngIf="sportsRegistration.submitted && !fatherName.valid">
-            <label class="validation-message">This field is required.</label>
-          </div>
-        </div>
-
-        <div class="item">
-          <label>Father's Occupation:</label>
-          <input type="text" maxlength="500" #fatherOccupation="ngModel"
-            [(ngModel)]="userService.personalUser.fatherOccupation" placeholder="Father's Occupation"
-            name="fatherOccupation" required [ngClass]="{
-              'invalid-textbox':
-                sportsRegistration.submitted && !fatherOccupation.valid
-            }" />
-          <div *ngIf="sportsRegistration.submitted && !fatherOccupation.valid">
-            <label class="validation-message">This field is required.</label>
-          </div>
-        </div>
-
-        <div class="item">
-          <label>Mother's Full Name:</label>
-          <input type="text" maxlength="200" #motherName="ngModel" [(ngModel)]="userService.personalUser.motherName"
-            placeholder="Mother's Full Name" name="motherName" required [ngClass]="{
-              'invalid-textbox':
-                sportsRegistration.submitted && !motherName.valid
-            }" />
-          <div *ngIf="sportsRegistration.submitted && !motherName.valid">
-            <label class="validation-message">This field is required.</label>
-          </div>
-        </div>
-
-        <div class="item">
-          <label>Mother's Occupation:</label>
-          <input type="text" maxlength="500" #motherOccupation="ngModel"
-            [(ngModel)]="userService.personalUser.motherOccupation" placeholder="Mother's Full Name"
-            name="motherOccupation" required [ngClass]="{
-              'invalid-textbox':
-                sportsRegistration.submitted && !motherOccupation.valid
-            }" />
-          <div *ngIf="sportsRegistration.submitted && !motherOccupation.valid">
-            <label class="validation-message">This field is required.</label>
-          </div>
-        </div>
-
-        <div class="item">
-          <label>Parent's Mobile Number:</label>
-          <input type="text" #parentPhoneNumber="ngModel" maxlength="10"
-            [(ngModel)]="userService.personalUser.parentMobile" placeholder="Parent's Mobile Number"
-            name="parentPhoneNumber" required pattern="[0-9]{10}" [ngClass]="{
-              'invalid-textbox':
-                sportsRegistration.submitted && !parentPhoneNumber.valid
-            }" />
-          <div *ngIf="sportsRegistration.submitted && !parentPhoneNumber.valid">
-            <label *ngIf="parentPhoneNumber.errors.required" class="validation-message">This field is required.</label>
-            <label *ngIf="parentPhoneNumber.errors.pattern" class="validation-message">Invalid phone number.</label>
-          </div>
-        </div>
-
-        <div class="item">
-          <label>Residence Number:</label>
-          <input type="text" #residenceNumber="ngModel" maxlength="10"
-            [(ngModel)]="userService.personalUser.residenceNumber" placeholder="Residence Number" name="residenceNumber"
-            required pattern="[0-9]{10}" [ngClass]="{
-              'invalid-textbox':
-                sportsRegistration.submitted && !residenceNumber.valid
-            }" />
-          <div *ngIf="sportsRegistration.submitted && !residenceNumber.valid">
-            <label *ngIf="residenceNumber.errors.required" class="validation-message">This field is required.</label>
-            <label *ngIf="residenceNumber.errors.pattern" class="validation-message">Invalid phone number.</label>
-          </div>
-        </div>
-
-        <div class="item">
-          <label>Parent's Email:</label>
-          <input type="text" maxlength="500" #parentEmail="ngModel" [pattern]="emailRegex"
-            [(ngModel)]="userService.personalUser.parentEmail" placeholder="Parent's Email" name="parentEmail" required
-            [ngClass]="{
-              'invalid-textbox':
-                sportsRegistration.submitted && !parentEmail.valid
-            }" />
-          <div *ngIf="sportsRegistration.submitted && parentEmail.errors">
-            <label *ngIf="parentEmail.errors.required" class="validation-message">This field is required.</label>
-            <label *ngIf="parentEmail.errors.pattern" class="validation-message">Invalid email address.</label>
-          </div>
-        </div>
-
-        <div class="item">
-          <label>Permanent Address:</label>
-          <textarea type="text" maxlength="500" #permAddress="ngModel"
-            [(ngModel)]="userService.personalUser.permanentAddress" placeholder="Permanent Address" name="permAddress"
-            required [ngClass]="{
-              'invalid-textbox':
-                sportsRegistration.submitted && !permAddress.valid
-            }"></textarea>
-          <div *ngIf="sportsRegistration.submitted && !permAddress.valid">
-            <label class="validation-message">This field is required.</label>
-          </div>
-        </div>
-
-        <div class="item">
-          <label>Temporary Address:</label>
-          <textarea type="text" maxlength="500" #tempAddress="ngModel"
-            [(ngModel)]="userService.personalUser.temporaryAddress" placeholder="Temporary Address" name="tempAddress"
-            required [ngClass]="{
-              'invalid-textbox':
-                sportsRegistration.submitted && !tempAddress.valid
-            }"></textarea>
-          <div *ngIf="sportsRegistration.submitted && !tempAddress.valid">
-            <label class="validation-message">This field is required.</label>
-          </div>
-        </div>
-        <br />
-
-        <div class="files">
-          <label>Address Proof:</label> <br />
-          <input type="file" (change)="addressProof($event, 'address')" />
-          <label class="alert">{{ addressfileErr }}</label>
-          <br />
-          <label *ngIf="addressUploaded == true" class="success">✔</label>
-          <label *ngIf="sportsRegistration.submitted && addressUploaded != true" class="validation-message">This field
-            is required.</label>
-
-          <label>Id Proof:</label> <br />
-          <input type="file" (change)="addressProof($event, 'id')" />
-          <label class="validation-message">{{ idfileErr }}</label>
-          <label *ngIf="idUploaded == true" class="success">✔</label>
-          <label *ngIf="sportsRegistration.submitted && idUploaded != true" class="validation-message">This field is
-            required.</label>
-
-          <label>Birth Certificate:</label> <br />
-          <input type="file" (change)="addressProof($event, 'birth')" />
-          <label class="validation-message">{{ birthfileErr }}</label>
-          <br />
-          <label *ngIf="birthUploaded == true" class="success">✔</label>
-          <label *ngIf="sportsRegistration.submitted && birthUploaded != true" class="validation-message">This field is
-            required.</label>
-
-          <label>Image:</label> <br />
-          <input type="file" (change)="addressProof($event, 'image')" />
-          <input type="button" value="Upload" (click)="onUpload('image')" />
-          <br />
-          <label *ngIf="imageUploaded == true" class="success">✔</label>
-        </div>
       </div>
-      <br />
-      <br />
-      <input type="submit" value="Submit" />
-      <input type="button" value="Save" (click)="save(sportsRegistration)" />
-
-      <!-- Success Message -->
-      <div class="success" *ngIf="showSuccessMessage">Saved Successfully</div>
-
-      <!-- Error Message -->
-      <div class="alert" *ngIf="showErrorMessage">
-        {{ showErrorMessage }}
-      </div>
-    </div>
-  </form>
-</div>
-<!-- </div> -->
+    </form>
+  </div>
+  <!-- </div> -->

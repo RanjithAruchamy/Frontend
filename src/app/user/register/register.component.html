@@ -1,97 +1,194 @@
-<div class="wrapper fadeInDown">
-<header> <img src="https://img1.wsimg.com/isteam/ip/f9dead15-a5e8-4dfa-b0e4-1b7afe7d091b/logo/e6be5301-a802-4c0f-be8f-7a93118f19d3.jpg/:/rs=w:80,h:80,m">
-  <h3>A UNIT OF OX & FOX SPORTS AND CHARITABLE TRUST</h3>
-  <h6># 1/221, Ponnuswamy Street, Vadakupattu, Chennai - 600100</h6>
-  <h4>Mobile: +91-8939988127</h4>
-  <h4>www.dharansports.in</h4>
-  <h4>dharansports@gmail.com</h4>
-</header>
-  <div id="formContent">
+<div class="limiter">
+  <div id="login-container" class="container-login">
+    <div class="wrap-login">
+      <div id="sign-up-form" class="login-form-container fadeInDown">
+        <div class="header">
+          <a href="#default" class="logo">
+              <img src="../../images/Dharan sports Logo.png" />
+          </a>
+          <div class="header-text-container">
+              <div class="row">
+                  <div class="col-12">
+                      <div class="row">
+                          <div class="col-6 pr-0">
+                              <div class="logo-content">
+                                  <span>DHARAN SPORTS</span>
+                              </div>
+                          </div>
+                          <div class="col-6 pl-0">
+                              <div class="logo-ox-content">
+                                <span>
+                                  OX & FOX's
+                                </span>
+                              </div>
+                          </div>
+                          <div class="col-12">
+                              <div class="hr-line-primary"></div>
+                              <div class="hr-line-secondary"></div>
+                          </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12 logo-text">
+                          <span>A Unit of OX & FOX Sports and Charitable Trust</span>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <a href="#default" class="logo">
+            <img src="../../images/Dharan sports Logo.png" />
+          </a>
+        </div>
+        <!--<div class="address">
+          <h6># 1/221, Ponnuswamy Street, Vadakupattu, Chennai - 600100</h6>
+          <h6>Mobile: +91-8939988127</h6>
+          <h6><a>www.dharansports.in</a></h6>
+          <h6>dharansports@gmail.com</h6>
+        </div> -->
+        <form class="login-form validate-form" #registerForm="ngForm" (ngSubmit)="registerForm.valid && onSubmit(registerForm)">
+          <div class="login-form-group">
+            <div class="sign-in-up">
+              <div class="sign-block">
+                <a routerLink="/login" class="sign-text">
+                  <fa-icon [icon]="faSignInAlt"></fa-icon> <span>SIGN IN</span>
+                </a>
+              </div>
+              <div class="sign-block">
+                <a routerLink="/signup" class="active sign-text">
+                  <fa-icon [icon]="faUserPlus"></fa-icon><span>SIGN UP</span>
+                </a>
+              </div>
+            </div>
 
-<form #registerForm="ngForm" (ngSubmit)="registerForm.valid && onSubmit(registerForm)">
-  <div class="head">
-  <h2 class="underlineHover" routerLink="/signup" routerLinkActive="active" >Sign Up</h2>
-  <h2 class="underlineHover"  routerLink="/login"routerLinkActive="active" >Sign In</h2> <br>
-</div>
-  <!-- <label for="firstName">First Name:</label><br> -->
-  <span>
-  <input type="text" id="firstName" maxlength="200" #firstName="ngModel" [(ngModel)]="userService.selectedUser.firstName" placeholder="First Name"
-    name="firstName" required [ngClass]="{'invalid-textbox' :registerForm.submitted && !firstName.valid}" />
-  <div *ngIf="registerForm.submitted && !firstName.valid">
-    <label class="validation-message">This field is required.</label>
+            <div class="row form-group">
+              <div class="col-12 col-xl-4 col-lg-4">
+                <label>First Name:</label>
+              </div>
+              <div class="col-12 col-xl-8 col-lg-8">
+                <input type="text" class="form-control" id="firstName" maxlength="125" #firstName="ngModel" [(ngModel)]="userService.selectedUser.firstName" placeholder="First Name"
+                name="firstName" pattern="[A-Za-z]+" required [ngClass]="{'invalid-textbox' :registerForm.submitted && !firstName.valid}"/>
+                <div *ngIf="registerForm.submitted && !firstName.valid">
+                  <label class="validation-message">This field is required.</label>
+                </div>
+                <label *ngIf="!firstName.valid && firstName.errors.pattern" class="validation-message">Enter only alphabets.</label>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-12 col-xl-4 col-lg-4">
+                <label>Last Name:</label>
+              </div>
+              <div class="col-12 col-xl-8 col-lg-8">
+                <input type="text" class="form-control" maxlength="125" #lastName="ngModel" [(ngModel)]="userService.selectedUser.lastName" placeholder="Last Name"
+                name="lastName" pattern="[A-Za-z]+" required [ngClass]="{'invalid-textbox' :registerForm.submitted && !lastName.valid}"/>
+                <div *ngIf="registerForm.submitted && !lastName.valid">
+                  <label class="validation-message">This field is required.</label>
+                </div>
+                <label *ngIf="!lastName.valid && lastName.errors.pattern" class="validation-message">Enter only alphabets.</label>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-12 col-xl-4 col-lg-4">
+                <label>Phone Number:</label>
+              </div>
+              <div class="col-12 col-xl-8 col-lg-8">
+                <input type="tel" max="10" class="form-control" #phoneNumber="ngModel" [(ngModel)]="userService.selectedUser.phoneNumber"
+                placeholder="Phone Number" name="phoneNumber" required pattern="[0-9]{10}"
+                [ngClass]="{'invalid-textbox' :registerForm.submitted && !phoneNumber.valid}" />
+                <div *ngIf="registerForm.submitted && !phoneNumber.valid">
+                  <label *ngIf="phoneNumber.errors.required" class="validation-message">This field is required.</label>
+                  <label *ngIf="phoneNumber.errors.pattern" class="validation-message">Invalid phone number.</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-12 col-xl-4 col-lg-4">
+                <label>Choose Your Game:</label>
+              </div>
+              <div class="col-12 col-xl-8 col-lg-8">
+                <select class="form-control" name="sportId" #sportId="ngModel" [(ngModel)]="selected" required >
+                  <option [ngValue]="undefined" disabled>Choose your game</option>
+                  <option *ngFor="let sport of Sports" [disabled]="sport.status === 'INACTIVE'" value="{{sport.sportId}}">{{sport.sportName}}</option>
+                </select>
+                <div *ngIf="registerForm.submitted && !sportId.valid">
+                  <label class="validation-message">This field is required.</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-12 col-xl-4 col-lg-4">
+                <label>Email :</label>
+              </div>
+              <div class="col-12 col-xl-8 col-lg-8">
+                <input type="text" class="form-control" maxlength="125" #email="ngModel" [(ngModel)]="userService.selectedUser.email" placeholder="Email" name="email"
+                required [pattern]="emailRegex" [ngClass]="{'invalid-textbox' :registerForm.submitted && !email.valid}"/>
+                <div *ngIf="registerForm.submitted && email.errors">
+                  <label *ngIf="email.errors.required" class="validation-message">This field is required.</label>
+                  <label *ngIf="email.errors.pattern" class="validation-message">Invalid email address.</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-12 col-xl-4 col-lg-4">
+                <label>Password :</label>
+              </div>
+              <div class="col-12 col-xl-8 col-lg-8">
+                <input type="password" class="form-control" #password="ngModel" [(ngModel)]="userService.selectedUser.password" placeholder="Password" pattern="(?=^.{8,20}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                name="password" required [ngClass]="{'invalid-textbox' :registerForm.submitted && !password.valid}"/>
+                <div *ngIf="registerForm.submitted && password.errors">
+                  <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
+                  <label *ngIf="password.errors.pattern" class="validation-message">Password Policy : Contains 8-20 Characters. Combination of 1 Upper Case, a Special Character and Number is Required.</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-12 col-xl-4 col-lg-4">
+                <label>ReType Password:</label>
+              </div>
+              <div class="col-12 col-xl-8 col-lg-8">
+                <input type="password" class="form-control" #confirmPassword="ngModel" [(ngModel)]="userService.selectedUser.confirmPassword" required name="confirmPassword" placeholder="Confirm Password" required
+                [ngClass]="{'invalid-textbox' :registerForm.submitted && !confirmPassword.valid}"/>
+                <div *ngIf="registerForm.submitted && !confirmPassword.valid">
+                  <label *ngIf="confirmPassword.errors.required" class="validation-message">This field is required.</label>
+                </div>
+                <label *ngIf="confirmPassword.valid && password.value!=confirmPassword.value" class="validation-message">Password doesn't match, please check and enter correct password</label>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <re-captcha class="capt" style="display: inline-block;" (resolved)="resolved($event)"
+                siteKey="6LfMtNQZAAAAAOAlkcyc8nUMaKqcZR0j881ePAY7"></re-captcha>
+            </div>
+
+
+            <div class="alert" style *ngIf="showErrorMessage">
+              {{showErrorMessage}}
+            </div>
+            <div class="container-login-form-btn">
+              <button class="login-form-btn">
+              Submit
+              </button>
+            </div>
+          </div>
+          <div class="sponsor-image">
+            <img src="../../../images/Playtonia-logo-300-black-new.png">
+          </div>
+
+
+        </form>
+      </div>
+      <div class="login-more fadeIn">
+      </div>
+    </div>
+    <div _ngcontent-fjm-c111="" class="footer"># 1/221, Ponnuswamy Street, Vadakupattu, Chennai - 600100,
+Mobile: +91-8939988127,
+www.dharansports.in,
+dharansports@gmail.com
+    </div>
   </div>
-</span>
-
-  <!-- <label>Last Name:</label><br> -->
-  <input type="text" maxlength="200" #lastName="ngModel" [(ngModel)]="userService.selectedUser.lastName" placeholder="Last Name"
-    name="lastName" required [ngClass]="{'invalid-textbox' :registerForm.submitted && !lastName.valid}" />
-  <div *ngIf="registerForm.submitted && !lastName.valid">
-    <label class="validation-message">This field is required.</label>
-  </div>
-
-    <!-- <label>Phone Number:</label><br> -->
-    <input type="tel" #phoneNumber="ngModel" [(ngModel)]="userService.selectedUser.phoneNumber"
-    placeholder="Phone Number" name="phoneNumber" required pattern="[0-9]{10}"
-    [ngClass]="{'invalid-textbox' :registerForm.submitted && !phoneNumber.valid}" />
-  <div *ngIf="registerForm.submitted && !phoneNumber.valid">
-    <label *ngIf="phoneNumber.errors.required" class="validation-message">This field is required.</label>
-    <label *ngIf="phoneNumber.errors.pattern" class="validation-message">Invalid phone number.</label>
-  </div>
-
-  <!-- <label>Choose Your Game:</label><br> -->
-  <select class="sports" name="sportId" #sportId="ngModel" [(ngModel)]="selected" required >
-    <option [ngValue]="undefined" disabled>Choose your game</option>
-    <option *ngFor="let sport of Sports" [disabled]="sport.status === 'INACTIVE'" value="{{sport.sportId}}">{{sport.sportName}}</option>
-  </select>
-  <div *ngIf="registerForm.submitted && !sportId.valid">
-    <label class="validation-message">This field is required.</label>
-  </div>
-
-
-  <!-- <label>Email :</label><br> -->
-  <input type="text" maxlength="200" #email="ngModel" [(ngModel)]="userService.selectedUser.email" placeholder="Email" name="email"
-    required [pattern]="emailRegex" [ngClass]="{'invalid-textbox' :registerForm.submitted && !email.valid}" />
-  <div *ngIf="registerForm.submitted && email.errors">
-    <label *ngIf="email.errors.required" class="validation-message">This field is required.</label>
-    <label *ngIf="email.errors.pattern" class="validation-message">Invalid email address.</label>
-  </div>
-
-  <!-- <label>Password:</label><br> -->
-  <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" placeholder="Password" pattern="(?=^.{8,20}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-    name="password" required [ngClass]="{'invalid-textbox' :registerForm.submitted && !password.valid}" />
-  <div *ngIf="registerForm.submitted && password.errors">
-    <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
-    <label *ngIf="password.errors.pattern" class="validation-message">Password Policy : Contains 8-20 Characters. Combination of 1 Upper Case, a Special Character and Number is Required.</label>
-  </div>
-
-    <!-- <label>ReType Password:</label><br> -->
-  <input type="password" #confirmPassword="ngModel" [(ngModel)]="userService.selectedUser.confirmPassword" required name="confirmPassword" placeholder="Confirm Password" required
-  [ngClass]="{'invalid-textbox' :registerForm.submitted && !confirmPassword.valid}" />
-  <div *ngIf="registerForm.submitted && !confirmPassword.valid">
-    <label *ngIf="confirmPassword.errors.required" class="validation-message">This field is required.</label>
-  </div>
-  <label *ngIf="confirmPassword.valid && password.value!=confirmPassword.value" class="validation-message">Password doesn't match with the one typed earlier, please check and enter correct password</label>
-
-  <div>
-    <re-captcha class="capt" style="display: inline-block;" (resolved)="resolved($event)"
-      siteKey="6LfMtNQZAAAAAOAlkcyc8nUMaKqcZR0j881ePAY7"></re-captcha>
-  </div>
-  <input type="submit" value="Register" />
-  <input type="button" value="Reset" (click)="resetForm(registerForm)" />
-</form>
-
-
-<!-- Success Message -->
-<div class="success" *ngIf="showSuccessMessage">
-  Saved Successfully
-</div>
-
-<!-- Error Message -->
-<div class="alert" *ngIf="showErrorMessage">
-  {{showErrorMessage}}
-</div>
-
-</div>
-<h3>Our Official Sponsor</h3>
-<img src="https://beta.playtonia.com/media/img/team/logo/playtonia_tm_black_logo.png" height="145" width="350">
 </div>

@@ -1,46 +1,120 @@
+<div class="limiter">
+  <div id="login-container" class="container-login">
+    <div class="wrap-login">
+      <div class="login-form-container fadeInDown">
+        <div class="header">
+          <a href="#default" class="logo">
+              <img src="../../images/Dharan sports Logo.png" />
+          </a>
+          <div class="header-text-container">
+              <div class="row">
+                  <div class="col-12">
+                      <div class="row">
+                          <div class="col-6 pr-0">
+                              <div class="logo-content">
+                                  <span>DHARAN SPORTS</span>
+                              </div>
+                          </div>
+                          <div class="col-6 pl-0">
+                              <div class="logo-ox-content">
+                                <span>
+                                  OX & FOX's
+                                </span>
+                              </div>
+                          </div>
+                          <div class="col-12">
+                              <div class="hr-line-primary"></div>
+                              <div class="hr-line-secondary"></div>
+                          </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12 logo-text">
+                          <span>A Unit of OX & FOX Sports and Charitable Trust</span>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <a href="#default" class="logo">
+            <img src="../../images/Dharan sports Logo.png" />
+          </a>
+        </div>
+       <!--- <div class="address">
+          <h6># 1/221, Ponnuswamy Street, Vadakupattu, Chennai - 600100</h6>
+          <h6>Mobile: +91-8939988127</h6>
+          <h6><a>www.dharansports.in</a></h6>
+          <h6>dharansports@gmail.com</h6>
+        </div> -->
+        <form class="login-form validate-form" #loginForm="ngForm" (ngSubmit)="loginForm.valid && onSubmit(loginForm)">
+          <div class="login-form-group">
+            <div class="sign-in-up">
+              <div class="sign-block">
+                <a routerLink="/login" class="active sign-text">
+                  <fa-icon [icon]="faSignInAlt"></fa-icon> <span>SIGN IN</span>
+                </a>
+              </div>
+              <div class="sign-block">
+                <a routerLink="/signup" class="sign-text">
+                  <fa-icon [icon]="faUserPlus"></fa-icon><span>SIGN UP</span>
+                </a>
+              </div>
+            </div>
 
-<div class="wrapper fadeInDown">
-  <header> <img src="https://img1.wsimg.com/isteam/ip/f9dead15-a5e8-4dfa-b0e4-1b7afe7d091b/logo/e6be5301-a802-4c0f-be8f-7a93118f19d3.jpg/:/rs=w:80,h:80,m">
-    <h3>A UNIT OF OX & FOX SPORTS AND CHARITABLE TRUST</h3>
-    <h6># 1/221, Ponnuswamy Street, Vadakupattu, Chennai - 600100</h6>
-    <h4>Mobile: +91-8939988127</h4>
-    <h4>www.dharansports.in</h4>
-    <h4>dharansports@gmail.com</h4>
-  </header>
-  <div id="formContent">
+            <div class="wrap-input validate-input"  [ngClass]="{'invalid-textbox' :loginForm.submitted && !email.valid}" data-validate="Valid email is required: ex@abc.xyz">
+              <input class="input" type="text" #email="ngModel" maxlength="125" [(ngModel)]="userService.selectedUser.email" name="email"
+              required [pattern]="emailRegex" [ngClass]="{'has-val' :userService.selectedUser.email}">
+              <span class="focus-input"></span>
+              <span class="label-input">Email</span>
+            </div>
+            <div *ngIf="loginForm.submitted && email.errors">
+              <label *ngIf="email.errors.required" class="validation-message">This field is required.</label>
+              <label *ngIf="email.errors.pattern" class="validation-message">Invalid email address.</label>
+            </div>
 
-<form #loginForm="ngForm" (ngSubmit)="loginForm.valid && onSubmit(loginForm)">
-<div class="head">
-<h2 class="underlineHover" routerLink="/signup" routerLinkActive="active" >Sign Up</h2>
-<h2 class="underlineHover" routerLink="/login" routerLinkActive="active" >Sign In </h2><br>
-</div>
-<!-- <label>Email:</label> -->
-<input type="text" #email="ngModel" maxlength="125" [(ngModel)]="userService.selectedUser.email" placeholder="Email" name="email"
-    required [pattern]="emailRegex" [ngClass]="{'invalid-textbox' :loginForm.submitted && !email.valid}">
-  <div *ngIf="loginForm.submitted && email.errors">
-    <label *ngIf="email.errors.required" class="validation-message">This field is required.</label>
-    <label *ngIf="email.errors.pattern" class="validation-message">Invalid email address.</label>
+            <div class="wrap-input validate-input" [ngClass]="{'invalid-textbox' :loginForm.submitted && !password.valid}" data-validate="Password is required">
+              <input class="input" type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" placeholder=""
+              name="password" required minlength="8" maxlength="20"  [ngClass]="{'has-val' :userService.selectedUser.password}">
+              <span class="focus-input"></span>
+              <span class="label-input">Password</span>
+            </div>
+            <div *ngIf="loginForm.submitted && password.errors">
+              <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
+              <label *ngIf="password.errors.minlength" class="validation-message">Enter atleast 8 characters.</label>
+              <label *ngIf="password.errors.maxlength" class="validation-message">Password cannot be more than 20 characters.</label>
+            </div>
+
+            <div class="forgot-password">
+              <div>
+                <a routerLink="/forgotPassword" class="forgot-txt">
+                Forgot Password?
+                </a>
+              </div>
+            </div>
+
+            <div class="alert" *ngIf="showErrorMessage">
+              {{showErrorMessage}}
+            </div>
+
+            <div class="container-login-form-btn">
+              <button class="login-form-btn">
+              Login
+              </button>
+            </div>
+          </div>
+          <div class="sponsor-image">
+            <img src="../../../images/Playtonia-logo-300-black-new.png">
+          </div>
+
+
+        </form>
+      </div>
+      <div class="login-more fadeIn">
+      </div>
+    </div>
+    <div _ngcontent-fjm-c111="" class="footer"># 1/221, Ponnuswamy Street, Vadakupattu, Chennai - 600100,
+      Mobile: +91-8939988127,
+      www.dharansports.in,
+      dharansports@gmail.com
+    </div>
   </div>
-
-  <!-- <label>Password:</label> -->
-  <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" placeholder="Password"
-    name="password" required minlength="8" maxlength="20" [ngClass]="{'invalid-textbox' :loginForm.submitted && !password.valid}">
-  <div *ngIf="loginForm.submitted && password.errors">
-    <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
-    <label *ngIf="password.errors.minlength" class="validation-message">Enter atleast 8 characters.</label>
-    <label *ngIf="password.errors.maxlength" class="validation-message">Password cannot be more than 20 characters.</label>
-  </div>
-<br>
-  <a class="forPwd" routerLink="/forgotPassword">Forgot password?</a><br>
-  <input type="submit" value="Login">
-
-  <!-- Error Message -->
-<div class="alert" *ngIf="showErrorMessage">
-  {{showErrorMessage}}
-</div>
-
-</form>
-  </div>
-  <h3>Our Official Sponsor</h3>
-<img src="https://beta.playtonia.com/media/img/team/logo/playtonia_tm_black_logo.png" height="145" width="350">
 </div>

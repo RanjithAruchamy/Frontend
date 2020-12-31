@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../../Shared/User/user.service';
 import { Router } from '@angular/router'
+import { faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { nextTick } from 'process';
 
 @Component({
@@ -11,10 +12,16 @@ import { nextTick } from 'process';
 })
 export class LoginComponent implements OnInit {
 
+  faSignInAlt = faSignInAlt;
+  faUserPlus = faUserPlus;
   emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   showErrorMessage: String;
 
-  constructor(public userService: UserService, private router: Router) { }
+  constructor(public userService: UserService, private router: Router) {
+    if(this.userService.isLoggedIn()){
+      this.router.navigateByUrl('/sportsRegistration');
+    }
+   }
 
   ngOnInit(): void {
   }

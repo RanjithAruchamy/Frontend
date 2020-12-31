@@ -36,10 +36,10 @@ export class ResetPasswordComponent implements OnInit {
     )
   }
   resetForm(form:NgForm){
-this.userService.resetpassword = {
-  email:"",
-  password:"",
-  newPassword:""
-}
+    this.userService.resetpassword = {
+      email:"",
+      password:"",
+      newPassword:""
+      }
   }
 }

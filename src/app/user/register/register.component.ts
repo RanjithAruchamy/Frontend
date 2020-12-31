@@ -4,6 +4,7 @@ import { UserService } from '../../Shared/User/user.service';
 import { SportService } from '../../Shared/Sport/sport.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { RecaptchaModule } from 'ng-recaptcha';
 
 @Component({
@@ -13,6 +14,8 @@ import { RecaptchaModule } from 'ng-recaptcha';
   providers: [UserService]
 })
 export class RegisterComponent implements OnInit {
+  faSignInAlt = faSignInAlt;
+  faUserPlus = faUserPlus;
   emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   showSuccessMessage: boolean;
   showErrorMessage: String;
@@ -23,10 +26,13 @@ export class RegisterComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private _renderer: Renderer2
-    ) { }
+    ) {
+      if(this.userService.isLoggedIn()){
+        this.router.navigateByUrl('/sportsRegistration');
+      }
+     }
     Sports;
     selected: "Cricket";
-
 
   ngOnInit(): void {
     this.sportService.getSports().subscribe(
@@ -47,7 +53,8 @@ export class RegisterComponent implements OnInit {
     // console.log(form.value)
  var response = grecaptcha.getResponse();
  if(!response)
- alert('Please enable reCaptcha')
+//  alert('Please enable reCaptcha')
+this.showErrorMessage =" Please enable reCaptcha"
  else{
     this.userService.postUser(form.value).subscribe(
       res => {
@@ -60,12 +67,12 @@ export class RegisterComponent implements OnInit {
 
         if(err.status === 422){
           this.showErrorMessage = err.error.message;
-          // setTimeout(() => this.showErrorMessage = '', 4000)
+          //setTimeout(() => this.showErrorMessage = '', 4000)
 
       }
         else{
           this.showErrorMessage = 'Something went wrong . Please contact admin'
-          // setTimeout(() => this.showErrorMessage = '', 4000)
+          //setTimeout(() => this.showErrorMessage = '', 4000)
         }
       }
     );
@@ -88,6 +95,7 @@ export class RegisterComponent implements OnInit {
   }
 
   resolved(token){
+    this.showErrorMessage =""
     return this.userService.verifyToken(token)
   }
 }

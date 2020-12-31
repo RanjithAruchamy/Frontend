@@ -26,7 +26,7 @@ export const appRoutes: Routes = [
     children:[{ path:'', component: SportsRegistrationComponent}]
   },
   {
-    path:'resetPassword', component:ResetPasswordComponent
+    path:'resetPassword', component:ResetPasswordComponent,
   },
   {
     path:'forgotPassword', component:ForgotPasswordComponent

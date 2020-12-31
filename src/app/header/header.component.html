@@ -1,0 +1,65 @@
+<div class="header">
+  <a href="#default" class="logo">
+      <img src="../../images/Dharan sports Logo.png" />
+  </a>
+  <div class="header-text-container">
+      <div class="row">
+          <div class="col-12">
+              <div class="row">
+                  <div class="col-lg-4 col-xl-4 col-md-4 col-6 pr-0">
+                      <div class="logo-content">
+                          <span>DHARAN SPORTS</span>
+                      </div>
+                  </div>
+                  <div class="col-lg-8 col-xl-8 col-md-8 col-6 pl-0">
+                      <div class="logo-ox-content">
+                          <span>A Unit of OX & FOX Sports and Charitable Trust</span>
+                      </div>
+                  </div>
+                  <div class="col-12">
+                      <div class="hr-line-primary"></div>
+                      <div class="hr-line-secondary"></div>
+                  </div>
+              </div>
+              <div class="row">
+                  <nav class="navbar header-nav navbar-expand">
+                      <ul class="navbar-nav">
+                          <li class="nav-item active">
+
+                          <a class="nav-link" href="#"> <fa-icon [icon]="faHome"></fa-icon> <span class="hide-xs menu-text">Home</span></a>
+                          </li>
+                          <li class="nav-item">
+                          <a class="nav-link" href="#"><fa-icon [icon]="faInfoCircle"></fa-icon> <span class="hide-xs menu-text">About</span></a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="#"><fa-icon [icon]="faAddressBook"></fa-icon> <span class="hide-xs menu-text">Register</span></a>
+                          </li>
+                      </ul>
+                  </nav>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="header-profile-container">
+      <div class="avatar-container" ngbDropdown>
+          <div id="dropdownBasic1" style="cursor: pointer;" ngbDropdownToggle>
+              <img *ngIf="!url2" class="avatar" src= {{url1}} />
+              <img *ngIf="url2" class="avatar"  src= {{url2}} />
+              <div class="d-none d-lg-block d-xl-block d-md-block">
+                  {{userService.selectedUser.firstName}} {{userService.selectedUser.lastName}}
+              </div>
+          </div>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <input (change)="image($event)" type="file">
+              <!-- <button ngbDropdownItem><fa-icon>[icon]="faHome"</fa-icon><span class="menu-text">Upload</span></button> -->
+              <button ngbDropdownItem><fa-icon [icon]="faUser"></fa-icon> <span class="menu-text">Profile</span></button>
+              <button (click)="logout()" ngbDropdownItem><fa-icon [icon]="faSignOutAlt"></fa-icon> <span class="menu-text">Logout</span></button>
+          </div>
+
+      </div>
+  </div>
+  <div class="header-m-logout d-block d-lg-none d-xl-none d-md-none">
+      <fa-icon [icon]="faSignOutAlt"></fa-icon>
+  </div>
+
+</div>

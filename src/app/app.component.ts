@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from './Shared/User/user.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Frontend';
+  isHeader = true;;
+  constructor( private route: Router, private userService : UserService){
+    this.route.events.subscribe((event : any)=>{
+      if(!this.userService.isLoggedIn()){
+          this.isHeader = false;
+      }else{
+        this.isHeader = true;
+      }
+    });
+  }
 }

@@ -1,1 +1,5 @@
-<router-outlet></router-outlet>
+<app-header *ngIf="isHeader"></app-header>
+<div class="content-block-containter" [ngClass]="{'content-with-header' : isHeader}">
+    <router-outlet></router-outlet>
+</div>
+
