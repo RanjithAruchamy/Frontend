@@ -60,11 +60,38 @@ export class SportsRegistrationComponent implements OnInit {
       // console.log(this.userService.personalUser.files)
       this.date = this.userService.personalUser.dob;
       this.isSubmitted = res['admin'].isSubmitted
-
+      if(res["personal"].files.addressProof.url){
+        let name = res["personal"].files.addressProof.url
+        name = name.split('=')
+        this.addressFileName = name[1];
+      }
+      if(res["personal"].files.idProof.url){
+        let name = res["personal"].files.idProof.url
+        name = name.split('=')
+        this.idFileName = name[1];
+      }
+      if(res["personal"].files.birthCertificate.url){
+        let name = res["personal"].files.birthCertificate.url
+        name = name.split('=')
+        this.birthFileName = name[1];
+      }
     }
     )
     }
 
+//Restrict Numbers
+number(event){
+  if((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122)) return true
+  else  return false
+}
+
+//Restrict alphabets
+alphabet(event){
+  if(event.keyCode >= 48 && event.keyCode <= 57)  return true
+  else return false
+}
+
+// Confirm check box
 confirm(event){
   if(event.target.checked == true)  this.confirmButt = true;
   else  this.confirmButt= false;
@@ -129,20 +156,19 @@ confirm(event){
 
       this.userService.upload(formData, this.userService.selectedUser.email, files).subscribe(
         (res) => {
-          let op = res.split(" ")
-          if(op[1] == "address") {
+          // console.log(res.file);
+          if(res.file == "address") {
             this.addressUploaded = true
           }
-          else if(op[1] == "id") {
+          else if(res.file == "id") {
             this.idUploaded = true
           }
-          else if(op[1] == "birth") {
+          else if(res.file == "birth") {
             this.birthUploaded = true
           }
-          else if(op[1] == "image") {
+          else if(res.file == "image") {
             this.imageUploaded = true
           }
-          // console.log(op[1]);
 
         },
         (err) => console.log(err)

@@ -7,9 +7,9 @@
 
       <h3>Player Registration Form</h3>
 
-      <div class="content">
+      <div  class="content">
 
-        <h4 class="form-section"><span class="player-detail">Player Details</span><span class="player-form-comment d-none d-lg-block d-xl-block">(Appreciate if player fills this section on his own with his own views)</span></h4>
+        <h4  class="form-section"><span class="player-detail">Player Details</span><span class="player-form-comment d-none d-lg-block d-xl-block">(Appreciate if player fills this section on his own with his own views)</span></h4>
         <div class="row">
           <div class="form-field-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
             <div class="row">
@@ -17,8 +17,8 @@
                 <label>Player First Name:<sup>*</sup></label>
               </div>
               <div class="col-8 form-field">
-                <input #firstName="ngModel" maxlength="200" [(ngModel)]="userService.selectedUser.firstName"
-                Placeholder="Player First Name" name="firstName" pattern="[A-Za-z]+" required
+                <input #firstName="ngModel" maxlength="200" [(ngModel)]="userService.selectedUser.firstName" [disabled]='isSubmitted == true'
+                Placeholder="Player First Name" name="firstName" pattern="[A-Za-z]+" required (keypress) = "number($event)"
                 [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !firstName.valid}" type="text" class="form-control text-field" />
                 <div class="validation-message" *ngIf="sportsRegistration.submitted && !firstName.valid">
                   <span >This field is required.</span>
@@ -34,8 +34,8 @@
                 <label>Player Last Name:<sup>*</sup></label>
               </div>
               <div class="col-8 form-field">
-                <input #lastName="ngModel" maxlength="200" [(ngModel)]="userService.selectedUser.lastName"
-                placeholder="Player Last Name" name="lastName" pattern="[A-Za-z]+" required
+                <input #lastName="ngModel" maxlength="200" [(ngModel)]="userService.selectedUser.lastName" [disabled]='isSubmitted == true'
+                placeholder="Player Last Name" name="lastName" pattern="[A-Za-z]+" required (keypress) = "number($event)"
                 [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !lastName.valid}" type="text" class="form-control text-field" />
                 <div class="validation-message" *ngIf="sportsRegistration.submitted && !lastName.valid">
                   <span >This field is required.</span>
@@ -51,13 +51,14 @@
                 <label>Player Mobile No.:<sup>*</sup></label>
               </div>
               <div class="col-8 form-field">
-                <input #phoneNumber="ngModel" maxlength="10" [(ngModel)]="userService.selectedUser.phoneNumber"
-                placeholder="Player Mobile No." name="phoneNumber" required pattern="[0-9]{10}"
+                <input #phoneNumber="ngModel" maxlength="10" [(ngModel)]="userService.selectedUser.phoneNumber" [disabled]='isSubmitted == true'
+                placeholder="Player Mobile No." name="phoneNumber" required pattern="[0-9]{10}" (keypress)="alphabet($event)"
                 [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !phoneNumber.valid}" type="text" class="form-control text-field" />
                 <div class="validation-message" *ngIf="sportsRegistration.submitted && !phoneNumber.valid">
                   <span *ngIf="phoneNumber.errors.required" >This field is required.</span>
                   <span *ngIf="phoneNumber.errors.pattern" >Invalid phone number.</span>
                 </div>
+                <span class="validation-message" *ngIf="!phoneNumber.valid && phoneNumber.errors.pattern" >Invalid phone number.</span>
               </div>
             </div>
           </div>
@@ -68,7 +69,7 @@
                 <label>Player Email:<sup>*</sup></label>
               </div>
               <div class="col-8 form-field">
-                <input #email="ngModel" disabled [(ngModel)]="userService.selectedUser.email"
+                <input #email="ngModel" disabled [(ngModel)]="userService.selectedUser.email" [disabled]='isSubmitted == true'
                 placeholder="Player Email" name="email" required
                 [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !email.valid}" type="text" class="form-control text-field" />
                 <!-- <div class="validation-message" *ngIf="sportsRegistration.submitted && !email.valid">
@@ -103,7 +104,7 @@
                 <label>Player D.O.B:<sup>*</sup></label>
               </div>
               <div class="col-8 form-field">
-                <input type="date" class="form-control text-field" #dob="ngModel" [ngModel]="date | date:'yyyy-MM-dd'"
+                <input type="date" class="form-control text-field" #dob="ngModel" [ngModel]="date | date:'yyyy-MM-dd'" [disabled]='isSubmitted == true'
                 (ngModelChange)="date = $event" placeholder="Player DOB" name="dob" required (change)="getAge(date)"/>
                 <div class="validation-message" *ngIf="sportsRegistration.submitted && !dob.valid">
                   <span >This field is required.</span>
@@ -119,13 +120,13 @@
                 <label>Player Age:<sup>*</sup></label>
               </div>
               <div class="col-8 form-field">
-                <input type="number"  #age="ngModel" [(ngModel)]="userService.personalUser.age"
+                <input type="number"  #age="ngModel" [(ngModel)]="userService.personalUser.age" disabled
                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                 placeholder="Player Age" name="age" required
                 [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !age.valid}" class="form-control text-field" />
-                <div class="validation-message" *ngIf="sportsRegistration.submitted && !age.valid">
+                <!-- <div class="validation-message" *ngIf="sportsRegistration.submitted && !age.valid">
                   <span >This field is required.</span>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -138,7 +139,7 @@
               </div>
               <div class="col-8 form-field">
 
-                <select class="form-control text-field" #bloodGroup="ngModel" [(ngModel)]="userService.personalUser.bloodGroup"
+                <select class="form-control text-field" #bloodGroup="ngModel" [(ngModel)]="userService.personalUser.bloodGroup" [disabled]='isSubmitted == true'
                 placeholder="Player Blood Group" name="bloodGroup" required>
                   <option value="" disabled>Choose your blood group </option>
                   <option  value="A+">A+</option>
@@ -166,7 +167,7 @@
                 <div class="row custom-padding">
                   <div class="col-6 col-xl-4 col-lg-4 col-md-4">
                     <div class="form-label">
-                      <input class="check-box" type="radio" #gender="ngModel" [(ngModel)]="userService.personalUser.gender" value="Male"
+                      <input class="check-box" type="radio" #gender="ngModel" [(ngModel)]="userService.personalUser.gender" value="Male" [disabled]='isSubmitted == true'
                       name="gender" required
                       [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !gender.valid}"/>
                       <span> Male </span>
@@ -174,7 +175,7 @@
                   </div>
                   <div class="col-6 col-xl-4 col-lg-4 col-md-4">
                     <div class="form-label">
-                      <input class="check-box" type="radio" #gender="ngModel" [(ngModel)]="userService.personalUser.gender" value="Female"
+                      <input class="check-box" type="radio" #gender="ngModel" [(ngModel)]="userService.personalUser.gender" value="Female" [disabled]='isSubmitted == true'
                       name="Female" required
                       [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !gender.valid}"/>
                       <span> Female </span>
@@ -197,16 +198,16 @@
                 <div class="row custom-padding">
                   <div class="col-6 col-xl-4 col-lg-4 col-md-4">
                     <div class="form-label">
-                      <input class="check-box" type="radio" #nationality="ngModel" [(ngModel)]="userService.personalUser.nationality" value="Indain"
-                      name="nationality" required
+                      <input class="check-box" type="radio" #nationality="ngModel" [(ngModel)]="userService.personalUser.nationality" value="Indian"
+                      name="nationality" required [disabled]='isSubmitted == true'
                       [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !nationality.valid}"/>
-                      <span> Indain </span>
+                      <span> Indian </span>
                     </div>
                   </div>
                   <div class="col-6 col-xl-4 col-lg-4 col-md-4">
                     <div class="form-label">
                       <input class="check-box" type="radio"  #nationality="ngModel" [(ngModel)]="userService.personalUser.nationality" value="Others"
-                      name="nationality" required
+                      name="nationality" required [disabled]='isSubmitted == true'
                       [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !nationality.valid}"/>
                       <span> Others </span>
                     </div>
@@ -225,15 +226,15 @@
                 <label>Player Height:<sup>*</sup></label>
               </div>
               <div class="col-2 form-field no-m-p-r">
-                <input type="text" max="7" class="form-control" #heightFeet="ngModel" [(ngModel)]="userService.personalUser.height.feet" placeholder="ft"
-                name="heightFeet" pattern="[0-9]+" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !heightFeet.valid}"/>
+                <input type="text" max="7" class="form-control" #heightFeet="ngModel" [(ngModel)]="userService.personalUser.height.feet" placeholder="ft" (keypress)="alphabet($event)"
+                name="heightFeet" pattern="[0-9]+" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !heightFeet.valid}" [disabled]='isSubmitted == true'/>
               </div>
               <div class="col-1 form-label text no-m-p-r">
                 <label>Ft.</label>
               </div>
               <div class="col-2 form-field no-m-p-r">
-                <input type="text" max="12" class="form-control" #heightInches="ngModel" [(ngModel)]="userService.personalUser.height.inches" placeholder="inches"
-                name="heightInch" pattern="[0-9]+" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !heightInches.valid}"/>
+                <input type="text" max="12" class="form-control" #heightInches="ngModel" [(ngModel)]="userService.personalUser.height.inches" placeholder="inches" (keypress)="alphabet($event)"
+                name="heightInch" pattern="[0-9]+" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !heightInches.valid}" [disabled]='isSubmitted == true'/>
               </div>
               <div class="col-1 no-m-p-r form-label text">
                 <label>Inches.</label>
@@ -253,8 +254,8 @@
                 <label>Player Weight:<sup>*</sup></label>
               </div>
               <div class="col-5 form-field">
-                <input type="text" max="999" class="form-control" #weight="ngModel" [(ngModel)]="userService.personalUser.weight" placeholder="Player Weight"
-                name="weight" pattern="[0-9]+" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !weight.valid}" />
+                <input type="text" min="10" max="100" class="form-control" #weight="ngModel" [(ngModel)]="userService.personalUser.weight" placeholder="Player Weight" (keypress)="alphabet($event)"
+                name="weight" pattern="[0-9]+" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !weight.valid}" [disabled]='isSubmitted == true'/>
               </div>
               <div class="col-1 form-label text">
                 <label>Kgs.</label>
@@ -263,7 +264,7 @@
                 <span class="validation-message">This field is required.</span>
               </div>
               <span class="validation-message" *ngIf="!weight.valid && weight.errors.pattern">Enter only numbers.</span>
-              <span *ngIf="weight.value > 999" class="validation-message">Please provide valid weight.</span>
+              <span [hidden]="isSubmitted == true" *ngIf="weight.value > 999 || weight.value < 10" class="validation-message">Please provide valid weight.</span>
             </div>
           </div>
 
@@ -274,7 +275,7 @@
               </div>
               <div class="col-8 form-field">
 
-                <select class="form-control text-field"  #profession="ngModel" [(ngModel)]="userService.personalUser.profession"
+                <select class="form-control text-field"  #profession="ngModel" [(ngModel)]="userService.personalUser.profession" [disabled]='isSubmitted == true'
                 placeholder="Player Profession" name="profession" required>
                   <option value="" disabled>Choose your profession </option>
                   <option  value="School Student">School Student</option>
@@ -294,7 +295,7 @@
             <div class="form-label">
               <label>Name of School / College / Organization:</label>
             </div>
-            <textarea class="form-control text-area-field" maxlength="200" #organization="ngModel" [(ngModel)]="userService.personalUser.organization"
+            <textarea class="form-control text-area-field" maxlength="200" #organization="ngModel" [(ngModel)]="userService.personalUser.organization" [disabled]='isSubmitted == true'
             placeholder="Name of School/College/Organization" name="organization" required
             [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !organization.valid}" ></textarea>
             <div *ngIf="sportsRegistration.submitted && !organization.valid">
@@ -311,15 +312,15 @@
                 <div class="row custom-padding">
                   <div class="col-6">
                     <div class="form-label">
-                      <input class="check-box" type="checkbox" #batsman="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.batsman" value=true
-                      name="batsman"/>
+                      <input class="check-box" type="checkbox" #batsman="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.batsman" value=yes
+                      name="batsman" [disabled]='isSubmitted == true'/>
                       <span> Batsman </span>
                     </div>
                   </div>
                   <div class="col-6">
                     <div class="form-label">
-                      <input class="check-box" type="checkbox" #bowler="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.bowler" value=true
-                      name="bowler"/>
+                      <input class="check-box" type="checkbox" #bowler="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.bowler" value=yes
+                      name="bowler" [disabled]='isSubmitted == true'/>
                       <span> Bowler </span>
                     </div>
                   </div>
@@ -327,14 +328,14 @@
                   <div class="col-6">
                     <div class="form-label">
                       <input class="check-box" type="checkbox" #wicketKeeper="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.wicketKeeper"
-                      value=true name="wicketKeeper"/>
+                      value=yes name="wicketKeeper" [disabled]='isSubmitted == true'/>
                       <span> Wicket Keeper </span>
                     </div>
                   </div>
                   <div class="col-6">
                     <div class="form-label">
                       <input class="check-box" type="checkbox" #allRounder="ngModel" [(ngModel)]="userService.sportsUser.playerSkill.allRounder"
-                      value=true name="allRounder">
+                      value=yes name="allRounder" [disabled]='isSubmitted == true'>
                       <span> All-Rounder </span>
                     </div>
                   </div>
@@ -363,7 +364,7 @@
                   <div class="col-6">
                     <div class="form-label">
                       <input class="check-box" type="radio" #playerLevel="ngModel" [(ngModel)]="userService.sportsUser.playerLevel" value="Beginner"
-                      name="playerLevel" required
+                      name="playerLevel" required [disabled]='isSubmitted == true'
                       [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !playerLevel.valid}"/>
                       <span> Beginner </span>
                     </div>
@@ -371,7 +372,7 @@
                   <div class="col-6">
                     <div class="form-label">
                       <input class="check-box" type="radio" #playerLevel="ngModel" [(ngModel)]="userService.sportsUser.playerLevel" value="Intermediate"
-                      name="playerLevel" required
+                      name="playerLevel" required [disabled]='isSubmitted == true'
                       [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !playerLevel.valid}"/>
                       <span> Intermediate </span>
                     </div>
@@ -379,7 +380,7 @@
                   <div class="col-6">
                     <div class="form-label">
                       <input class="check-box" type="radio" #playerLevel="ngModel" [(ngModel)]="userService.sportsUser.playerLevel" value="Senior"
-                      name="playerLevel" required
+                      name="playerLevel" required [disabled]='isSubmitted == true'
                       [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !playerLevel.valid}"/>
                       <span> Senior </span>
                     </div>
@@ -397,7 +398,7 @@
                 <label>Bowler Type:</label>
               </div>
               <div class="col-8 form-field">
-                <select class="form-control text-field" name="bowlerType" #bowlerType="ngModel" [(ngModel)]="userService.sportsUser.bowlerType" required>
+                <select class="form-control text-field" name="bowlerType" #bowlerType="ngModel" [(ngModel)]="userService.sportsUser.bowlerType" required [disabled]='isSubmitted == true'>
                   <option disabled>Choose your type</option>
                   <option  value="Fast">Fast</option>
                   <option  value="Medium Fast">Medium Fast</option>
@@ -425,7 +426,7 @@
                   <div class="col-6 col-xl-4 col-lg-4 col-md-4">
                     <div class="form-label">
                       <input class="check-box" type="radio" #bowlerHand="ngModel" [(ngModel)]="userService.sportsUser.bowlerHand" value="Left"
-                      name="bowlerHand" required
+                      name="bowlerHand" required [disabled]="bowlerType.value == 'NA' || isSubmitted == true"
                       [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !bowlerHand.valid}"/>
                       <span> Left </span>
                     </div>
@@ -433,7 +434,7 @@
                   <div class="col-6 col-xl-4 col-lg-4 col-md-4">
                     <div class="form-label">
                       <input class="check-box" type="radio" #bowlerHand="ngModel" [(ngModel)]="userService.sportsUser.bowlerHand" value="Right"
-                      name="bowlerHand" required
+                      name="bowlerHand" required [disabled]="bowlerType.value == 'NA' || isSubmitted == true"
                       [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !bowlerHand.valid}"/>
                       <span> Right </span>
                     </div>
@@ -456,7 +457,7 @@
                   <div class="col-6 col-xl-4 col-lg-4 col-md-4">
                     <div class="form-label">
                       <input class="check-box" type="radio" #battingHand="ngModel" [(ngModel)]="userService.sportsUser.battingHand" value="Left"
-                      name="battingHand" required
+                      name="battingHand" required [disabled]='isSubmitted == true'
                       [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !battingHand.valid}"/>
                       <span> Left </span>
                     </div>
@@ -464,7 +465,7 @@
                   <div class="col-6 col-xl-4 col-lg-4 col-md-4">
                     <div class="form-label">
                       <input class="check-box" type="radio" #battingHand="ngModel" [(ngModel)]="userService.sportsUser.battingHand" value="Right"
-                      name="battingHand" required
+                      name="battingHand" required [disabled]='isSubmitted == true'
                       [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !battingHand.valid}"/>
                       <span> Right </span>
                     </div>
@@ -484,7 +485,7 @@
               </div>
               <div class="col-8 form-field">
                 <textarea #medical="ngModel" maxlength="1000" [(ngModel)]="userService.sportsUser.medical"
-                placeholder="Medical Illness(If any)" name="medical" required
+                placeholder="Medical Illness(If any)" name="medical" required [disabled]='isSubmitted == true'
                 [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !medical.valid}" class="form-control text-area-field" ></textarea>
                 <div *ngIf="sportsRegistration.submitted && !medical.valid">
                   <span class="validation-message">This field is required.</span>
@@ -497,7 +498,8 @@
             <div class="form-label">
               <label>Previous Academy / Team Details (if any):</label>
             </div>
-            <textarea class="form-control text-area-field" maxlength="100" #previousTeam="ngModel" [(ngModel)]="userService.sportsUser.previousTeam" placeholder="Previous Academy / Team Details (If any)" name="previousTeam" required
+            <textarea class="form-control text-area-field" maxlength="100" #previousTeam="ngModel" [(ngModel)]="userService.sportsUser.previousTeam"
+            placeholder="Previous Academy / Team Details (If any)" name="previousTeam" required [disabled]='isSubmitted == true'
               [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !previousTeam.valid}"></textarea>
               <div *ngIf="sportsRegistration.submitted && !previousTeam.valid">
                 <span class="validation-message">This field is required.</span>
@@ -510,7 +512,8 @@
                 <label>TNCA Teams & Div. played (if any):</label>
               </div>
               <div class="col-8 form-field">
-                <textarea class="form-control text-area-field" maxlength="100" #TNCA="ngModel" [(ngModel)]="userService.sportsUser.TNCA" placeholder="TNCA Teams & Div. played (If any)" name="TNCA" required
+                <textarea class="form-control text-area-field" maxlength="100" #TNCA="ngModel" [(ngModel)]="userService.sportsUser.TNCA"
+                 placeholder="TNCA Teams & Div. played (If any)" name="TNCA" required [disabled]='isSubmitted == true'
                     [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !TNCA.valid}"></textarea>
                     <div *ngIf="sportsRegistration.submitted && !TNCA.valid">
                       <span class="validation-message">This field is required.</span>
@@ -525,7 +528,8 @@
                 <label>KDCA Teams & Div. played (if any):</label>
               </div>
               <div class="col-8 form-field">
-                <textarea class="form-control text-area-field" #KDCA="ngModel" [(ngModel)]="userService.sportsUser.KDCA" placeholder="KDCA Teams & Div. played (If any)" name="KDCA" required
+                <textarea class="form-control text-area-field" #KDCA="ngModel" [(ngModel)]="userService.sportsUser.KDCA"
+                 placeholder="KDCA Teams & Div. played (If any)" name="KDCA" required [disabled]='isSubmitted == true'
                     [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !KDCA.valid}"></textarea>
                     <div *ngIf="sportsRegistration.submitted && !KDCA.valid">
                       <span class="validation-message">This field is required.</span>
@@ -538,8 +542,9 @@
             <div class="form-label">
               <label>Player Hobbies:</label>
             </div>
-            <textarea class="form-control text-area-field" maxlength="1000" #hobbies="ngModel" [(ngModel)]="userService.sportsUser.hobbies" placeholder="Player Hobbies"
-            name="hobbies" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !hobbies.valid}"></textarea>
+            <textarea class="form-control text-area-field" maxlength="1000" #hobbies="ngModel" [(ngModel)]="userService.sportsUser.hobbies" [disabled]='isSubmitted == true'
+             placeholder="Player Hobbies" name="hobbies" required [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !hobbies.valid}">
+            </textarea>
             <div *ngIf="sportsRegistration.submitted && !hobbies.valid">
               <span class="validation-message">This field is required.</span>
             </div>
@@ -550,7 +555,7 @@
               <label>Player Objective / Goal in Cricket and whatis your dream in  cricket:</label>
             </div>
             <textarea class="form-control text-area-field" maxlength="1000" #goal="ngModel" [(ngModel)]="userService.sportsUser.goal"
-            placeholder="Player Objective / Goal in Cricket and what is your dream in cricket" name="goal" required
+            placeholder="Player Objective / Goal in Cricket and what is your dream in cricket" name="goal" required [disabled]='isSubmitted == true'
             [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !goal.valid}"></textarea>
             <div *ngIf="sportsRegistration.submitted && !goal.valid">
               <span class="validation-message">This field is required.</span>
@@ -564,7 +569,7 @@
               </div>
               <div class="col-8 form-field">
                 <textarea class="form-control text-area-field" maxlength="200" #roleModelRealName="ngModel" [(ngModel)]="userService.sportsUser.roleModelReal.name"
-                placeholder="Player's Role Model in Real Life" name="roleModelRealName" required
+                placeholder="Player's Role Model in Real Life" name="roleModelRealName" required [disabled]='isSubmitted == true'
                 [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !roleModelRealName.valid}"></textarea>
                 <div *ngIf="sportsRegistration.submitted && !roleModelRealName.valid">
                   <span class="validation-message">This field is required.</span>
@@ -580,7 +585,7 @@
               </div>
               <div class="col-8 form-field">
                 <textarea class="form-control text-area-field" maxlength="200" #roleModelCricketName="ngModel" [(ngModel)]="userService.sportsUser.roleModelCricket.name"
-                placeholder="Player's Role Model in Cricket" name="roleModelCricketName" required
+                placeholder="Player's Role Model in Cricket" name="roleModelCricketName" required [disabled]='isSubmitted == true'
                 [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !roleModelCricketName.valid}"></textarea>
                 <div *ngIf="sportsRegistration.submitted && !roleModelCricketName.valid">
                   <span class="validation-message">This field is required.</span>
@@ -594,7 +599,7 @@
               <label>List Top three reasons for Role Model in real-life:</label>
             </div>
             <textarea rows="3" class="form-control text-area-field" #roleModelRealReason="ngModel" maxlength="500" [(ngModel)]="userService.sportsUser.roleModelReal.reason"
-            placeholder="List Top 3 Reasons for RM in real life:" name="roleModelRealReason" required
+            placeholder="List Top 3 Reasons for RM in real life:" name="roleModelRealReason" required [disabled]='isSubmitted == true'
             [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !roleModelRealReason.valid}"></textarea>
             <div *ngIf="sportsRegistration.submitted && !roleModelRealReason.valid">
               <span class="validation-message">This field is required.</span>
@@ -606,7 +611,7 @@
               <label>List Top three reasons for Role Model in Cricket:</label>
             </div>
             <textarea rows="3" class="form-control text-area-field" #roleModelCricketReason="ngModel" maxlength="500" [(ngModel)]="userService.sportsUser.roleModelCricket.reason"
-            placeholder="List Top 3 Reasons for RM in real life:" name="roleModelCricketReason" required
+            placeholder="List Top 3 Reasons for RM in real life:" name="roleModelCricketReason" required [disabled]='isSubmitted == true'
             [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !roleModelCricketReason.valid}"></textarea>
             <div *ngIf="sportsRegistration.submitted && !roleModelCricketReason.valid">
               <span class="validation-message">This field is required.</span>
@@ -618,7 +623,7 @@
               <label>List Top three Strenths in general:</label>
             </div>
             <textarea rows="3" class="form-control text-area-field" #strengthGeneral="ngModel" [(ngModel)]="userService.sportsUser.strength.general"
-            placeholder="List Top three strengths in general" maxlength="500" name="strengthGeneral" required
+            placeholder="List Top three strengths in general" maxlength="500" name="strengthGeneral" required [disabled]='isSubmitted == true'
             [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !strengthGeneral.valid}"></textarea>
             <div *ngIf="sportsRegistration.submitted && !strengthGeneral.valid">
               <span class="validation-message">This field is required.</span>
@@ -630,7 +635,7 @@
               <label>List Top three Strenths in cricket:</label>
             </div>
             <textarea rows="3" class="form-control text-area-field" #strengthCricket="ngModel" [(ngModel)]="userService.sportsUser.strength.cricket"
-            placeholder="List Top three strengths in cricket" maxlength="500" name="strengthCricket" required
+            placeholder="List Top three strengths in cricket" maxlength="500" name="strengthCricket" required [disabled]='isSubmitted == true'
             [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !strengthCricket.valid}"></textarea>
             <div *ngIf="sportsRegistration.submitted && !strengthCricket.valid">
               <span class="validation-message">This field is required.</span>
@@ -642,7 +647,7 @@
               <label>List Top three weakness in general:</label>
             </div>
             <textarea rows="3" class="form-control text-area-field" #weaknessGeneral="ngModel" [(ngModel)]="userService.sportsUser.weakness.general"
-            placeholder="List Top three weakness in general" maxlength="500" name="weaknessGeneral" required
+            placeholder="List Top three weakness in general" maxlength="500" name="weaknessGeneral" required [disabled]='isSubmitted == true'
             [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !weaknessGeneral.valid}"></textarea>
             <div *ngIf="sportsRegistration.submitted && !weaknessGeneral.valid">
               <span class="validation-message">This field is required.</span>
@@ -654,7 +659,7 @@
               <label>List Top three weakness in cricket:</label>
             </div>
             <textarea rows="3" class="form-control text-area-field" #weaknessCricket="ngModel" [(ngModel)]="userService.sportsUser.weakness.cricket"
-            placeholder="List Top three weakness in cricket" maxlength="500" name="weaknessCricket" required
+            placeholder="List Top three weakness in cricket" maxlength="500" name="weaknessCricket" required [disabled]='isSubmitted == true'
             [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !weaknessCricket.valid}"></textarea>
             <div *ngIf="sportsRegistration.submitted && !weaknessCricket.valid">
               <span class="validation-message">This field is required.</span>
@@ -673,8 +678,8 @@
                 <label>Father's Full Name:</label>
               </div>
               <div class="col-8 form-field">
-                <input #fatherName="ngModel" maxlength="200" [(ngModel)]="userService.personalUser.fatherName"
-                placeholder="Father's Full Name" name="fatherName" pattern="[A-Za-z]+" required
+                <input #fatherName="ngModel" maxlength="200" [(ngModel)]="userService.personalUser.fatherName" [disabled]='isSubmitted == true'
+                placeholder="Father's Full Name" name="fatherName" pattern="[A-Za-z]+" required (keypress) = "number($event)"
                 [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !fatherName.valid}" type="text" class="form-control text-field" />
                 <div *ngIf="sportsRegistration.submitted && !fatherName.valid">
                   <span class="validation-message">This field is required.</span>
@@ -691,7 +696,7 @@
               </div>
               <div class="col-8 form-field">
                 <input #fatherOccupation="ngModel" maxlength="200" [(ngModel)]="userService.personalUser.fatherOccupation"
-                placeholder="Father's Occupation" name="fatherOccupation" required
+                placeholder="Father's Occupation" name="fatherOccupation" required [disabled]='isSubmitted == true'
                 [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !fatherOccupation.valid}" type="text" class="form-control text-field" />
                 <div *ngIf="sportsRegistration.submitted && !fatherOccupation.valid">
                   <span class="validation-message">This field is required.</span>
@@ -706,8 +711,8 @@
                 <label>Mother's Full Name:</label>
               </div>
               <div class="col-8 form-field">
-                <input #motherName="ngModel" maxlength="200" [(ngModel)]="userService.personalUser.motherName"
-                placeholder="Mother's Full Name" name="motherName"  pattern="[A-Za-z]+" required
+                <input #motherName="ngModel" maxlength="200" [(ngModel)]="userService.personalUser.motherName" [disabled]='isSubmitted == true'
+                placeholder="Mother's Full Name" name="motherName"  pattern="[A-Za-z]+" required (keypress) = "number($event)"
                 [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !motherName.valid}" type="text" class="form-control text-field" />
                 <div *ngIf="sportsRegistration.submitted && !motherName.valid">
                   <span class="validation-message">This field is required.</span>
@@ -724,7 +729,7 @@
               </div>
               <div class="col-8 form-field">
                 <input #motherOccupation="ngModel" maxlength="200" [(ngModel)]="userService.personalUser.motherOccupation"
-                placeholder="Mother's Full Name" name="motherOccupation" required
+                placeholder="Mother's Full Name" name="motherOccupation" required [disabled]='isSubmitted == true'
                 [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !motherOccupation.valid}" type="text" class="form-control text-field" />
                 <div *ngIf="sportsRegistration.submitted && !motherOccupation.valid">
                   <span class="validation-message">This field is required.</span>
@@ -738,7 +743,7 @@
               <label>Permanent Address:</label>
             </div>
             <textarea class="form-control text-area-field" maxlength="500" #permAddress="ngModel" [(ngModel)]="userService.personalUser.permanentAddress"
-            placeholder="Permanent Address" name="permAddress" required
+            placeholder="Permanent Address" name="permAddress" required [disabled]='isSubmitted == true'
             [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !permAddress.valid}" ></textarea>
             <div *ngIf="sportsRegistration.submitted && !permAddress.valid">
               <span class="validation-message">This field is required.</span>
@@ -750,7 +755,7 @@
               <label>Temporary Address:</label>
             </div>
             <textarea class="form-control text-area-field" maxlength="500" #tempAddress="ngModel" [(ngModel)]="userService.personalUser.temporaryAddress"
-            placeholder="Temporary Address" name="tempAddress" required
+            placeholder="Temporary Address" name="tempAddress" required [disabled]='isSubmitted == true'
             [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !tempAddress.valid}" ></textarea>
             <div *ngIf="sportsRegistration.submitted && !tempAddress.valid">
               <span class="validation-message">This field is required.</span>
@@ -763,8 +768,8 @@
                 <label>Parent's Mobile Number:</label>
               </div>
               <div class="col-8 form-field">
-                <input #parentPhoneNumber="ngModel" maxlength="10" [(ngModel)]="userService.personalUser.parentMobile"
-                placeholder="Parent's Mobile Number" name="parentPhoneNumber" required pattern="[0-9]{10}"
+                <input #parentPhoneNumber="ngModel" maxlength="10" [(ngModel)]="userService.personalUser.parentMobile" [disabled]='isSubmitted == true'
+                placeholder="Parent's Mobile Number" name="parentPhoneNumber" required pattern="[0-9]{10}" (keypress)="alphabet($event)"
                 [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !parentPhoneNumber.valid}" type="text" class="form-control text-field" />
                 <div *ngIf="sportsRegistration.submitted && !parentPhoneNumber.valid">
                   <span *ngIf="parentPhoneNumber.errors.required" class="validation-message">This field is required.</span>
@@ -780,8 +785,8 @@
                 <label>Residence Number:</label>
               </div>
               <div class="col-8 form-field">
-                <input type="text" #residenceNumber="ngModel" maxlength="10" [(ngModel)]="userService.personalUser.residenceNumber"
-                placeholder="Residence Number" name="residenceNumber" pattern="[0-9]{10}" required
+                <input type="text" #residenceNumber="ngModel" maxlength="10" [(ngModel)]="userService.personalUser.residenceNumber" [disabled]='isSubmitted == true'
+                placeholder="Residence Number" name="residenceNumber" pattern="[0-9]{10}" required (keypress)="alphabet($event)"
                 [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !residenceNumber.valid}" type="text" class="form-control text-field" />
                 <div *ngIf="sportsRegistration.submitted && !residenceNumber.valid">
                   <span *ngIf="residenceNumber.errors.required" class="validation-message">This field is required.</span>
@@ -798,7 +803,7 @@
               </div>
               <div class="col-8 form-field">
                 <input type="text" #parentEmail="ngModel" maxlength="500" [pattern]='emailRegex' [(ngModel)]="userService.personalUser.parentEmail"
-                placeholder="Parent's Email" name="parentEmail" required
+                placeholder="Parent's Email" name="parentEmail" required [disabled]='isSubmitted == true'
                 [ngClass]="{'invalid-textbox' :sportsRegistration.submitted && !parentEmail.valid}" type="text" class="form-control text-field" />
                 <div *ngIf="sportsRegistration.submitted && parentEmail.errors">
                   <span *ngIf="parentEmail.errors.required" class="validation-message">This field is required.</span>
@@ -840,6 +845,7 @@
                     <div id="viewUpload">
                         <input type="file" name="fmyfile" id="myfile" class="inputfile" (change)="addressProof($event, 'id')" [disabled]="isSubmitted == true"/>
                         <label><strong><fa-icon [icon]="faUpload"></fa-icon></strong><span>{{idFileName || "Upload"}}</span></label>
+                        <!-- <a href={{userService.personalUser.files.addressProof.url}}> link </a> -->
                         <label class="validation-message">{{ idfileErr }}</label>
             <label *ngIf="idUploaded == true" class="validation-message" style="color: green!important;">Uploaded✔</label>
             <label *ngIf="sportsRegistration.submitted && idUploaded != true" class="validation-message">This field is
@@ -869,8 +875,8 @@
 
           </div>
 
-          <h4 class="form-section"><span class="player-detail">Declaration & Disclaimar</span></h4>
-          <div class="row">
+          <h4 class="form-section" [hidden]='isSubmitted == true'><span class="player-detail">Declaration & Disclaimar</span></h4>
+          <div [hidden]='isSubmitted == true' class="row">
 
             <div class="form-field-group col-12">
               <div class="row">
@@ -902,7 +908,7 @@
 
           <div class="btn-group">
             <div class="register-btn">
-              <input class="btn btn-primary" type="submit" value="Submit" [hidden]="isSubmitted == true"  />
+              <input class="btn btn-primary" type="submit" value="Submit" [hidden]="!confirmButt || isSubmitted == true"  />
             </div>
             <div class="register-btn">
               <input class="btn btn-primary"  type="button" value="Save" (click)="save(sportsRegistration)" [hidden]="isSubmitted == true">

@@ -48,6 +48,17 @@ export class RegisterComponent implements OnInit {
   }
 
 
+//Restrict Numbers
+number(event){
+  if((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122)) return true
+  else  return false
+}
+
+//Restrict alphabets
+alphabet(event){
+  if(event.keyCode >= 48 && event.keyCode <= 57)  return true
+  else return false
+}
 
   onSubmit(form: NgForm){
     // console.log(form.value)

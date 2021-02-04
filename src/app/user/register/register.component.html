@@ -66,7 +66,7 @@
               </div>
               <div class="col-12 col-xl-8 col-lg-8">
                 <input type="text" class="form-control" id="firstName" maxlength="125" #firstName="ngModel" [(ngModel)]="userService.selectedUser.firstName" placeholder="First Name"
-                name="firstName" pattern="[A-Za-z]+" required [ngClass]="{'invalid-textbox' :registerForm.submitted && !firstName.valid}"/>
+                name="firstName" pattern="[A-Za-z]+" required (keypress) = "number($event)" [ngClass]="{'invalid-textbox' :registerForm.submitted && !firstName.valid}"/>
                 <div *ngIf="registerForm.submitted && !firstName.valid">
                   <label class="validation-message">This field is required.</label>
                 </div>
@@ -80,7 +80,7 @@
               </div>
               <div class="col-12 col-xl-8 col-lg-8">
                 <input type="text" class="form-control" maxlength="125" #lastName="ngModel" [(ngModel)]="userService.selectedUser.lastName" placeholder="Last Name"
-                name="lastName" pattern="[A-Za-z]+" required [ngClass]="{'invalid-textbox' :registerForm.submitted && !lastName.valid}"/>
+                name="lastName" pattern="[A-Za-z]+" required (keypress) = "number($event)" [ngClass]="{'invalid-textbox' :registerForm.submitted && !lastName.valid}"/>
                 <div *ngIf="registerForm.submitted && !lastName.valid">
                   <label class="validation-message">This field is required.</label>
                 </div>
@@ -93,8 +93,8 @@
                 <label>Phone Number:</label>
               </div>
               <div class="col-12 col-xl-8 col-lg-8">
-                <input type="tel" max="10" class="form-control" #phoneNumber="ngModel" [(ngModel)]="userService.selectedUser.phoneNumber"
-                placeholder="Phone Number" name="phoneNumber" required pattern="[0-9]{10}"
+                <input type="text" maxlength="10" class="form-control" #phoneNumber="ngModel" [(ngModel)]="userService.selectedUser.phoneNumber"
+                placeholder="Phone Number" name="phoneNumber" required (keypress) = "alphabet($event)" pattern="[0-9]{10}"
                 [ngClass]="{'invalid-textbox' :registerForm.submitted && !phoneNumber.valid}" />
                 <div *ngIf="registerForm.submitted && !phoneNumber.valid">
                   <label *ngIf="phoneNumber.errors.required" class="validation-message">This field is required.</label>

@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
   faInfoCircle = faInfoCircle;
   faUser = faUser;
   faAddressBook = faAddressBook;
+  disabled;
   img;
   url1;
   url2;
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit {
   constructor(public userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
+    this.disabled = true;
     this.userService.getUser().subscribe(
       res => {
         this.userService.selectedUser.firstName = res["firstName"]
@@ -32,7 +34,6 @@ export class HeaderComponent implements OnInit {
       }
     )
     this.url1 = '../../images/avatar.png'
-    console.log(this.url2);
   }
 
   image(event){
@@ -55,7 +56,7 @@ export class HeaderComponent implements OnInit {
     this.userService.upload(formData, this.userService.selectedUser.email, 'image').subscribe(
       res => {
         console.log(res);
-        this.url2 = res;
+        this.url2 = res.url;
         this.url1 ="";
         err=>{
           console.log(err);
